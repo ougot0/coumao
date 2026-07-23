@@ -44,6 +44,14 @@ const COULEURS = [
   "Lilas", "Parme", "Violet", "Camel", "Marron", "Chocolat", "Doré",
 ];
 
+/* ---- Options de personnalisation "couleurs seules" (3 couleurs max) ---- */
+const OPTIONS_COULEURS_3 = [
+  { id: "couleur_1", label: "Couleur 1 (principale)", type: "select", required: true, choices: COULEURS },
+  { id: "couleur_2", label: "Couleur 2 (optionnelle)", type: "select", choices: ["Aucune"].concat(COULEURS) },
+  { id: "couleur_3", label: "Couleur 3 (optionnelle — 3 couleurs max)", type: "select", choices: ["Aucune"].concat(COULEURS) },
+  { id: "remarque", label: "Une remarque ? (optionnel)", type: "textarea", placeholder: "toute précision utile pour ton sac" },
+];
+
 /* ---- Les produits ---- */
 const PRODUCTS = [
   {
@@ -210,6 +218,30 @@ const PRODUCTS = [
       "assets/products/coumao-safari-1.jpg",
       "assets/products/coumao-safari-2.jpg",
       "assets/products/coumao-safari-3.jpg",
+    ],
+  },
+  {
+    slug: "sac-carre",
+    category: "sacs",
+    name: "Sac Carré personnalisable 🟦",
+    price: "90 €",
+    desc: "Sac carré au crochet, fait main sur commande. Choisis jusqu'à 3 couleurs, on le crée pour toi.",
+    customizable: true,
+    options: OPTIONS_COULEURS_3,
+    images: [
+      "assets/products/pochette-carre-1.jpg",
+    ],
+  },
+  {
+    slug: "sac-rectangle",
+    category: "sacs",
+    name: "Sac Rectangle personnalisable ▬",
+    price: "90 €",
+    desc: "Sac rectangle au crochet, fait main sur commande. Choisis jusqu'à 3 couleurs, on le crée pour toi.",
+    customizable: true,
+    options: OPTIONS_COULEURS_3,
+    images: [
+      "assets/products/pochette-rectangle-1.jpg",
     ],
   },
   {

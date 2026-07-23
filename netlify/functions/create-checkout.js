@@ -30,6 +30,8 @@ const CATALOG = {
   "coumao-strawberry":   { name: "Coumao Strawberry",   amount: 9000 },
   "coumao-emilio":       { name: "Coumao Emilio",       amount: 9000 },
   "coumao-safari":       { name: "Coumao Safari",       amount: 9000 },
+  "sac-carre":           { name: "Sac Carré personnalisé",     amount: 9000 },
+  "sac-rectangle":       { name: "Sac Rectangle personnalisé", amount: 9000 },
   "coumao-sea":          { name: "Coumao Sea",          amount: 7000 },
   "pochette-telephone":  { name: "Pochette Téléphone personnalisée", amount: 4000 },
   "coumao-sky":          { name: "Pochette Sky",         amount: 4000 },
