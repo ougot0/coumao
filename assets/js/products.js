@@ -273,7 +273,6 @@ const PRODUCTS = [
     ],
     images: [
       "assets/products/pochette-telephone-1.jpg",
-      "assets/products/pochette-telephone-2.jpg",
     ],
   },
   {
