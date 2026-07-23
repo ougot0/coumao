@@ -78,6 +78,7 @@ const PRODUCTS = [
     name: "Coumao Flower 🌸",
     price: "",
     desc: "Sac au crochet en trapilho, chocolat et fuchsia à motifs fleurs, pampille de perles roses et étiquette cuir Coumao. Pièce unique faite main.",
+    buyUrl: "https://buy.stripe.com/test_6oU4gt0cIa6G3qHfh987K04",
     images: [
       "assets/products/coumao-flower-2.jpg",
       "assets/products/coumao-flower-1.jpg",
@@ -85,14 +86,14 @@ const PRODUCTS = [
     ],
   },
   {
-    slug: "sac-06",
-    name: "Sac n°6",
+    slug: "coumao-rainbow",
+    name: "Coumao Rainbow 🌈",
     price: "",
-    desc: "Sac cousu main, entièrement fait maison.",
+    desc: "Sac au crochet en trapilho, rayures turquoise, orange, bleu marine et moutarde, pampille multicolore et étiquette cuir Coumao. Pièce unique faite main.",
     images: [
-      "assets/products/sac-06-1.jpg",
-      "assets/products/sac-06-2.jpg",
-      "assets/products/sac-06-3.jpg",
+      "assets/products/coumao-rainbow-1.jpg",
+      "assets/products/coumao-rainbow-2.jpg",
+      "assets/products/coumao-rainbow-3.jpg",
     ],
   },
   {
