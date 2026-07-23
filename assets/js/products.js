@@ -90,6 +90,7 @@ const PRODUCTS = [
     name: "Coumao Rainbow 🌈",
     price: "",
     desc: "Sac au crochet en trapilho, rayures turquoise, orange, bleu marine et moutarde, pampille multicolore et étiquette cuir Coumao. Pièce unique faite main.",
+    buyUrl: "https://buy.stripe.com/test_dRm5kx1gMa6Gf9pb0T87K06",
     images: [
       "assets/products/coumao-rainbow-1.jpg",
       "assets/products/coumao-rainbow-2.jpg",
