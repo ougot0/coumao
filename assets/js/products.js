@@ -181,6 +181,7 @@ const PRODUCTS = [
     name: "Coumao Strawberry ❤️",
     price: "",
     desc: "Sac au crochet en trapilho, rouge et blanc, bandoulière tressée et étiquette cuir Coumao. Pièce unique faite main.",
+    buyUrl: "https://buy.stripe.com/test_4gMdR32kQ3IiaT93yr87K08",
     images: [
       "assets/products/coumao-strawberry-1.jpg",
       "assets/products/coumao-strawberry-2.jpg",
