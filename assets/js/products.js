@@ -179,6 +179,18 @@ const PRODUCTS = [
       "assets/products/coumao-strawberry-2.jpg",
     ],
   },
+  {
+    slug: "coumao-sea",
+    category: "sacs",
+    name: "Coumao Sea 🐚",
+    price: "70 €",
+    desc: "Pochette au crochet en trapilho, bleu marine et écru, fermeture zippée et étiquette cuir Coumao. Pièce unique faite main.",
+    images: [
+      "assets/products/coumao-sea-1.jpg",
+      "assets/products/coumao-sea-2.jpg",
+      "assets/products/coumao-sea-3.jpg",
+    ],
+  },
 ];
 
 // Ne pas modifier ci-dessous.
