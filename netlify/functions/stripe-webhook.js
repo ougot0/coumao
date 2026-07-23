@@ -9,7 +9,7 @@
    🔑 Variables d'environnement Netlify :
    - STRIPE_SECRET_KEY      (déjà présente)
    - STRIPE_WEBHOOK_SECRET  (recommandé : sécurise le webhook)
-   - ORDER_EMAIL            (optionnel ; défaut : evapts123@gmail.com)
+   - ORDER_EMAIL            (optionnel ; défaut : coumaobrand@gmail.com)
 
    ⚠️ Formsubmit : au tout 1er envoi, un email d'activation est
    envoyé à l'adresse — il faut cliquer le lien UNE fois. Ensuite
@@ -46,7 +46,7 @@ exports.handler = async function (event) {
 
   const webhookSecret = process.env.STRIPE_WEBHOOK_SECRET;
   const stripeKey = process.env.STRIPE_SECRET_KEY;
-  const to = process.env.ORDER_EMAIL || "evapts123@gmail.com";
+  const to = process.env.ORDER_EMAIL || "coumaobrand@gmail.com";
 
   const raw = event.isBase64Encoded
     ? Buffer.from(event.body, "base64").toString("utf8")
