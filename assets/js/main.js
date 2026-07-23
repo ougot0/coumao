@@ -162,13 +162,18 @@
     body.appendChild(desc);
     body.appendChild(foot);
 
-    // Bouton "Ajouter au panier"
+    // Bouton principal : "Personnaliser" (produit sur mesure) ou "Ajouter au panier"
     var addBtn = document.createElement("button");
     addBtn.className = "btn btn-primary buy-btn";
-    addBtn.textContent = "Ajouter au panier";
-    addBtn.addEventListener("click", function () {
-      if (window.Cart) window.Cart.add(product.slug);
-    });
+    if (product.customizable) {
+      addBtn.textContent = "Personnaliser & commander";
+      addBtn.addEventListener("click", function () { openCustomize(product); });
+    } else {
+      addBtn.textContent = "Ajouter au panier";
+      addBtn.addEventListener("click", function () {
+        if (window.Cart) window.Cart.add(product.slug);
+      });
+    }
     body.appendChild(addBtn);
 
     card.appendChild(gallery);
@@ -244,15 +249,23 @@
     lbTitle.textContent = product.name;
     lbSub.textContent = [product.desc, product.price].filter(Boolean).join("  ·  ");
 
-    // Bouton "Ajouter au panier" dans la vue plein écran
+    // Bouton dans la vue plein écran
     lbBuy.innerHTML = "";
     var lbAdd = document.createElement("button");
     lbAdd.className = "btn btn-primary";
-    lbAdd.textContent = "Ajouter au panier";
-    lbAdd.addEventListener("click", function () {
-      if (window.Cart) window.Cart.add(product.slug);
-      closeLightbox();
-    });
+    if (product.customizable) {
+      lbAdd.textContent = "Personnaliser & commander";
+      lbAdd.addEventListener("click", function () {
+        closeLightbox();
+        openCustomize(product);
+      });
+    } else {
+      lbAdd.textContent = "Ajouter au panier";
+      lbAdd.addEventListener("click", function () {
+        if (window.Cart) window.Cart.add(product.slug);
+        closeLightbox();
+      });
+    }
     lbBuy.appendChild(lbAdd);
 
     // Masque flèches + miniatures si une seule photo
@@ -276,6 +289,126 @@
   function closeLightbox() {
     lb.classList.remove("open");
     document.body.style.overflow = "";
+  }
+
+  /* ---------------- Personnalisation (sur mesure) ---------------- */
+  var cz, czMedia, czTitle, czSub, czForm, czProduct = null;
+
+  function buildCustomize() {
+    cz = document.createElement("div");
+    cz.className = "cz-overlay";
+    cz.innerHTML =
+      '<div class="cz-modal" role="dialog" aria-label="Personnalisation">' +
+        '<button class="cz-close" aria-label="Fermer">&times;</button>' +
+        '<div class="cz-media"><img alt="" /></div>' +
+        '<div class="cz-panel">' +
+          '<h2 class="cz-title"></h2>' +
+          '<p class="cz-sub"></p>' +
+          '<form class="cz-form"></form>' +
+          '<div class="cz-actions">' +
+            '<button type="button" class="btn btn-primary cz-submit">Envoyer et payer</button>' +
+            '<p class="cz-note">Tu choisis, tu paies, et je crée ta pochette sur mesure 💛</p>' +
+          '</div>' +
+        '</div>' +
+      '</div>';
+    document.body.appendChild(cz);
+
+    czMedia = cz.querySelector(".cz-media img");
+    czTitle = cz.querySelector(".cz-title");
+    czSub = cz.querySelector(".cz-sub");
+    czForm = cz.querySelector(".cz-form");
+
+    cz.querySelector(".cz-close").addEventListener("click", closeCustomize);
+    cz.addEventListener("click", function (e) { if (e.target === cz) closeCustomize(); });
+    cz.querySelector(".cz-submit").addEventListener("click", submitCustomize);
+    document.addEventListener("keydown", function (e) {
+      if (e.key === "Escape" && cz.classList.contains("open")) closeCustomize();
+    });
+  }
+
+  function openCustomize(product) {
+    if (!cz) buildCustomize();
+    czProduct = product;
+
+    var src = (product.images && product.images[0]) || placeholder(product.name, 0);
+    czMedia.src = src;
+    czMedia.onerror = function () { this.onerror = null; this.src = placeholder(product.name, 0); };
+    czMedia.alt = product.name;
+
+    czTitle.textContent = product.name;
+    czSub.textContent = [product.desc, product.price].filter(Boolean).join("  ·  ");
+
+    // Construit le formulaire à partir des options du produit
+    czForm.innerHTML = "";
+    (product.options || []).forEach(function (opt) {
+      var wrap = document.createElement("label");
+      wrap.className = "cz-field";
+      var span = document.createElement("span");
+      span.className = "cz-label";
+      span.innerHTML = opt.label + (opt.required ? ' <em class="cz-req">*</em>' : "");
+      wrap.appendChild(span);
+
+      var field;
+      if (opt.type === "select") {
+        field = document.createElement("select");
+        (opt.choices || []).forEach(function (c) {
+          var o = document.createElement("option");
+          o.value = c; o.textContent = c;
+          field.appendChild(o);
+        });
+      } else if (opt.type === "textarea") {
+        field = document.createElement("textarea");
+        field.rows = 2;
+        if (opt.placeholder) field.placeholder = opt.placeholder;
+      } else {
+        field = document.createElement("input");
+        field.type = "text";
+        if (opt.placeholder) field.placeholder = opt.placeholder;
+      }
+      field.className = "cz-input";
+      field.setAttribute("data-id", opt.id);
+      field.setAttribute("data-label", opt.label);
+      if (opt.required) field.setAttribute("data-required", "1");
+      wrap.appendChild(field);
+      czForm.appendChild(wrap);
+    });
+
+    cz.classList.add("open");
+    document.body.style.overflow = "hidden";
+  }
+
+  function closeCustomize() {
+    if (cz) cz.classList.remove("open");
+    document.body.style.overflow = "";
+  }
+
+  function submitCustomize() {
+    if (!czProduct) return;
+    var fields = czForm.querySelectorAll(".cz-input");
+    var parts = [];
+    var missing = null;
+    fields.forEach(function (f) {
+      var val = (f.value || "").trim();
+      if (f.getAttribute("data-required") && !val && !missing) missing = f;
+      if (val && val !== "Aucune") {
+        parts.push(f.getAttribute("data-label") + " : " + val);
+      }
+    });
+    if (missing) {
+      missing.focus();
+      alert("Merci de remplir : " + missing.getAttribute("data-label"));
+      return;
+    }
+    var summary = parts.join("  |  ");
+    var btn = cz.querySelector(".cz-submit");
+    btn.disabled = true;
+    btn.textContent = "Redirection vers le paiement…";
+    if (window.Cart && window.Cart.payCustom) {
+      window.Cart.payCustom(czProduct.slug, summary, function () {
+        btn.disabled = false;
+        btn.textContent = "Envoyer et payer";
+      });
+    }
   }
 
   /* ---------------- Initialisation ---------------- */

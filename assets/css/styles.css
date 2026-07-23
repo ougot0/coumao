@@ -555,6 +555,78 @@ a { color: inherit; text-decoration: none; }
 }
 .cart-clear:hover { color: #b5443a; text-decoration: underline; }
 
+/* ---------------- Page de personnalisation (sur mesure) ---------------- */
+.cz-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 110;
+  background: rgba(30, 24, 18, 0.6);
+  display: none;
+  align-items: center;
+  justify-content: center;
+  padding: 24px;
+  overflow-y: auto;
+}
+.cz-overlay.open { display: flex; }
+.cz-modal {
+  position: relative;
+  background: var(--bg);
+  border-radius: 18px;
+  overflow: hidden;
+  width: 100%;
+  max-width: 860px;
+  display: grid;
+  grid-template-columns: 42% 58%;
+  box-shadow: 0 30px 70px rgba(50, 55, 40, 0.3);
+  max-height: 92vh;
+}
+.cz-close {
+  position: absolute;
+  top: 12px; right: 14px;
+  background: rgba(255,255,255,0.85);
+  border: none;
+  width: 34px; height: 34px;
+  border-radius: 50%;
+  font-size: 1.5rem; line-height: 1;
+  cursor: pointer;
+  color: var(--ink);
+  z-index: 2;
+}
+.cz-media { background: var(--bg-soft); }
+.cz-media img { width: 100%; height: 100%; object-fit: cover; }
+.cz-panel { padding: 26px 26px 22px; overflow-y: auto; }
+.cz-title {
+  font-family: var(--font-title);
+  font-weight: 500;
+  font-size: 1.4rem;
+  margin: 0 0 6px;
+}
+.cz-sub { color: var(--ink-soft); font-size: 0.9rem; margin: 0 0 18px; }
+.cz-form { display: flex; flex-direction: column; gap: 14px; }
+.cz-field { display: flex; flex-direction: column; gap: 6px; }
+.cz-label { font-size: 0.88rem; font-weight: 600; }
+.cz-req { color: var(--gold); font-style: normal; }
+.cz-input {
+  width: 100%;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  padding: 10px 12px;
+  font: inherit;
+  font-size: 0.92rem;
+  background: var(--white);
+  color: var(--ink);
+}
+.cz-input:focus { outline: 2px solid var(--accent); outline-offset: 1px; border-color: var(--accent); }
+textarea.cz-input { resize: vertical; }
+.cz-actions { margin-top: 20px; }
+.cz-submit { width: 100%; border: none; }
+.cz-note { text-align: center; color: var(--ink-soft); font-size: 0.8rem; margin: 10px 0 0; }
+
+@media (max-width: 680px) {
+  .cz-modal { grid-template-columns: 1fr; }
+  .cz-media { height: 190px; }
+}
+
 /* ---------------- Bandeau "à propos" ---------------- */
 .about {
   background: var(--bg-soft);

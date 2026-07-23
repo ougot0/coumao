@@ -154,28 +154,18 @@
       : (fmt(total) + ' <span class="cart-partial">+ prix à confirmer</span>');
   }
 
-  /* ---- Paiement groupé (un seul paiement pour tout le panier) ----
-     Le site envoie le panier au "moteur" (fonction Netlify), qui crée
-     un paiement Stripe combiné et renvoie l'URL de paiement. */
-  function checkout() {
-    if (!count()) return;
+  /* ---- Paiement (moteur Netlify -> Stripe) ----
+     Envoie une liste d'articles au moteur, qui crée un paiement Stripe
+     combiné et renvoie l'URL de paiement. */
+  function startCheckout(itemsList, onError) {
     var cfg = window.STRIPE_CONFIG || {};
     var endpoint = cfg.checkoutEndpoint || "/.netlify/functions/create-checkout";
-
-    var payload = { items: [] };
-    for (var slug in items) {
-      if (items.hasOwnProperty(slug)) payload.items.push({ slug: slug, quantity: items[slug] });
-    }
     var base = location.origin + location.pathname;
-    payload.successUrl = base + "?paiement=reussi";
-    payload.cancelUrl = base;
-
-    var payBtn = drawer.querySelector(".cart-pay");
-    var prevTxt = payBtn.textContent;
-    payBtn.disabled = true;
-    payBtn.textContent = "Redirection vers le paiement…";
-    function reset() { payBtn.disabled = false; payBtn.textContent = prevTxt; }
-
+    var payload = {
+      items: itemsList,
+      successUrl: base + "?paiement=reussi",
+      cancelUrl: base,
+    };
     fetch(endpoint, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
@@ -186,17 +176,39 @@
         if (res.ok && res.d && res.d.url) {
           window.location.href = res.d.url; // page de paiement Stripe
         } else {
-          reset();
+          if (onError) onError();
           alert((res.d && res.d.error) || "Le paiement n'est pas disponible pour le moment.");
         }
       })
       .catch(function () {
-        reset();
+        if (onError) onError();
         alert(
           "Le paiement n'est pas encore actif sur cette adresse.\n" +
           "Il s'active une fois le site publié sur Netlify (avec la clé Stripe)."
         );
       });
+  }
+
+  // Paiement de tout le panier
+  function checkout() {
+    if (!count()) return;
+    var list = [];
+    for (var slug in items) {
+      if (items.hasOwnProperty(slug)) list.push({ slug: slug, quantity: items[slug] });
+    }
+    var payBtn = drawer.querySelector(".cart-pay");
+    var prevTxt = payBtn.textContent;
+    payBtn.disabled = true;
+    payBtn.textContent = "Redirection vers le paiement…";
+    startCheckout(list, function () {
+      payBtn.disabled = false;
+      payBtn.textContent = prevTxt;
+    });
+  }
+
+  // Paiement d'un article personnalisé (sur mesure)
+  function payCustom(slug, customization, onError) {
+    startCheckout([{ slug: slug, quantity: 1, customization: customization }], onError);
   }
 
   /* ---- Init ---- */
@@ -208,7 +220,7 @@
   }
 
   // Exposé pour main.js
-  window.Cart = { add: add, open: open, count: count };
+  window.Cart = { add: add, open: open, count: count, payCustom: payCustom };
 
   if (document.readyState === "loading") {
     document.addEventListener("DOMContentLoaded", init);

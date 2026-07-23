@@ -191,6 +191,58 @@ const PRODUCTS = [
       "assets/products/coumao-sea-3.jpg",
     ],
   },
+
+  /* ---- Produit PERSONNALISABLE (collection Téléphone) ----
+     "customizable: true" + "options" affiche un bouton "Personnaliser"
+     qui ouvre une page de choix, puis "Envoyer et payer".
+     Types d'option : "select" (menu), "text" (une ligne), "textarea" (message).
+     👉 À ajuster : la photo, le prix, et la liste des options ci-dessous. */
+  {
+    slug: "pochette-telephone",
+    category: "telephone",
+    name: "Pochette Téléphone Personnalisable 📱",
+    price: "40 €",
+    desc: "Pochette téléphone au crochet, faite main sur commande. Choisis tes couleurs et ton modèle, on la crée pour toi.",
+    customizable: true,
+    options: [
+      {
+        id: "modele",
+        label: "Ton modèle de téléphone",
+        type: "text",
+        placeholder: "ex. iPhone 15, Samsung Galaxy S24…",
+        required: true,
+      },
+      {
+        id: "couleur_principale",
+        label: "Couleur principale",
+        type: "select",
+        required: true,
+        choices: ["Rose", "Bleu marine", "Écru", "Noir", "Vert", "Moutarde", "Bordeaux", "Turquoise"],
+      },
+      {
+        id: "couleur_secondaire",
+        label: "Couleur secondaire",
+        type: "select",
+        choices: ["Aucune", "Rose", "Bleu marine", "Écru", "Noir", "Vert", "Moutarde", "Bordeaux", "Turquoise"],
+      },
+      {
+        id: "prenom",
+        label: "Prénom à ajouter (optionnel)",
+        type: "text",
+        placeholder: "laisse vide si tu n'en veux pas",
+      },
+      {
+        id: "remarque",
+        label: "Une remarque ? (optionnel)",
+        type: "textarea",
+        placeholder: "toute précision utile pour ta pochette",
+      },
+    ],
+    images: [
+      "assets/products/pochette-telephone-1.jpg",
+      "assets/products/pochette-telephone-2.jpg",
+    ],
+  },
 ];
 
 // Ne pas modifier ci-dessous.

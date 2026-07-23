@@ -29,6 +29,7 @@ const CATALOG = {
   "coumao-casual":       { name: "Coumao Casual",       amount: 9000 },
   "coumao-strawberry":   { name: "Coumao Strawberry",   amount: 9000 },
   "coumao-sea":          { name: "Coumao Sea",          amount: 7000 },
+  "pochette-telephone":  { name: "Pochette Téléphone personnalisée", amount: 4000 },
 };
 
 // Pays de livraison autorisés
@@ -64,7 +65,9 @@ exports.handler = async function (event) {
     let qty = parseInt(it.quantity, 10);
     if (!qty || qty < 1) qty = 1;
     if (qty > 20) qty = 20;
-    chosen.push({ name: p.name, amount: p.amount, qty: qty });
+    let custom = "";
+    if (typeof it.customization === "string") custom = it.customization.slice(0, 490);
+    chosen.push({ name: p.name, amount: p.amount, qty: qty, custom: custom });
   }
   if (!chosen.length) {
     return json(400, { error: "Panier vide ou articles introuvables." });
@@ -92,6 +95,11 @@ exports.handler = async function (event) {
     params.append(`line_items[${i}][price_data][currency]`, "eur");
     params.append(`line_items[${i}][price_data][unit_amount]`, String(li.amount));
     params.append(`line_items[${i}][price_data][product_data][name]`, li.name);
+    if (li.custom) {
+      // La personnalisation apparaît sur la page de paiement, le reçu et le tableau de bord
+      params.append(`line_items[${i}][price_data][product_data][description]`, li.custom);
+      params.append(`metadata[personnalisation_${i + 1}]`, (li.name + " — " + li.custom).slice(0, 490));
+    }
   });
 
   try {
