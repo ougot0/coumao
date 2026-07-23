@@ -7,6 +7,8 @@
      - name   : le nom du produit
      - price  : le prix (ex. "45 €"), ou "" si tu ne veux pas l'afficher
      - desc   : une petite description (matière, dimensions, etc.)
+     - buyUrl : (optionnel) le lien de paiement Stripe du sac -> bouton
+                "Commander". Retire la ligne si le sac n'est pas en vente.
      - images : les 3 photos du produit (dans le dossier assets/products/)
 
    👉 Nom des photos, convention simple :
@@ -28,6 +30,7 @@ const PRODUCTS = [
     name: "Coumao Candy 🍭",
     price: "",
     desc: "Sac au crochet en trapilho, dégradé de rose bonbon, anse à main et étiquette cuir Coumao. Pièce unique faite main.",
+    buyUrl: "https://buy.stripe.com/test_aFa3cp3oUbaK8L1c4X87K00",
     images: [
       "assets/products/coumao-candy-1.jpg",
       "assets/products/coumao-candy-2.jpg",

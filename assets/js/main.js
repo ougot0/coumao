@@ -157,13 +157,24 @@
     body.appendChild(desc);
     body.appendChild(foot);
 
+    // Bouton "Commander" (si un lien de paiement est renseigné)
+    if (product.buyUrl) {
+      var buy = document.createElement("a");
+      buy.className = "btn btn-primary buy-btn";
+      buy.href = product.buyUrl;
+      buy.target = "_blank";
+      buy.rel = "noopener";
+      buy.textContent = "Commander";
+      body.appendChild(buy);
+    }
+
     card.appendChild(gallery);
     card.appendChild(body);
     return card;
   }
 
   /* ---------------- Lightbox partagée ---------------- */
-  var lb, lbStage, lbTitle, lbSub, lbThumbs, lbImgs = [], lbCurrent = 0, lbProduct = null;
+  var lb, lbStage, lbTitle, lbSub, lbThumbs, lbBuy, lbImgs = [], lbCurrent = 0, lbProduct = null;
 
   function buildLightbox() {
     lb = document.createElement("div");
@@ -178,6 +189,7 @@
         '<div class="lb-title"></div>' +
         '<div class="lb-sub"></div>' +
         '<div class="lb-thumbs"></div>' +
+        '<div class="lb-buy"></div>' +
       '</div>';
     document.body.appendChild(lb);
 
@@ -185,6 +197,7 @@
     lbTitle = lb.querySelector(".lb-title");
     lbSub = lb.querySelector(".lb-sub");
     lbThumbs = lb.querySelector(".lb-thumbs");
+    lbBuy = lb.querySelector(".lb-buy");
 
     lb.querySelector(".lb-close").addEventListener("click", closeLightbox);
     lb.querySelector(".lb-arrow.prev").addEventListener("click", function () { lbShow(lbCurrent - 1); });
@@ -226,6 +239,18 @@
 
     lbTitle.textContent = product.name;
     lbSub.textContent = [product.desc, product.price].filter(Boolean).join("  ·  ");
+
+    // Bouton "Commander" dans la vue plein écran
+    lbBuy.innerHTML = "";
+    if (product.buyUrl) {
+      var buy = document.createElement("a");
+      buy.className = "btn btn-primary";
+      buy.href = product.buyUrl;
+      buy.target = "_blank";
+      buy.rel = "noopener";
+      buy.textContent = "Commander";
+      lbBuy.appendChild(buy);
+    }
 
     lb.classList.add("open");
     document.body.style.overflow = "hidden";
