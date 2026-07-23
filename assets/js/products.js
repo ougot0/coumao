@@ -98,14 +98,14 @@ const PRODUCTS = [
     ],
   },
   {
-    slug: "sac-07",
-    name: "Sac n°7",
+    slug: "coumao-cookies",
+    name: "Coumao Cookies 🍪",
     price: "",
-    desc: "Sac cousu main, entièrement fait maison.",
+    desc: "Sac au crochet en trapilho, camaïeu chocolat, beige et écru façon cookie, bandoulière tressée et étiquette cuir Coumao. Pièce unique faite main.",
     images: [
-      "assets/products/sac-07-1.jpg",
-      "assets/products/sac-07-2.jpg",
-      "assets/products/sac-07-3.jpg",
+      "assets/products/coumao-cookies-1.jpg",
+      "assets/products/coumao-cookies-2.jpg",
+      "assets/products/coumao-cookies-3.jpg",
     ],
   },
   {
