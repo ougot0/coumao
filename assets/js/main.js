@@ -446,64 +446,76 @@
     }
   }
 
+  /* ---------------- Onglets (Soldes, Nouveautés, Sacs…) ---------------- */
+  // Nouveautés : liste de slugs mis en avant. Soldes : produits avec solde:true.
+  var NOUVEAUTES = [
+    "coumao-emilio", "coumao-safari", "sac-carre", "sac-rectangle",
+    "coumao-sky", "coumao-chocolat", "pochette-telephone",
+  ];
+  var TABS = [
+    { id: "soldes",           label: "Soldes",          sub: "Nos pièces en promotion.",
+      match: function (p) { return p.solde === true; } },
+    { id: "nouveautes",       label: "Nouveautés",      sub: "Les dernières créations de l'atelier.",
+      match: function (p) { return NOUVEAUTES.indexOf(p.slug) >= 0; } },
+    { id: "sacs",             label: "Sacs",            sub: "Sacs au crochet, faits main — pièces uniques.",
+      match: function (p) { return p.category === "sacs"; } },
+    { id: "cases",            label: "Cases",           sub: "Pochettes téléphone au crochet.",
+      match: function (p) { return p.category === "telephone"; } },
+    { id: "personnalisation", label: "Personnalisation", sub: "Crée ta pièce sur mesure : couleurs, modèle…",
+      match: function (p) { return p.customizable === true; } },
+  ];
+
+  function renderTab(tab, gridEl, subEl) {
+    gridEl.innerHTML = "";
+    if (subEl) subEl.textContent = tab.sub || "";
+    var list = PRODUCTS.filter(function (p) {
+      return p.category !== "accessoire" && tab.match(p);
+    });
+    if (!list.length) {
+      var empty = document.createElement("p");
+      empty.className = "collection-empty";
+      empty.textContent = "Rien ici pour le moment — ça arrive très bientôt 👀";
+      gridEl.appendChild(empty);
+      return;
+    }
+    list.forEach(function (p, i) { gridEl.appendChild(buildCard(p, i)); });
+  }
+
   /* ---------------- Initialisation ---------------- */
   function init() {
-    var root = document.getElementById("collections");
-    if (!root || typeof PRODUCTS === "undefined") return;
+    var tabsEl = document.getElementById("tabs");
+    var gridEl = document.getElementById("grid");
+    var subEl = document.getElementById("tab-sub");
+    if (!tabsEl || !gridEl || typeof PRODUCTS === "undefined") return;
 
     buildLightbox();
 
-    // Collections : soit la liste définie, soit une seule collection par défaut
-    var collections = (typeof COLLECTIONS !== "undefined" && COLLECTIONS.length)
-      ? COLLECTIONS
-      : [{ id: null, title: "La collection", subtitle: "" }];
-
-    var pIndex = 0;
-    collections.forEach(function (col) {
-      var list = PRODUCTS.filter(function (p) {
-        return col.id == null || p.category === col.id;
+    var btns = {};
+    function activate(id) {
+      var tab = null;
+      TABS.forEach(function (t) { if (t.id === id) tab = t; });
+      if (!tab) tab = TABS[2]; // défaut : Sacs
+      Object.keys(btns).forEach(function (k) {
+        btns[k].classList.toggle("active", k === tab.id);
       });
+      renderTab(tab, gridEl, subEl);
+    }
 
-      var block = document.createElement("section");
-      block.className = "collection-block";
-      block.id = "col-" + (col.id || "all");
-
-      var head = document.createElement("div");
-      head.className = "collection-head";
-      var h2 = document.createElement("h2");
-      h2.textContent = col.title;
-      var count = document.createElement("span");
-      count.className = "count";
-      count.textContent = list.length
-        ? list.length + (list.length > 1 ? " modèles" : " modèle")
-        : "Bientôt";
-      head.appendChild(h2);
-      head.appendChild(count);
-      block.appendChild(head);
-
-      if (col.subtitle) {
-        var sub = document.createElement("p");
-        sub.className = "collection-sub";
-        sub.textContent = col.subtitle;
-        block.appendChild(sub);
-      }
-
-      if (list.length) {
-        var grid = document.createElement("div");
-        grid.className = "grid";
-        list.forEach(function (p) {
-          grid.appendChild(buildCard(p, pIndex++));
-        });
-        block.appendChild(grid);
-      } else {
-        var empty = document.createElement("p");
-        empty.className = "collection-empty";
-        empty.textContent = "Les nouveautés de cette collection arrivent très bientôt. Reviens vite 👀";
-        block.appendChild(empty);
-      }
-
-      root.appendChild(block);
+    TABS.forEach(function (t) {
+      var b = document.createElement("button");
+      b.className = "tab";
+      b.textContent = t.label;
+      b.addEventListener("click", function () { activate(t.id); });
+      tabsEl.appendChild(b);
+      btns[t.id] = b;
     });
+
+    // Liens d'en-tête qui pointent vers un onglet
+    document.querySelectorAll("[data-tab]").forEach(function (a) {
+      a.addEventListener("click", function () { activate(a.getAttribute("data-tab")); });
+    });
+
+    activate("sacs"); // onglet par défaut
   }
 
   if (document.readyState === "loading") {

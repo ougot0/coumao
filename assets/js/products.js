@@ -348,6 +348,14 @@ const PRODUCTS = [
     desc: "Petit charm / bijou de sac en supplément.",
     images: [],
   },
+  {
+    slug: "clip",
+    category: "accessoire",
+    name: "Clip (fermeture du sac)",
+    price: "3 €",
+    desc: "Système de clip pour fermer le sac, en supplément.",
+    images: [],
+  },
 ];
 
 // Ne pas modifier ci-dessous.

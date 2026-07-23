@@ -39,6 +39,7 @@ const CATALOG = {
   // Accessoires en option
   "anse":                { name: "Anse (bandoulière)",   amount: 500 },
   "charme":              { name: "Charm (bijou de sac)", amount: 500 },
+  "clip":                { name: "Clip (fermeture du sac)", amount: 300 },
 };
 
 // Pays de livraison autorisés

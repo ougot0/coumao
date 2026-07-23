@@ -24,8 +24,7 @@
       <div class="header-right">
         <nav class="nav">
           <a href="#top" class="active">Accueil</a>
-          <a href="#col-sacs">Sacs</a>
-          <a href="#col-telephone">Téléphone</a>
+          <a href="#collection" data-tab="sacs">Boutique</a>
           <a href="#apropos">À Propos</a>
           <a href="#contact">Contact</a>
         </nav>
@@ -63,21 +62,28 @@
     </div>
   </section>
 
-  <!-- Collections -->
+  <!-- Boutique (onglets + produits) -->
   <section class="collection" id="collection">
     <div class="wrap">
-      <div id="collections"><!-- généré par JavaScript --></div>
+      <div class="tabs" id="tabs"><!-- onglets générés par JavaScript --></div>
+      <p class="tab-sub" id="tab-sub"></p>
+      <div class="grid" id="grid"><!-- produits générés par JavaScript --></div>
     </div>
   </section>
 
   <!-- À propos -->
   <section class="about" id="apropos">
     <div class="wrap">
-      <h2>L'atelier Coumao</h2>
-      <p>Coumao, c'est une petite collection de sacs imaginés et cousus à la main,
-         entièrement faits maison. Chaque modèle est réalisé avec attention, dans un
-         souci du détail et de la finition. Ce que vous voyez ici, ce sont des pièces
-         faites une par une — jamais tout à fait identiques.</p>
+      <h2>En savoir plus</h2>
+      <p>« Coumao » signifie merci en coréen. Ce nom a été choisi comme une façon
+         simple et chaleureuse de remercier chaque personne qui décide de soutenir
+         l'aventure en choisissant une création de l'atelier.</p>
+      <p>Chaque pièce demande du temps, de la patience et une attention particulière
+         aux moindres détails. Rien n'est fabriqué à la chaîne : chaque création est
+         confectionnée une à une, avec soin, ce qui la rend unique.</p>
+      <p>Choisir un sac Coumao, c'est soutenir un savoir-faire artisanal, encourager
+         le fait main et porter une création pensée avec passion. Merci de faire
+         partie de cette belle aventure 🌈</p>
     </div>
   </section>
 
@@ -87,6 +93,7 @@
       <div class="brand">Coumao</div>
       <p>Sacs faits main · Fait maison<br />
          Pour toute question ou commande, contactez-nous.</p>
+      <p><a href="cgv.html">Conditions générales de vente</a></p>
       <p>&copy; <span id="year"></span> Coumao</p>
     </div>
   </footer>
