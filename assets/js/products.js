@@ -25,7 +25,7 @@
 const PRODUCTS = [
   {
     slug: "coumao-candy",
-    name: "Coumao Candy",
+    name: "Coumao Candy 🍭",
     price: "",
     desc: "Sac au crochet en trapilho, dégradé de rose bonbon, anse à main et étiquette cuir Coumao. Pièce unique faite main.",
     images: [
@@ -36,7 +36,7 @@ const PRODUCTS = [
   },
   {
     slug: "coumao-ocean",
-    name: "Coumao Océan",
+    name: "Coumao Océan 🌊",
     price: "",
     desc: "Sac au crochet en trapilho, bleu marine et turquoise, anse à main et étiquette cuir Coumao. Pièce unique faite main.",
     images: [
@@ -46,14 +46,14 @@ const PRODUCTS = [
     ],
   },
   {
-    slug: "sac-03",
-    name: "Sac n°3",
+    slug: "coumao-brownie",
+    name: "Coumao Brownie 🤎",
     price: "",
-    desc: "Sac cousu main, entièrement fait maison.",
+    desc: "Sac au crochet en trapilho, camaïeu chocolat, noir et beige, pampille de perles en bois et étiquette cuir Coumao. Pièce unique faite main.",
     images: [
-      "assets/products/sac-03-1.jpg",
-      "assets/products/sac-03-2.jpg",
-      "assets/products/sac-03-3.jpg",
+      "assets/products/coumao-brownie-1.jpg",
+      "assets/products/coumao-brownie-2.jpg",
+      "assets/products/coumao-brownie-3.jpg",
     ],
   },
   {
