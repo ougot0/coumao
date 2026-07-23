@@ -137,6 +137,7 @@ const PRODUCTS = [
     name: "Coumao Arizona 🌅",
     price: "",
     desc: "Sac au crochet en trapilho, camel caramel et bleu ciel, bandoulière tressée et étiquette cuir Coumao. Pièce unique faite main.",
+    buyUrl: "https://buy.stripe.com/test_8x214hbVqfr0gdt7OH87K0b",
     images: [
       "assets/products/coumao-arizona-1.jpg",
       "assets/products/coumao-arizona-2.jpg",
