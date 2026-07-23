@@ -66,6 +66,7 @@ const PRODUCTS = [
     name: "Coumao Passion Fruit 💛",
     price: "",
     desc: "Sac au crochet en trapilho, jaune, violet et corail, anse à main et étiquette cuir Coumao. Pièce unique faite main.",
+    buyUrl: "https://buy.stripe.com/test_9B6fZb0cIbaKd1hb0T87K03",
     images: [
       "assets/products/coumao-passion-fruit-1.jpg",
       "assets/products/coumao-passion-fruit-2.jpg",
