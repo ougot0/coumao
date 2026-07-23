@@ -42,6 +42,7 @@ const PRODUCTS = [
     name: "Coumao Océan 🌊",
     price: "",
     desc: "Sac au crochet en trapilho, bleu marine et turquoise, anse à main et étiquette cuir Coumao. Pièce unique faite main.",
+    buyUrl: "https://buy.stripe.com/test_5kQ14h3oUbaK0ev6KD87K01",
     images: [
       "assets/products/coumao-ocean-1.jpg",
       "assets/products/coumao-ocean-2.jpg",
