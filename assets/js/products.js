@@ -114,6 +114,7 @@ const PRODUCTS = [
     name: "Coumao Firework 🎆",
     price: "",
     desc: "Sac au crochet en trapilho, bordeaux et violet, bandoulière tressée et étiquette cuir Coumao. Pièce unique faite main.",
+    buyUrl: "https://buy.stripe.com/test_5kQbIV1gMceO5yPd9187K0a",
     images: [
       "assets/products/coumao-firework-1.jpg",
       "assets/products/coumao-firework-2.jpg",
