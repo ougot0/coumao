@@ -73,14 +73,14 @@ const PRODUCTS = [
     ],
   },
   {
-    slug: "sac-05",
-    name: "Sac n°5",
+    slug: "coumao-flower",
+    name: "Coumao Flower 🌸",
     price: "",
-    desc: "Sac cousu main, entièrement fait maison.",
+    desc: "Sac au crochet en trapilho, chocolat et fuchsia à motifs fleurs, pampille de perles roses et étiquette cuir Coumao. Pièce unique faite main.",
     images: [
-      "assets/products/sac-05-1.jpg",
-      "assets/products/sac-05-2.jpg",
-      "assets/products/sac-05-3.jpg",
+      "assets/products/coumao-flower-2.jpg",
+      "assets/products/coumao-flower-1.jpg",
+      "assets/products/coumao-flower-3.jpg",
     ],
   },
   {
