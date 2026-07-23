@@ -126,6 +126,7 @@ const PRODUCTS = [
     name: "Coumao Havane 🧡",
     price: "",
     desc: "Sac au crochet en trapilho, camel havane et écru, bandoulière tressée et étiquette cuir Coumao. Pièce unique faite main.",
+    buyUrl: "https://buy.stripe.com/test_14AfZb4sY4Mm8L1d9187K07",
     images: [
       "assets/products/coumao-havane-1.jpg",
       "assets/products/coumao-havane-2.jpg",
