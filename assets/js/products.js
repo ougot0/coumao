@@ -24,14 +24,14 @@
 
 const PRODUCTS = [
   {
-    slug: "sac-01",
-    name: "Sac n°1",
+    slug: "coumao-candy",
+    name: "Coumao Candy",
     price: "",
-    desc: "Sac cousu main, entièrement fait maison.",
+    desc: "Sac au crochet en trapilho, dégradé de rose bonbon, anse à main et étiquette cuir Coumao. Pièce unique faite main.",
     images: [
-      "assets/products/sac-01-1.jpg",
-      "assets/products/sac-01-2.jpg",
-      "assets/products/sac-01-3.jpg",
+      "assets/products/coumao-candy-1.jpg",
+      "assets/products/coumao-candy-2.jpg",
+      "assets/products/coumao-candy-3.jpg",
     ],
   },
   {
