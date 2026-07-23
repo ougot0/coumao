@@ -728,8 +728,33 @@ textarea.cz-input { resize: vertical; }
   }
   .hero { padding: 42px 0 60px; }
 }
+/* En-tête sur mobile : logo sur une ligne, nav + panier sur la suivante */
+@media (max-width: 700px) {
+  .site-header .wrap {
+    flex-wrap: wrap;
+    height: auto;
+    padding-top: 12px;
+    padding-bottom: 12px;
+    row-gap: 10px;
+  }
+  .brand { font-size: 1.4rem; }
+  .header-right {
+    width: 100%;
+    justify-content: space-between;
+    gap: 12px;
+  }
+  .nav {
+    justify-content: flex-start;
+    gap: 2px;
+  }
+  .nav a {
+    margin-left: 0;
+    margin-right: 16px;
+    font-size: 0.9rem;
+  }
+}
 @media (max-width: 560px) {
   .grid { grid-template-columns: 1fr; }
-  .nav a { margin-left: 16px; }
   .btn { flex: 1 1 auto; text-align: center; }
+  .nav a { margin-right: 12px; font-size: 0.85rem; }
 }
