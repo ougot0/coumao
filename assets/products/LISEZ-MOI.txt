@@ -1,0 +1,15 @@
+DOSSIER DES PHOTOS — COUMAO
+============================
+
+Dépose ici les photos des sacs.
+
+Nom des fichiers : <slug>-1.jpg, <slug>-2.jpg, <slug>-3.jpg
+(le "slug" correspond à celui indiqué dans assets/js/products.js)
+
+Exemple pour le sac dont le slug est "petit-nuage" :
+    petit-nuage-1.jpg
+    petit-nuage-2.jpg
+    petit-nuage-3.jpg
+
+Formats acceptés : .jpg .jpeg .png .webp
+Conseil : des photos verticales (portrait) rendent le mieux.
