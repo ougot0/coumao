@@ -296,6 +296,27 @@ const PRODUCTS = [
       "assets/products/coumao-chocolat-1.jpg",
     ],
   },
+
+  /* ---- ACCESSOIRES EN OPTION (category "accessoire") ----
+     Ils n'apparaissent PAS comme produits séparés : ils s'affichent
+     en cases à cocher sous les sacs (« Ajouter un accessoire »).
+     👉 Prix provisoires — à confirmer. */
+  {
+    slug: "anse",
+    category: "accessoire",
+    name: "Anse (bandoulière)",
+    price: "10 €",
+    desc: "Anse / bandoulière tressée en supplément.",
+    images: [],
+  },
+  {
+    slug: "charme",
+    category: "accessoire",
+    name: "Charm (bijou de sac)",
+    price: "8 €",
+    desc: "Petit charm / bijou de sac en supplément.",
+    images: [],
+  },
 ];
 
 // Ne pas modifier ci-dessous.

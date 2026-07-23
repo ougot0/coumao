@@ -34,6 +34,9 @@ const CATALOG = {
   "pochette-telephone":  { name: "Pochette Téléphone personnalisée", amount: 4000 },
   "coumao-sky":          { name: "Pochette Sky",         amount: 4000 },
   "coumao-chocolat":     { name: "Pochette Chocolat",    amount: 4000 },
+  // Accessoires en option (prix provisoires à confirmer)
+  "anse":                { name: "Anse (bandoulière)",   amount: 1000 },
+  "charme":              { name: "Charm (bijou de sac)", amount: 800 },
 };
 
 // Pays de livraison autorisés

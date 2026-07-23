@@ -312,6 +312,33 @@ a { color: inherit; text-decoration: none; }
   border-radius: 8px;
   padding: 12px 16px;
 }
+
+/* Accessoires en option (cases à cocher sous les sacs) */
+.addons {
+  margin-top: 12px;
+  padding: 10px 12px;
+  background: var(--bg-soft);
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  display: flex;
+  flex-direction: column;
+  gap: 7px;
+}
+.addons-title {
+  font-size: 0.78rem;
+  font-weight: 700;
+  letter-spacing: .4px;
+  color: var(--ink-soft);
+  text-transform: uppercase;
+}
+.addon {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 0.88rem;
+  cursor: pointer;
+}
+.addon input { width: 16px; height: 16px; accent-color: var(--accent); cursor: pointer; }
 .lb-buy { margin-top: 18px; }
 .lb-buy .btn { border-radius: 8px; }
 

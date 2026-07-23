@@ -162,6 +162,36 @@
     body.appendChild(desc);
     body.appendChild(foot);
 
+    // Accessoires en option (cases à cocher) — sauf produits perso / si désactivé
+    var addonEls = [];
+    if (!product.customizable && product.addons !== false) {
+      var addons = (typeof PRODUCTS !== "undefined")
+        ? PRODUCTS.filter(function (p) { return p.category === "accessoire"; })
+        : [];
+      if (addons.length) {
+        var box = document.createElement("div");
+        box.className = "addons";
+        var t = document.createElement("span");
+        t.className = "addons-title";
+        t.textContent = "Ajouter un accessoire :";
+        box.appendChild(t);
+        addons.forEach(function (a) {
+          var lab = document.createElement("label");
+          lab.className = "addon";
+          var cb = document.createElement("input");
+          cb.type = "checkbox";
+          cb.value = a.slug;
+          var span = document.createElement("span");
+          span.textContent = a.name + (a.price ? " — +" + a.price : "");
+          lab.appendChild(cb);
+          lab.appendChild(span);
+          box.appendChild(lab);
+          addonEls.push(cb);
+        });
+        body.appendChild(box);
+      }
+    }
+
     // Bouton principal : "Personnaliser" (produit sur mesure) ou "Ajouter au panier"
     var addBtn = document.createElement("button");
     addBtn.className = "btn btn-primary buy-btn";
@@ -171,7 +201,12 @@
     } else {
       addBtn.textContent = "Ajouter au panier";
       addBtn.addEventListener("click", function () {
-        if (window.Cart) window.Cart.add(product.slug);
+        if (!window.Cart) return;
+        window.Cart.add(product.slug);
+        // Ajoute aussi les accessoires cochés
+        addonEls.forEach(function (cb) {
+          if (cb.checked) { window.Cart.add(cb.value); cb.checked = false; }
+        });
       });
     }
     body.appendChild(addBtn);
