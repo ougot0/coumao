@@ -54,6 +54,7 @@ const PRODUCTS = [
     name: "Coumao Brownie 🤎",
     price: "",
     desc: "Sac au crochet en trapilho, camaïeu chocolat, noir et beige, pampille de perles en bois et étiquette cuir Coumao. Pièce unique faite main.",
+    buyUrl: "https://buy.stripe.com/test_5kQ5kxgbG6Uu2mD3yr87K02",
     images: [
       "assets/products/coumao-brownie-1.jpg",
       "assets/products/coumao-brownie-2.jpg",
