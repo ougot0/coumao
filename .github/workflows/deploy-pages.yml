@@ -1,0 +1,41 @@
+name: Déploiement GitHub Pages
+
+on:
+  push:
+    branches: ["claude/kumao-product-gallery-fsdcc1"]
+  workflow_dispatch:
+
+# Droits nécessaires pour publier sur Pages
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+# Un seul déploiement à la fois
+concurrency:
+  group: "pages"
+  cancel-in-progress: false
+
+jobs:
+  deploy:
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    runs-on: ubuntu-latest
+    steps:
+      - name: Récupération du code
+        uses: actions/checkout@v4
+
+      - name: Configuration de Pages (activation automatique)
+        uses: actions/configure-pages@v5
+        with:
+          enablement: true
+
+      - name: Préparation du site (tout le dépôt)
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: "."
+
+      - name: Publication sur GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4
