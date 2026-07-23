@@ -265,12 +265,6 @@ const PRODUCTS = [
         choices: ["Aucune"].concat(COULEURS),
       },
       {
-        id: "prenom",
-        label: "Prénom à ajouter (optionnel)",
-        type: "text",
-        placeholder: "laisse vide si tu n'en veux pas",
-      },
-      {
         id: "remarque",
         label: "Une remarque ? (optionnel)",
         type: "textarea",
@@ -280,6 +274,26 @@ const PRODUCTS = [
     images: [
       "assets/products/pochette-telephone-1.jpg",
       "assets/products/pochette-telephone-2.jpg",
+    ],
+  },
+  {
+    slug: "coumao-sky",
+    category: "telephone",
+    name: "Pochette Sky ☁️",
+    price: "40 €",
+    desc: "Pochette téléphone au crochet en trapilho, bleu et turquoise, bandoulière tressée et étiquette cuir Coumao. Faite main.",
+    images: [
+      "assets/products/coumao-sky-1.jpg",
+    ],
+  },
+  {
+    slug: "coumao-chocolat",
+    category: "telephone",
+    name: "Pochette Chocolat 🍫",
+    price: "40 €",
+    desc: "Pochette téléphone au crochet en trapilho, chocolat, noir et écru, bandoulière tressée et étiquette cuir Coumao. Faite main.",
+    images: [
+      "assets/products/coumao-chocolat-1.jpg",
     ],
   },
 ];

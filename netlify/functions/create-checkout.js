@@ -32,6 +32,8 @@ const CATALOG = {
   "coumao-safari":       { name: "Coumao Safari",       amount: 9000 },
   "coumao-sea":          { name: "Coumao Sea",          amount: 7000 },
   "pochette-telephone":  { name: "Pochette Téléphone personnalisée", amount: 4000 },
+  "coumao-sky":          { name: "Pochette Sky",         amount: 4000 },
+  "coumao-chocolat":     { name: "Pochette Chocolat",    amount: 4000 },
 };
 
 // Pays de livraison autorisés
