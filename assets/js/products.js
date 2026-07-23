@@ -133,14 +133,14 @@ const PRODUCTS = [
     ],
   },
   {
-    slug: "sac-10",
-    name: "Sac n°10",
+    slug: "coumao-arizona",
+    name: "Coumao Arizona 🌅",
     price: "",
-    desc: "Sac cousu main, entièrement fait maison.",
+    desc: "Sac au crochet en trapilho, camel caramel et bleu ciel, bandoulière tressée et étiquette cuir Coumao. Pièce unique faite main.",
     images: [
-      "assets/products/sac-10-1.jpg",
-      "assets/products/sac-10-2.jpg",
-      "assets/products/sac-10-3.jpg",
+      "assets/products/coumao-arizona-1.jpg",
+      "assets/products/coumao-arizona-2.jpg",
+      "assets/products/coumao-arizona-3.jpg",
     ],
   },
   {
