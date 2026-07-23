@@ -109,14 +109,14 @@ const PRODUCTS = [
     ],
   },
   {
-    slug: "sac-08",
-    name: "Sac n°8",
+    slug: "coumao-firework",
+    name: "Coumao Firework 🎆",
     price: "",
-    desc: "Sac cousu main, entièrement fait maison.",
+    desc: "Sac au crochet en trapilho, bordeaux et violet, bandoulière tressée et étiquette cuir Coumao. Pièce unique faite main.",
     images: [
-      "assets/products/sac-08-1.jpg",
-      "assets/products/sac-08-2.jpg",
-      "assets/products/sac-08-3.jpg",
+      "assets/products/coumao-firework-1.jpg",
+      "assets/products/coumao-firework-2.jpg",
+      "assets/products/coumao-firework-3.jpg",
     ],
   },
   {
