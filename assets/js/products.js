@@ -145,14 +145,14 @@ const PRODUCTS = [
     ],
   },
   {
-    slug: "sac-11",
-    name: "Sac n°11",
+    slug: "coumao-casual",
+    name: "Coumao Casual ♟️",
     price: "",
-    desc: "Sac cousu main, entièrement fait maison.",
+    desc: "Sac au crochet en trapilho, noir et écru chiné, bandoulière tressée et étiquette cuir Coumao. Pièce unique faite main.",
     images: [
-      "assets/products/sac-11-1.jpg",
-      "assets/products/sac-11-2.jpg",
-      "assets/products/sac-11-3.jpg",
+      "assets/products/coumao-casual-1.jpg",
+      "assets/products/coumao-casual-2.jpg",
+      "assets/products/coumao-casual-3.jpg",
     ],
   },
   {
