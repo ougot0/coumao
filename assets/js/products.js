@@ -1,32 +1,42 @@
 /* =============================================================
    COUMAO — Catalogue des produits
    -------------------------------------------------------------
-   👉 C'EST LE SEUL FICHIER À MODIFIER POUR AJOUTER TES SACS.
+   👉 C'EST LE FICHIER À MODIFIER POUR AJOUTER TES PRODUITS.
 
-   Pour chaque sac, remplis :
+   Le site est organisé en COLLECTIONS (ex. Sacs, Téléphone).
+   Chaque produit appartient à une collection via son champ
+   "category" (l'identifiant de la collection : "sacs", "telephone"…).
+
+   Pour chaque produit, remplis :
+     - category : la collection ("sacs" ou "telephone")
      - name   : le nom du produit
      - price  : le prix (ex. "45 €"), ou "" si tu ne veux pas l'afficher
      - desc   : une petite description (matière, dimensions, etc.)
-     - buyUrl : (optionnel) le lien de paiement Stripe du sac -> bouton
-                "Commander". Retire la ligne si le sac n'est pas en vente.
-     - images : les 3 photos du produit (dans le dossier assets/products/)
+     - buyUrl : (optionnel) le lien de paiement Stripe -> bouton Commander
+     - images : les photos du produit (2 ou 3), dans assets/products/
 
-   👉 Nom des photos, convention simple :
-        assets/products/<slug>-1.jpg   (photo 1)
-        assets/products/<slug>-2.jpg   (photo 2)
-        assets/products/<slug>-3.jpg   (photo 3)
-     Le "slug" est juste un identifiant court sans accents ni espaces.
-     Ex. pour le sac "Le Petit Nuage" -> slug "petit-nuage" ->
-        assets/products/petit-nuage-1.jpg, -2.jpg, -3.jpg
-
-   Tant qu'une photo n'existe pas encore, un joli visuel provisoire
-   s'affiche automatiquement avec le nom du sac. Dès que tu déposes
-   la vraie photo au bon nom, elle apparaît toute seule.
+   👉 Photos : assets/products/<slug>-1.jpg, -2.jpg, -3.jpg
    ============================================================= */
 
+/* ---- Les collections (l'ordre = l'ordre d'affichage) ---- */
+const COLLECTIONS = [
+  {
+    id: "sacs",
+    title: "Les Sacs",
+    subtitle: "Sacs au crochet en trapilho, faits main en France. Pièces uniques.",
+  },
+  {
+    id: "telephone",
+    title: "Pochettes Téléphone",
+    subtitle: "Bientôt disponibles.",
+  },
+];
+
+/* ---- Les produits ---- */
 const PRODUCTS = [
   {
     slug: "coumao-candy",
+    category: "sacs",
     name: "Coumao Candy 🍭",
     price: "",
     desc: "Sac au crochet en trapilho, dégradé de rose bonbon, anse à main et étiquette cuir Coumao. Pièce unique faite main.",
@@ -39,6 +49,7 @@ const PRODUCTS = [
   },
   {
     slug: "coumao-ocean",
+    category: "sacs",
     name: "Coumao Océan 🌊",
     price: "",
     desc: "Sac au crochet en trapilho, bleu marine et turquoise, anse à main et étiquette cuir Coumao. Pièce unique faite main.",
@@ -51,6 +62,7 @@ const PRODUCTS = [
   },
   {
     slug: "coumao-brownie",
+    category: "sacs",
     name: "Coumao Brownie 🤎",
     price: "",
     desc: "Sac au crochet en trapilho, camaïeu chocolat, noir et beige, pampille de perles en bois et étiquette cuir Coumao. Pièce unique faite main.",
@@ -63,6 +75,7 @@ const PRODUCTS = [
   },
   {
     slug: "coumao-passion-fruit",
+    category: "sacs",
     name: "Coumao Passion Fruit 💛",
     price: "",
     desc: "Sac au crochet en trapilho, jaune, violet et corail, anse à main et étiquette cuir Coumao. Pièce unique faite main.",
@@ -75,6 +88,7 @@ const PRODUCTS = [
   },
   {
     slug: "coumao-flower",
+    category: "sacs",
     name: "Coumao Flower 🌸",
     price: "",
     desc: "Sac au crochet en trapilho, chocolat et fuchsia à motifs fleurs, pampille de perles roses et étiquette cuir Coumao. Pièce unique faite main.",
@@ -87,6 +101,7 @@ const PRODUCTS = [
   },
   {
     slug: "coumao-rainbow",
+    category: "sacs",
     name: "Coumao Rainbow 🌈",
     price: "",
     desc: "Sac au crochet en trapilho, rayures turquoise, orange, bleu marine et moutarde, pampille multicolore et étiquette cuir Coumao. Pièce unique faite main.",
@@ -99,6 +114,7 @@ const PRODUCTS = [
   },
   {
     slug: "coumao-cookies",
+    category: "sacs",
     name: "Coumao Cookies 🍪",
     price: "",
     desc: "Sac au crochet en trapilho, camaïeu chocolat, beige et écru façon cookie, bandoulière tressée et étiquette cuir Coumao. Pièce unique faite main.",
@@ -111,6 +127,7 @@ const PRODUCTS = [
   },
   {
     slug: "coumao-firework",
+    category: "sacs",
     name: "Coumao Firework 🎆",
     price: "",
     desc: "Sac au crochet en trapilho, bordeaux et violet, bandoulière tressée et étiquette cuir Coumao. Pièce unique faite main.",
@@ -123,6 +140,7 @@ const PRODUCTS = [
   },
   {
     slug: "coumao-havane",
+    category: "sacs",
     name: "Coumao Havane 🧡",
     price: "",
     desc: "Sac au crochet en trapilho, camel havane et écru, bandoulière tressée et étiquette cuir Coumao. Pièce unique faite main.",
@@ -134,6 +152,7 @@ const PRODUCTS = [
   },
   {
     slug: "coumao-arizona",
+    category: "sacs",
     name: "Coumao Arizona 🌅",
     price: "",
     desc: "Sac au crochet en trapilho, camel caramel et bleu ciel, bandoulière tressée et étiquette cuir Coumao. Pièce unique faite main.",
@@ -146,6 +165,7 @@ const PRODUCTS = [
   },
   {
     slug: "coumao-casual",
+    category: "sacs",
     name: "Coumao Casual ♟️",
     price: "",
     desc: "Sac au crochet en trapilho, noir et écru chiné, bandoulière tressée et étiquette cuir Coumao. Pièce unique faite main.",
@@ -156,50 +176,17 @@ const PRODUCTS = [
     ],
   },
   {
-    slug: "sac-12",
-    name: "Sac n°12",
+    slug: "coumao-strawberry",
+    category: "sacs",
+    name: "Coumao Strawberry ❤️",
     price: "",
-    desc: "Sac cousu main, entièrement fait maison.",
+    desc: "Sac au crochet en trapilho, rouge et blanc, bandoulière tressée et étiquette cuir Coumao. Pièce unique faite main.",
     images: [
-      "assets/products/sac-12-1.jpg",
-      "assets/products/sac-12-2.jpg",
-      "assets/products/sac-12-3.jpg",
-    ],
-  },
-  {
-    slug: "sac-13",
-    name: "Sac n°13",
-    price: "",
-    desc: "Sac cousu main, entièrement fait maison.",
-    images: [
-      "assets/products/sac-13-1.jpg",
-      "assets/products/sac-13-2.jpg",
-      "assets/products/sac-13-3.jpg",
-    ],
-  },
-  {
-    slug: "sac-14",
-    name: "Sac n°14",
-    price: "",
-    desc: "Sac cousu main, entièrement fait maison.",
-    images: [
-      "assets/products/sac-14-1.jpg",
-      "assets/products/sac-14-2.jpg",
-      "assets/products/sac-14-3.jpg",
-    ],
-  },
-  {
-    slug: "sac-15",
-    name: "Sac n°15",
-    price: "",
-    desc: "Sac cousu main, entièrement fait maison.",
-    images: [
-      "assets/products/sac-15-1.jpg",
-      "assets/products/sac-15-2.jpg",
-      "assets/products/sac-15-3.jpg",
+      "assets/products/coumao-strawberry-1.jpg",
+      "assets/products/coumao-strawberry-2.jpg",
     ],
   },
 ];
 
 // Ne pas modifier ci-dessous.
-if (typeof module !== "undefined") { module.exports = PRODUCTS; }
+if (typeof module !== "undefined") { module.exports = { PRODUCTS: PRODUCTS, COLLECTIONS: COLLECTIONS }; }

@@ -21,12 +21,22 @@
         </svg>
         Coumao
       </a>
-      <nav class="nav">
-        <a href="#top" class="active">Accueil</a>
-        <a href="#collection">La Collection</a>
-        <a href="#apropos">À Propos</a>
-        <a href="#contact">Contact</a>
-      </nav>
+      <div class="header-right">
+        <nav class="nav">
+          <a href="#top" class="active">Accueil</a>
+          <a href="#col-sacs">Sacs</a>
+          <a href="#col-telephone">Téléphone</a>
+          <a href="#apropos">À Propos</a>
+          <a href="#contact">Contact</a>
+        </nav>
+        <button id="cart-btn" class="cart-btn" aria-label="Voir le panier">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <circle cx="9" cy="21" r="1" /><circle cx="19" cy="21" r="1" />
+            <path d="M2.5 3h2l2.4 12.4a1.6 1.6 0 0 0 1.6 1.3h8.6a1.6 1.6 0 0 0 1.6-1.3L21.5 7H6" />
+          </svg>
+          <span class="cart-count" id="cart-count">0</span>
+        </button>
+      </div>
     </div>
   </header>
 
@@ -53,14 +63,10 @@
     </div>
   </section>
 
-  <!-- Collection -->
+  <!-- Collections -->
   <section class="collection" id="collection">
     <div class="wrap">
-      <div class="collection-head">
-        <h2>La collection</h2>
-        <span class="count" id="count"></span>
-      </div>
-      <div class="grid" id="grid"><!-- généré par JavaScript --></div>
+      <div id="collections"><!-- généré par JavaScript --></div>
     </div>
   </section>
 
@@ -86,7 +92,10 @@
   </footer>
 
   <script>document.getElementById("year").textContent = new Date().getFullYear();</script>
+  <script src="https://js.stripe.com/v3"></script>
   <script src="assets/js/products.js"></script>
+  <script src="assets/js/stripe-config.js"></script>
+  <script src="assets/js/cart.js"></script>
   <script src="assets/js/main.js"></script>
 </body>
 </html>

@@ -162,16 +162,14 @@
     body.appendChild(desc);
     body.appendChild(foot);
 
-    // Bouton "Commander" (si un lien de paiement est renseigné)
-    if (product.buyUrl) {
-      var buy = document.createElement("a");
-      buy.className = "btn btn-primary buy-btn";
-      buy.href = product.buyUrl;
-      buy.target = "_blank";
-      buy.rel = "noopener";
-      buy.textContent = "Commander";
-      body.appendChild(buy);
-    }
+    // Bouton "Ajouter au panier"
+    var addBtn = document.createElement("button");
+    addBtn.className = "btn btn-primary buy-btn";
+    addBtn.textContent = "Ajouter au panier";
+    addBtn.addEventListener("click", function () {
+      if (window.Cart) window.Cart.add(product.slug);
+    });
+    body.appendChild(addBtn);
 
     card.appendChild(gallery);
     card.appendChild(body);
@@ -246,17 +244,16 @@
     lbTitle.textContent = product.name;
     lbSub.textContent = [product.desc, product.price].filter(Boolean).join("  ·  ");
 
-    // Bouton "Commander" dans la vue plein écran
+    // Bouton "Ajouter au panier" dans la vue plein écran
     lbBuy.innerHTML = "";
-    if (product.buyUrl) {
-      var buy = document.createElement("a");
-      buy.className = "btn btn-primary";
-      buy.href = product.buyUrl;
-      buy.target = "_blank";
-      buy.rel = "noopener";
-      buy.textContent = "Commander";
-      lbBuy.appendChild(buy);
-    }
+    var lbAdd = document.createElement("button");
+    lbAdd.className = "btn btn-primary";
+    lbAdd.textContent = "Ajouter au panier";
+    lbAdd.addEventListener("click", function () {
+      if (window.Cart) window.Cart.add(product.slug);
+      closeLightbox();
+    });
+    lbBuy.appendChild(lbAdd);
 
     // Masque flèches + miniatures si une seule photo
     lb.querySelectorAll(".lb-arrow").forEach(function (a) {
@@ -283,20 +280,62 @@
 
   /* ---------------- Initialisation ---------------- */
   function init() {
-    var grid = document.getElementById("grid");
-    var countEl = document.getElementById("count");
-    if (!grid || typeof PRODUCTS === "undefined") return;
+    var root = document.getElementById("collections");
+    if (!root || typeof PRODUCTS === "undefined") return;
 
     buildLightbox();
 
-    PRODUCTS.forEach(function (p, i) {
-      grid.appendChild(buildCard(p, i));
-    });
+    // Collections : soit la liste définie, soit une seule collection par défaut
+    var collections = (typeof COLLECTIONS !== "undefined" && COLLECTIONS.length)
+      ? COLLECTIONS
+      : [{ id: null, title: "La collection", subtitle: "" }];
 
-    if (countEl) {
-      countEl.textContent =
-        PRODUCTS.length + (PRODUCTS.length > 1 ? " modèles" : " modèle");
-    }
+    var pIndex = 0;
+    collections.forEach(function (col) {
+      var list = PRODUCTS.filter(function (p) {
+        return col.id == null || p.category === col.id;
+      });
+
+      var block = document.createElement("section");
+      block.className = "collection-block";
+      block.id = "col-" + (col.id || "all");
+
+      var head = document.createElement("div");
+      head.className = "collection-head";
+      var h2 = document.createElement("h2");
+      h2.textContent = col.title;
+      var count = document.createElement("span");
+      count.className = "count";
+      count.textContent = list.length
+        ? list.length + (list.length > 1 ? " modèles" : " modèle")
+        : "Bientôt";
+      head.appendChild(h2);
+      head.appendChild(count);
+      block.appendChild(head);
+
+      if (col.subtitle) {
+        var sub = document.createElement("p");
+        sub.className = "collection-sub";
+        sub.textContent = col.subtitle;
+        block.appendChild(sub);
+      }
+
+      if (list.length) {
+        var grid = document.createElement("div");
+        grid.className = "grid";
+        list.forEach(function (p) {
+          grid.appendChild(buildCard(p, pIndex++));
+        });
+        block.appendChild(grid);
+      } else {
+        var empty = document.createElement("p");
+        empty.className = "collection-empty";
+        empty.textContent = "Les nouveautés de cette collection arrivent très bientôt. Reviens vite 👀";
+        block.appendChild(empty);
+      }
+
+      root.appendChild(block);
+    });
   }
 
   if (document.readyState === "loading") {
