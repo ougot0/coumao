@@ -186,12 +186,20 @@
 
     var stripe = Stripe(cfg.publishableKey);
     var base = location.href.split("#")[0].split("?")[0];
-    stripe.redirectToCheckout({
+    var opts = {
       lineItems: line,
       mode: "payment",
       successUrl: base + "?paiement=reussi",
       cancelUrl: base,
-    }).then(function (res) {
+      // Récupère l'adresse de livraison du client (pour l'envoi du colis)
+      shippingAddressCollection: {
+        allowedCountries: (cfg.shippingCountries && cfg.shippingCountries.length)
+          ? cfg.shippingCountries
+          : ["FR"],
+      },
+      billingAddressCollection: "required",
+    };
+    stripe.redirectToCheckout(opts).then(function (res) {
       if (res && res.error) alert(res.error.message);
     });
   }
