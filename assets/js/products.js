@@ -189,6 +189,18 @@ const PRODUCTS = [
     ],
   },
   {
+    slug: "coumao-emilio",
+    category: "sacs",
+    name: "Coumao Emilio 🧩",
+    price: "90 €",
+    desc: "Sac au crochet en trapilho, camaïeu pastel turquoise, citron et rose, anse à main et étiquette cuir Coumao. Pièce unique faite main.",
+    images: [
+      "assets/products/coumao-emilio-1.jpg",
+      "assets/products/coumao-emilio-2.jpg",
+      "assets/products/coumao-emilio-3.jpg",
+    ],
+  },
+  {
     slug: "coumao-sea",
     category: "sacs",
     name: "Coumao Sea 🐚",
