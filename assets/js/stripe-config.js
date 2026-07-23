@@ -1,36 +1,18 @@
 /* =============================================================
-   COUMAO — Configuration du paiement groupé (Stripe Checkout)
+   COUMAO — Réglage du paiement du panier
    -------------------------------------------------------------
-   Pour payer PLUSIEURS sacs en UN SEUL paiement, Stripe a besoin
-   de deux choses (à récupérer dans ton tableau de bord Stripe) :
+   Le paiement groupé est géré par le "moteur" hébergé sur Netlify
+   (dossier netlify/functions). Le site lui envoie le panier et
+   reçoit en retour la page de paiement Stripe.
 
-   1) publishableKey : ta clé publique Stripe (commence par "pk_test_"
-      en test, ou "pk_live_" en réel). Elle est faite pour être
-      visible côté site, aucun risque.
+   👉 La clé Stripe N'EST PAS ici : elle est stockée en sécurité
+   dans les réglages Netlify (variable STRIPE_SECRET_KEY), donc
+   jamais visible sur le site.
 
-   2) prices : pour CHAQUE sac, l'identifiant de son "Prix" Stripe
-      (commence par "price_..."). Un par sac, associé à son "slug".
-
-   Tant que ces infos ne sont pas remplies, le panier fonctionne
-   (on peut choisir les sacs), mais le bouton "Payer tout" affiche
-   un petit message au lieu d'ouvrir le paiement.
+   checkoutEndpoint : l'adresse du moteur. Par défaut, celle de
+   Netlify. À ne changer que si le moteur est hébergé ailleurs.
    ============================================================= */
 
 window.STRIPE_CONFIG = {
-  publishableKey: "", // ex. "pk_test_51ABC..."
-
-  // "slug-du-sac": "price_XXXX"
-  prices: {
-    // "coumao-candy":        "price_...",
-    // "coumao-ocean":        "price_...",
-    // "coumao-brownie":      "price_...",
-    // "coumao-passion-fruit":"price_...",
-    // "coumao-flower":       "price_...",
-    // "coumao-rainbow":      "price_...",
-    // "coumao-cookies":      "price_...",
-    // "coumao-firework":     "price_...",
-    // "coumao-havane":       "price_...",
-    // "coumao-arizona":      "price_...",
-    // "coumao-casual":       "price_...",
-  },
+  checkoutEndpoint: "/.netlify/functions/create-checkout",
 };

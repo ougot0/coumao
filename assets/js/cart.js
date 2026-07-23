@@ -154,54 +154,49 @@
       : (fmt(total) + ' <span class="cart-partial">+ prix à confirmer</span>');
   }
 
-  /* ---- Paiement groupé (un seul paiement pour tout le panier) ---- */
+  /* ---- Paiement groupé (un seul paiement pour tout le panier) ----
+     Le site envoie le panier au "moteur" (fonction Netlify), qui crée
+     un paiement Stripe combiné et renvoie l'URL de paiement. */
   function checkout() {
     if (!count()) return;
     var cfg = window.STRIPE_CONFIG || {};
-    var line = [], missing = [];
+    var endpoint = cfg.checkoutEndpoint || "/.netlify/functions/create-checkout";
 
+    var payload = { items: [] };
     for (var slug in items) {
-      if (!items.hasOwnProperty(slug)) continue;
-      var pid = cfg.prices && cfg.prices[slug];
-      if (pid) {
-        line.push({ price: pid, quantity: items[slug] });
-      } else {
-        var p = product(slug);
-        missing.push(p ? p.name : slug);
-      }
+      if (items.hasOwnProperty(slug)) payload.items.push({ slug: slug, quantity: items[slug] });
     }
+    var base = location.origin + location.pathname;
+    payload.successUrl = base + "?paiement=reussi";
+    payload.cancelUrl = base;
 
-    if (!cfg.publishableKey || !line.length || missing.length) {
-      alert(
-        "Le paiement groupé n'est pas encore activé.\n\n" +
-        "Il me faut ta clé Stripe (pk_...) et l'identifiant de prix de chaque produit." +
-        (missing.length ? "\n\nÀ configurer : " + missing.join(", ") : "")
-      );
-      return;
-    }
-    if (typeof Stripe === "undefined") {
-      alert("Le module de paiement n'a pas pu se charger. Réessaie sur le site en ligne (ougot0.github.io/coumao).");
-      return;
-    }
+    var payBtn = drawer.querySelector(".cart-pay");
+    var prevTxt = payBtn.textContent;
+    payBtn.disabled = true;
+    payBtn.textContent = "Redirection vers le paiement…";
+    function reset() { payBtn.disabled = false; payBtn.textContent = prevTxt; }
 
-    var stripe = Stripe(cfg.publishableKey);
-    var base = location.href.split("#")[0].split("?")[0];
-    var opts = {
-      lineItems: line,
-      mode: "payment",
-      successUrl: base + "?paiement=reussi",
-      cancelUrl: base,
-      // Récupère l'adresse de livraison du client (pour l'envoi du colis)
-      shippingAddressCollection: {
-        allowedCountries: (cfg.shippingCountries && cfg.shippingCountries.length)
-          ? cfg.shippingCountries
-          : ["FR"],
-      },
-      billingAddressCollection: "required",
-    };
-    stripe.redirectToCheckout(opts).then(function (res) {
-      if (res && res.error) alert(res.error.message);
-    });
+    fetch(endpoint, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(payload),
+    })
+      .then(function (r) { return r.json().then(function (d) { return { ok: r.ok, d: d }; }); })
+      .then(function (res) {
+        if (res.ok && res.d && res.d.url) {
+          window.location.href = res.d.url; // page de paiement Stripe
+        } else {
+          reset();
+          alert((res.d && res.d.error) || "Le paiement n'est pas disponible pour le moment.");
+        }
+      })
+      .catch(function () {
+        reset();
+        alert(
+          "Le paiement n'est pas encore actif sur cette adresse.\n" +
+          "Il s'active une fois le site publié sur Netlify (avec la clé Stripe)."
+        );
+      });
   }
 
   /* ---- Init ---- */
