@@ -35,6 +35,15 @@ const COLLECTIONS = [
   },
 ];
 
+/* ---- Palette de couleurs proposée à la personnalisation ---- */
+const COULEURS = [
+  "Blanc", "Écru", "Beige", "Taupe", "Gris clair", "Gris", "Noir",
+  "Rose poudré", "Rose", "Fuchsia", "Corail", "Rouge", "Bordeaux",
+  "Orange", "Moutarde", "Jaune", "Vert d'eau", "Vert", "Vert sapin",
+  "Kaki", "Turquoise", "Bleu ciel", "Bleu", "Bleu marine",
+  "Lilas", "Parme", "Violet", "Camel", "Marron", "Chocolat", "Doré",
+];
+
 /* ---- Les produits ---- */
 const PRODUCTS = [
   {
@@ -213,17 +222,23 @@ const PRODUCTS = [
         required: true,
       },
       {
-        id: "couleur_principale",
-        label: "Couleur principale",
+        id: "couleur_1",
+        label: "Couleur 1 (principale)",
         type: "select",
         required: true,
-        choices: ["Rose", "Bleu marine", "Écru", "Noir", "Vert", "Moutarde", "Bordeaux", "Turquoise"],
+        choices: COULEURS,
       },
       {
-        id: "couleur_secondaire",
-        label: "Couleur secondaire",
+        id: "couleur_2",
+        label: "Couleur 2 (optionnelle)",
         type: "select",
-        choices: ["Aucune", "Rose", "Bleu marine", "Écru", "Noir", "Vert", "Moutarde", "Bordeaux", "Turquoise"],
+        choices: ["Aucune"].concat(COULEURS),
+      },
+      {
+        id: "couleur_3",
+        label: "Couleur 3 (optionnelle — 3 couleurs max)",
+        type: "select",
+        choices: ["Aucune"].concat(COULEURS),
       },
       {
         id: "prenom",
