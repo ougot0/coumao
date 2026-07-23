@@ -62,14 +62,14 @@ const PRODUCTS = [
     ],
   },
   {
-    slug: "sac-04",
-    name: "Sac n°4",
+    slug: "coumao-passion-fruit",
+    name: "Coumao Passion Fruit 💛",
     price: "",
-    desc: "Sac cousu main, entièrement fait maison.",
+    desc: "Sac au crochet en trapilho, jaune, violet et corail, anse à main et étiquette cuir Coumao. Pièce unique faite main.",
     images: [
-      "assets/products/sac-04-1.jpg",
-      "assets/products/sac-04-2.jpg",
-      "assets/products/sac-04-3.jpg",
+      "assets/products/coumao-passion-fruit-1.jpg",
+      "assets/products/coumao-passion-fruit-2.jpg",
+      "assets/products/coumao-passion-fruit-3.jpg",
     ],
   },
   {
