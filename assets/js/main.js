@@ -44,7 +44,8 @@
     card.className = "card";
 
     var imgs = (product.images || []).slice(0, 3);
-    while (imgs.length < 3) imgs.push(null); // garantit 3 emplacements
+    if (imgs.length === 0) imgs = [null]; // au moins un emplacement
+    var multi = imgs.length > 1;
 
     var gallery = document.createElement("div");
     gallery.className = "gallery";
@@ -65,36 +66,38 @@
       slideEls.push(img);
     });
 
-    // Badge "3 photos"
+    // Badge nombre de photos
     var badge = document.createElement("span");
     badge.className = "photo-badge";
-    badge.innerHTML = "&#9673; 3 photos";
+    badge.innerHTML = "&#9673; " + imgs.length + " photo" + (multi ? "s" : "");
     gallery.appendChild(badge);
 
-    // Flèches
-    var prev = document.createElement("button");
-    prev.className = "arrow prev";
-    prev.setAttribute("aria-label", "Photo précédente");
-    prev.innerHTML = "&#8249;";
-    var next = document.createElement("button");
-    next.className = "arrow next";
-    next.setAttribute("aria-label", "Photo suivante");
-    next.innerHTML = "&#8250;";
-    gallery.appendChild(prev);
-    gallery.appendChild(next);
+    var prev, next, dotEls = [];
+    if (multi) {
+      // Flèches
+      prev = document.createElement("button");
+      prev.className = "arrow prev";
+      prev.setAttribute("aria-label", "Photo précédente");
+      prev.innerHTML = "&#8249;";
+      next = document.createElement("button");
+      next.className = "arrow next";
+      next.setAttribute("aria-label", "Photo suivante");
+      next.innerHTML = "&#8250;";
+      gallery.appendChild(prev);
+      gallery.appendChild(next);
 
-    // Points
-    var dots = document.createElement("div");
-    dots.className = "dots";
-    var dotEls = [];
-    imgs.forEach(function (_, i) {
-      var d = document.createElement("button");
-      d.className = i === 0 ? "active" : "";
-      d.setAttribute("aria-label", "Voir la photo " + (i + 1));
-      dots.appendChild(d);
-      dotEls.push(d);
-    });
-    gallery.appendChild(dots);
+      // Points
+      var dots = document.createElement("div");
+      dots.className = "dots";
+      imgs.forEach(function (_, i) {
+        var d = document.createElement("button");
+        d.className = i === 0 ? "active" : "";
+        d.setAttribute("aria-label", "Voir la photo " + (i + 1));
+        dots.appendChild(d);
+        dotEls.push(d);
+      });
+      gallery.appendChild(dots);
+    }
 
     // État courant du carrousel
     var current = 0;
@@ -107,21 +110,23 @@
         el.classList.toggle("active", k === current);
       });
     }
-    prev.addEventListener("click", function (e) { e.stopPropagation(); show(current - 1); });
-    next.addEventListener("click", function (e) { e.stopPropagation(); show(current + 1); });
-    dotEls.forEach(function (d, i) {
-      d.addEventListener("click", function (e) { e.stopPropagation(); show(i); });
-    });
+    if (multi) {
+      prev.addEventListener("click", function (e) { e.stopPropagation(); show(current - 1); });
+      next.addEventListener("click", function (e) { e.stopPropagation(); show(current + 1); });
+      dotEls.forEach(function (d, i) {
+        d.addEventListener("click", function (e) { e.stopPropagation(); show(i); });
+      });
 
-    // Glisser (tactile) pour tourner les photos sur mobile
-    var startX = null;
-    gallery.addEventListener("touchstart", function (e) { startX = e.touches[0].clientX; }, { passive: true });
-    gallery.addEventListener("touchend", function (e) {
-      if (startX === null) return;
-      var dx = e.changedTouches[0].clientX - startX;
-      if (Math.abs(dx) > 40) show(current + (dx < 0 ? 1 : -1));
-      startX = null;
-    });
+      // Glisser (tactile) pour tourner les photos sur mobile
+      var startX = null;
+      gallery.addEventListener("touchstart", function (e) { startX = e.touches[0].clientX; }, { passive: true });
+      gallery.addEventListener("touchend", function (e) {
+        if (startX === null) return;
+        var dx = e.changedTouches[0].clientX - startX;
+        if (Math.abs(dx) > 40) show(current + (dx < 0 ? 1 : -1));
+        startX = null;
+      });
+    }
 
     // Ouvrir en plein écran au clic sur l'image
     gallery.addEventListener("click", function () {
@@ -148,7 +153,7 @@
 
     var btn = document.createElement("button");
     btn.className = "view-btn";
-    btn.textContent = "Voir les 3 photos";
+    btn.textContent = multi ? ("Voir les " + imgs.length + " photos") : "Voir en grand";
     btn.addEventListener("click", function () { openLightbox(product, pIndex, current); });
 
     foot.appendChild(price);
@@ -214,7 +219,8 @@
   function openLightbox(product, pIndex, startAt) {
     lbProduct = product;
     var imgs = (product.images || []).slice(0, 3);
-    while (imgs.length < 3) imgs.push(null);
+    if (imgs.length === 0) imgs = [null];
+    var multi = imgs.length > 1;
 
     // (Re)construit les images du stage
     lbStage.querySelectorAll("img").forEach(function (n) { n.remove(); });
@@ -251,6 +257,12 @@
       buy.textContent = "Commander";
       lbBuy.appendChild(buy);
     }
+
+    // Masque flèches + miniatures si une seule photo
+    lb.querySelectorAll(".lb-arrow").forEach(function (a) {
+      a.style.display = multi ? "" : "none";
+    });
+    lbThumbs.style.display = multi ? "" : "none";
 
     lb.classList.add("open");
     document.body.style.overflow = "hidden";

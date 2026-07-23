@@ -102,6 +102,7 @@ const PRODUCTS = [
     name: "Coumao Cookies 🍪",
     price: "",
     desc: "Sac au crochet en trapilho, camaïeu chocolat, beige et écru façon cookie, bandoulière tressée et étiquette cuir Coumao. Pièce unique faite main.",
+    buyUrl: "https://buy.stripe.com/test_cNidR3cZubaKbXdb0T87K09",
     images: [
       "assets/products/coumao-cookies-1.jpg",
       "assets/products/coumao-cookies-2.jpg",
@@ -120,14 +121,13 @@ const PRODUCTS = [
     ],
   },
   {
-    slug: "sac-09",
-    name: "Sac n°9",
+    slug: "coumao-havane",
+    name: "Coumao Havane 🧡",
     price: "",
-    desc: "Sac cousu main, entièrement fait maison.",
+    desc: "Sac au crochet en trapilho, camel havane et écru, bandoulière tressée et étiquette cuir Coumao. Pièce unique faite main.",
     images: [
-      "assets/products/sac-09-1.jpg",
-      "assets/products/sac-09-2.jpg",
-      "assets/products/sac-09-3.jpg",
+      "assets/products/coumao-havane-1.jpg",
+      "assets/products/coumao-havane-2.jpg",
     ],
   },
   {
