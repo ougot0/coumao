@@ -35,14 +35,14 @@ const PRODUCTS = [
     ],
   },
   {
-    slug: "sac-02",
-    name: "Sac n°2",
+    slug: "coumao-ocean",
+    name: "Coumao Océan",
     price: "",
-    desc: "Sac cousu main, entièrement fait maison.",
+    desc: "Sac au crochet en trapilho, bleu marine et turquoise, anse à main et étiquette cuir Coumao. Pièce unique faite main.",
     images: [
-      "assets/products/sac-02-1.jpg",
-      "assets/products/sac-02-2.jpg",
-      "assets/products/sac-02-3.jpg",
+      "assets/products/coumao-ocean-1.jpg",
+      "assets/products/coumao-ocean-2.jpg",
+      "assets/products/coumao-ocean-3.jpg",
     ],
   },
   {
