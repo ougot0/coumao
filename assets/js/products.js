@@ -201,6 +201,18 @@ const PRODUCTS = [
     ],
   },
   {
+    slug: "coumao-safari",
+    category: "sacs",
+    name: "Coumao Safari 🐆",
+    price: "90 €",
+    desc: "Sac au crochet en trapilho, tons safari moutarde, kaki et prune, anse à main et étiquette cuir Coumao. Pièce unique faite main.",
+    images: [
+      "assets/products/coumao-safari-1.jpg",
+      "assets/products/coumao-safari-2.jpg",
+      "assets/products/coumao-safari-3.jpg",
+    ],
+  },
+  {
     slug: "coumao-sea",
     category: "sacs",
     name: "Coumao Sea 🐚",
