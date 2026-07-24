@@ -1,17 +1,7 @@
 /* =============================================================
-   COUMAO — Moteur de paiement groupé (Netlify Function)
-   -------------------------------------------------------------
-   Reçoit le panier du site, crée UN paiement Stripe qui additionne
-   tous les articles, et renvoie l'URL de paiement.
-
-   🔒 Sécurité :
-   - Les PRIX sont définis ICI, côté serveur (le client ne peut pas
-     les modifier depuis son navigateur).
-   - La clé Stripe n'est PAS dans ce fichier : elle est lue depuis
-     une variable d'environnement Netlify (STRIPE_SECRET_KEY),
-     donc jamais visible sur le site.
-
-   👉 Quand un prix change, mets-le à jour dans CATALOG ci-dessous.
+   COUMAO — Moteur de paiement groupé (Fonction Vercel)
+   Reçoit le panier, crée UN paiement Stripe combiné, renvoie l'URL.
+   🔒 Prix définis ici (côté serveur). Clé lue depuis STRIPE_SECRET_KEY.
    ============================================================= */
 
 // Prix en centimes (9000 = 90,00 €). À garder en accord avec le site.
@@ -36,36 +26,22 @@ const CATALOG = {
   "pochette-telephone":  { name: "Pochette Téléphone personnalisée", amount: 4000 },
   "coumao-sky":          { name: "Pochette Sky",         amount: 4000 },
   "coumao-chocolat":     { name: "Pochette Chocolat",    amount: 4000 },
-  // Accessoires en option
   "anse":                { name: "Anse (bandoulière)",   amount: 500 },
   "charme":              { name: "Charm (bijou de sac)", amount: 500 },
   "clip":                { name: "Clip (fermeture du sac)", amount: 300 },
 };
 
-// Pays de livraison autorisés
 const SHIP_COUNTRIES = ["FR", "BE", "LU", "CH", "MC"];
 
-function json(status, obj) {
-  return {
-    statusCode: status,
-    headers: { "Content-Type": "application/json" },
-    body: JSON.stringify(obj),
-  };
-}
-
-exports.handler = async function (event) {
-  if (event.httpMethod !== "POST") {
-    return json(405, { error: "Méthode non autorisée." });
-  }
+module.exports = async (req, res) => {
+  if (req.method !== "POST") return res.status(405).json({ error: "Méthode non autorisée." });
 
   const key = process.env.STRIPE_SECRET_KEY;
-  if (!key) {
-    return json(500, { error: "Le serveur n'est pas encore configuré (clé Stripe manquante)." });
-  }
+  if (!key) return res.status(500).json({ error: "Le serveur n'est pas encore configuré (clé Stripe manquante)." });
 
-  let body;
-  try { body = JSON.parse(event.body || "{}"); }
-  catch (e) { return json(400, { error: "Requête invalide." }); }
+  let body = req.body;
+  if (typeof body === "string") { try { body = JSON.parse(body); } catch (e) { body = {}; } }
+  if (!body || typeof body !== "object") body = {};
 
   const items = Array.isArray(body.items) ? body.items : [];
   const chosen = [];
@@ -79,18 +55,12 @@ exports.handler = async function (event) {
     if (typeof it.customization === "string") custom = it.customization.slice(0, 490);
     chosen.push({ name: p.name, amount: p.amount, qty: qty, custom: custom });
   }
-  if (!chosen.length) {
-    return json(400, { error: "Panier vide ou articles introuvables." });
-  }
+  if (!chosen.length) return res.status(400).json({ error: "Panier vide ou articles introuvables." });
 
-  // Origine du site (pour les pages de retour)
-  const origin =
-    (event.headers && (event.headers.origin || (event.headers.referer || "").replace(/\/[^/]*$/, ""))) ||
-    "";
-  const successUrl = (body.successUrl || (origin + "/?paiement=reussi"));
-  const cancelUrl = (body.cancelUrl || (origin + "/"));
+  const origin = (req.headers && req.headers.origin) || "";
+  const successUrl = body.successUrl || (origin + "/?paiement=reussi");
+  const cancelUrl = body.cancelUrl || (origin + "/");
 
-  // Construction de la requête Stripe (form-encodée)
   const params = new URLSearchParams();
   params.append("mode", "payment");
   params.append("success_url", successUrl);
@@ -106,7 +76,6 @@ exports.handler = async function (event) {
     params.append(`line_items[${i}][price_data][unit_amount]`, String(li.amount));
     params.append(`line_items[${i}][price_data][product_data][name]`, li.name);
     if (li.custom) {
-      // La personnalisation apparaît sur la page de paiement, le reçu et le tableau de bord
       params.append(`line_items[${i}][price_data][product_data][description]`, li.custom);
       params.append(`metadata[personnalisation_${i + 1}]`, (li.name + " — " + li.custom).slice(0, 490));
     }
@@ -122,11 +91,9 @@ exports.handler = async function (event) {
       body: params.toString(),
     });
     const data = await resp.json();
-    if (data.error) {
-      return json(400, { error: data.error.message || "Erreur Stripe." });
-    }
-    return json(200, { url: data.url });
+    if (data.error) return res.status(400).json({ error: data.error.message || "Erreur Stripe." });
+    return res.status(200).json({ url: data.url });
   } catch (e) {
-    return json(502, { error: "Impossible de contacter Stripe. Réessaie." });
+    return res.status(502).json({ error: "Impossible de contacter Stripe. Réessaie." });
   }
 };

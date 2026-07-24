@@ -14,5 +14,5 @@
    ============================================================= */
 
 window.STRIPE_CONFIG = {
-  checkoutEndpoint: "/.netlify/functions/create-checkout",
+  checkoutEndpoint: "/api/create-checkout",
 };

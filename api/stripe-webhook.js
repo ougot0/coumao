@@ -1,22 +1,27 @@
 /* =============================================================
-   COUMAO — Email "devis / bon de commande" à chaque vente
-   -------------------------------------------------------------
-   Stripe appelle cette fonction quand un paiement réussit
-   (événement checkout.session.completed). On récupère la commande
-   et on envoie un récapitulatif façon DEVIS à la boutique, via
-   Formsubmit (pas de clé API à gérer).
+   COUMAO — Email "devis / bon de commande" (Fonction Vercel)
+   Stripe appelle cette fonction quand un paiement réussit.
+   On envoie un récapitulatif façon DEVIS via Formsubmit.
 
-   🔑 Variables d'environnement Netlify :
-   - STRIPE_SECRET_KEY      (déjà présente)
-   - STRIPE_WEBHOOK_SECRET  (recommandé : sécurise le webhook)
+   🔑 Variables d'environnement Vercel :
+   - STRIPE_SECRET_KEY
+   - STRIPE_WEBHOOK_SECRET  (recommandé)
    - ORDER_EMAIL            (optionnel ; défaut : coumaobrand@gmail.com)
-
-   ⚠️ Formsubmit : au tout 1er envoi, un email d'activation est
-   envoyé à l'adresse — il faut cliquer le lien UNE fois. Ensuite
-   toutes les commandes arrivent directement.
    ============================================================= */
 
 const crypto = require("crypto");
+
+// Vercel : on désactive l'analyse automatique du corps (besoin du brut)
+module.exports.config = { api: { bodyParser: false } };
+
+function readRaw(req) {
+  return new Promise((resolve, reject) => {
+    const chunks = [];
+    req.on("data", (c) => chunks.push(typeof c === "string" ? Buffer.from(c) : c));
+    req.on("end", () => resolve(Buffer.concat(chunks).toString("utf8")));
+    req.on("error", reject);
+  });
+}
 
 function verifyStripe(rawBody, sigHeader, secret) {
   if (!sigHeader) return false;
@@ -41,38 +46,33 @@ function fmtAddress(addr, name) {
   ].filter(Boolean).join(", ");
 }
 
-exports.handler = async function (event) {
-  if (event.httpMethod !== "POST") return { statusCode: 405, body: "Méthode non autorisée." };
+module.exports = async (req, res) => {
+  if (req.method !== "POST") return res.status(405).send("Méthode non autorisée.");
 
   const webhookSecret = process.env.STRIPE_WEBHOOK_SECRET;
   const stripeKey = process.env.STRIPE_SECRET_KEY;
   const to = process.env.ORDER_EMAIL || "coumaobrand@gmail.com";
 
-  const raw = event.isBase64Encoded
-    ? Buffer.from(event.body, "base64").toString("utf8")
-    : event.body;
-  const sig = event.headers["stripe-signature"] || event.headers["Stripe-Signature"];
+  const raw = await readRaw(req);
+  const sig = req.headers["stripe-signature"];
 
   if (webhookSecret && !verifyStripe(raw, sig, webhookSecret)) {
-    return { statusCode: 400, body: "Signature invalide." };
+    return res.status(400).send("Signature invalide.");
   }
 
   let evt;
-  try { evt = JSON.parse(raw); } catch (e) { return { statusCode: 400, body: "JSON invalide." }; }
-  if (evt.type !== "checkout.session.completed") return { statusCode: 200, body: "ignoré" };
+  try { evt = JSON.parse(raw); } catch (e) { return res.status(400).send("JSON invalide."); }
+  if (evt.type !== "checkout.session.completed") return res.status(200).send("ignoré");
 
   const s = evt.data.object || {};
   const total = ((s.amount_total || 0) / 100).toFixed(2);
 
-  // Date (format FR)
   let dateStr;
   try { dateStr = new Date().toLocaleString("fr-FR"); }
   catch (e) { dateStr = new Date().toISOString().slice(0, 16).replace("T", " "); }
 
-  // Numéro de commande court
   const ref = "CM-" + String(s.id || "").slice(-8).toUpperCase();
 
-  // Articles
   const fields = {
     _subject: "🧾 Devis / Commande Coumao " + ref + " — " + total + " €",
     _template: "table",
@@ -93,14 +93,12 @@ exports.handler = async function (event) {
 
   fields["TOTAL"] = total + " €";
 
-  // Personnalisation
   const meta = s.metadata || {};
   const perso = Object.keys(meta)
     .filter(function (k) { return k.indexOf("personnalisation") === 0; })
     .map(function (k) { return meta[k]; });
   if (perso.length) fields["Personnalisation"] = perso.join("  ||  ");
 
-  // Client + livraison
   const cd = s.customer_details || {};
   const ship =
     (s.shipping_details && s.shipping_details.address) ||
@@ -120,5 +118,5 @@ exports.handler = async function (event) {
     });
   } catch (e) { /* on n'échoue pas le webhook pour un souci d'email */ }
 
-  return { statusCode: 200, body: "ok" };
+  return res.status(200).send("ok");
 };
