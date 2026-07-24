@@ -9,6 +9,11 @@
 (function () {
   "use strict";
 
+  /* Boutique fermée ? (interrupteur BOUTIQUE.ouverte dans products.js) */
+  function shopClosed() {
+    return typeof BOUTIQUE !== "undefined" && BOUTIQUE.ouverte === false;
+  }
+
   /* Visuel provisoire élégant quand une photo n'existe pas encore.
      Renvoie une image SVG (data URI) avec le nom du produit. */
   function placeholder(name, index) {
@@ -195,7 +200,10 @@
     // Bouton principal : "Personnaliser" (produit sur mesure) ou "Ajouter au panier"
     var addBtn = document.createElement("button");
     addBtn.className = "btn btn-primary buy-btn";
-    if (product.customizable) {
+    if (shopClosed()) {
+      addBtn.textContent = "Commandes fermées";
+      addBtn.disabled = true;
+    } else if (product.customizable) {
       addBtn.textContent = "Personnaliser & commander";
       addBtn.addEventListener("click", function () { openCustomize(product); });
     } else {
@@ -288,6 +296,12 @@
     lbBuy.innerHTML = "";
     var lbAdd = document.createElement("button");
     lbAdd.className = "btn btn-primary";
+    if (shopClosed()) {
+      lbAdd.textContent = "Commandes fermées";
+      lbAdd.disabled = true;
+      lbBuy.appendChild(lbAdd);
+      return;
+    }
     if (product.customizable) {
       lbAdd.textContent = "Personnaliser & commander";
       lbAdd.addEventListener("click", function () {
@@ -487,6 +501,16 @@
     var gridEl = document.getElementById("grid");
     var subEl = document.getElementById("tab-sub");
     if (!tabsEl || !gridEl || typeof PRODUCTS === "undefined") return;
+
+    // Bandeau "commandes fermées" si la boutique est fermée
+    if (shopClosed()) {
+      document.body.classList.add("shop-closed");
+      var banner = document.createElement("div");
+      banner.className = "shop-banner";
+      var msg = (typeof BOUTIQUE !== "undefined" && BOUTIQUE.message) || "Commandes temporairement fermées.";
+      banner.innerHTML = "🔴 " + msg.replace(/</g, "&lt;");
+      document.body.insertBefore(banner, document.body.firstChild);
+    }
 
     buildLightbox();
 

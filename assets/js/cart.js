@@ -191,6 +191,10 @@
 
   // Paiement de tout le panier
   function checkout() {
+    if (typeof BOUTIQUE !== "undefined" && BOUTIQUE.ouverte === false) {
+      alert("Les commandes sont temporairement fermées. Reviens très vite 🙏");
+      return;
+    }
     if (!count()) return;
     var list = [];
     for (var slug in items) {

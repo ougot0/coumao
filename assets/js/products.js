@@ -21,6 +21,19 @@
    👉 Photos : assets/products/<slug>-1.jpg, -2.jpg, -3.jpg
    ============================================================= */
 
+/* =============================================================
+   🔴 OUVERTURE DE LA BOUTIQUE
+   -------------------------------------------------------------
+   Pour FERMER temporairement les commandes : mets  ouverte: false
+   Pour ROUVRIR : remets  ouverte: true
+   (Quand c'est fermé, un bandeau rouge s'affiche et les boutons
+   d'achat sont désactivés.)
+   ============================================================= */
+const BOUTIQUE = {
+  ouverte: true,
+  message: "Commandes temporairement fermées. Nous sommes momentanément fermés. Les commandes rouvrent très vite — merci de votre patience !",
+};
+
 /* ---- Les collections (l'ordre = l'ordre d'affichage) ---- */
 const COLLECTIONS = [
   {
