@@ -576,6 +576,15 @@
       a.addEventListener("click", function () { activate(a.getAttribute("data-tab")); });
     });
 
+    // « Accueil » : remonter tout en haut (le héro)
+    var accueil = document.querySelector(".nav-accueil");
+    if (accueil) {
+      accueil.addEventListener("click", function (e) {
+        e.preventDefault();
+        window.scrollTo({ top: 0, behavior: "smooth" });
+      });
+    }
+
     activate("sacs"); // onglet par défaut
   }
 
