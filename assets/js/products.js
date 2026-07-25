@@ -328,7 +328,6 @@ const PRODUCTS = [
     name: "Pochette Sky ☁️",
     price: "40 €",
     desc: "Pochette téléphone au crochet en trapilho, bleu et turquoise, bandoulière tressée et étiquette cuir Coumao. Faite main.",
-    addonsExclude: ["clip"],       // pas d'option "fermeture/clip" sur les pochettes téléphone
     images: [
       "assets/products/coumao-sky-1.jpg",
     ],
@@ -339,7 +338,6 @@ const PRODUCTS = [
     name: "Pochette Chocolat 🍫",
     price: "40 €",
     desc: "Pochette téléphone au crochet en trapilho, chocolat, noir et écru, bandoulière tressée et étiquette cuir Coumao. Faite main.",
-    addonsExclude: ["clip"],       // pas d'option "fermeture/clip" sur les pochettes téléphone
     images: [
       "assets/products/coumao-chocolat-1.jpg",
     ],
