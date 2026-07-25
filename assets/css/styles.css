@@ -476,24 +476,33 @@ a { color: inherit; text-decoration: none; }
 }
 
 /* ---------------- Onglets de la boutique ---------------- */
-/* Barre d'onglets tout en haut, juste sous l'en-tête */
-.tabbar {
-  background: rgba(250, 246, 241, 0.96);
-  border-bottom: 1px solid var(--line);
-}
-.tabbar .wrap {
-  padding-top: 12px;
-  padding-bottom: 12px;
-}
-.tabbar .tabs {
+/* Onglets intégrés dans le menu du haut (à côté de « Accueil ») */
+.nav .tabs {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 0;
   margin-bottom: 0;
-  flex-wrap: nowrap;
-  overflow-x: auto;
-  -webkit-overflow-scrolling: touch;
-  scrollbar-width: none;
 }
-.tabbar .tabs::-webkit-scrollbar { display: none; }
-.tabbar .tab { flex: none; }
+.nav .tab {
+  border: none;
+  background: none;
+  border-radius: 0;
+  padding: 0;
+  margin-left: 30px;
+  font-size: 0.92rem;
+  font-weight: 400;
+  color: var(--ink-soft);
+  cursor: pointer;
+  transition: color .2s;
+}
+.nav .tab:hover { color: var(--ink); border-color: transparent; background: none; }
+.nav .tab.active {
+  color: var(--ink);
+  background: none;
+  border-color: transparent;
+  font-weight: 600;
+}
 
 .tabs {
   display: flex;
@@ -787,7 +796,8 @@ textarea.cz-input { resize: vertical; }
     justify-content: flex-start;
     gap: 2px;
   }
-  .nav a {
+  .nav a,
+  .nav .tab {
     margin-left: 0;
     margin-right: 16px;
     font-size: 0.9rem;
@@ -796,5 +806,6 @@ textarea.cz-input { resize: vertical; }
 @media (max-width: 560px) {
   .grid { grid-template-columns: 1fr; }
   .btn { flex: 1 1 auto; text-align: center; }
-  .nav a { margin-right: 12px; font-size: 0.85rem; }
+  .nav a,
+  .nav .tab { margin-right: 12px; font-size: 0.85rem; }
 }

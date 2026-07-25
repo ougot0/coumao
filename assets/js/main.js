@@ -506,7 +506,7 @@
       match: function (p) { return NOUVEAUTES.indexOf(p.slug) >= 0; } },
     { id: "sacs",             label: "Sacs",            sub: "Sacs au crochet, faits main — pièces uniques.",
       match: function (p) { return p.category === "sacs" && !p.customizable; } },
-    { id: "cases",            label: "Pochette de téléphone", sub: "Pochettes téléphone au crochet.",
+    { id: "cases",            label: "Cases",           sub: "Pochettes téléphone au crochet.",
       match: function (p) { return p.category === "telephone" && !p.customizable; } },
     { id: "personnalisation", label: "Personnalisation", sub: "Crée ta pièce sur mesure : couleurs, modèle…",
       match: function (p) { return p.customizable === true; } },
