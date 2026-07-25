@@ -284,6 +284,8 @@ const PRODUCTS = [
     price: "40 €",
     desc: "Pochette téléphone au crochet, faite main sur commande. Choisis tes couleurs et ton modèle, on la crée pour toi.",
     customizable: true,
+    czAddons: true,               // accessoires proposés dans la personnalisation
+    addonsExclude: ["charme"],    // seulement Anse + Clip (pas de Charm)
     options: [
       {
         id: "modele",

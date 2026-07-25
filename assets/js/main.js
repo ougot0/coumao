@@ -428,7 +428,10 @@
     // Accessoires en option dans la personnalisation (sacs perso uniquement)
     czAddonEls = [];
     if (product.czAddons && typeof PRODUCTS !== "undefined") {
-      var czAddons = PRODUCTS.filter(function (p) { return p.category === "accessoire"; });
+      var czExclude = product.addonsExclude || [];
+      var czAddons = PRODUCTS.filter(function (p) {
+        return p.category === "accessoire" && czExclude.indexOf(p.slug) < 0;
+      });
       if (czAddons.length) {
         var grp = document.createElement("div");
         grp.className = "cz-field cz-addons";
