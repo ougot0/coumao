@@ -476,6 +476,25 @@ a { color: inherit; text-decoration: none; }
 }
 
 /* ---------------- Onglets de la boutique ---------------- */
+/* Barre d'onglets tout en haut, juste sous l'en-tête */
+.tabbar {
+  background: rgba(250, 246, 241, 0.96);
+  border-bottom: 1px solid var(--line);
+}
+.tabbar .wrap {
+  padding-top: 12px;
+  padding-bottom: 12px;
+}
+.tabbar .tabs {
+  margin-bottom: 0;
+  flex-wrap: nowrap;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: none;
+}
+.tabbar .tabs::-webkit-scrollbar { display: none; }
+.tabbar .tab { flex: none; }
+
 .tabs {
   display: flex;
   flex-wrap: wrap;

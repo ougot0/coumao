@@ -170,8 +170,11 @@
     // Accessoires en option (cases à cocher) — sauf produits perso / si désactivé
     var addonEls = [];
     if (!product.customizable && product.addons !== false) {
+      var exclude = product.addonsExclude || [];
       var addons = (typeof PRODUCTS !== "undefined")
-        ? PRODUCTS.filter(function (p) { return p.category === "accessoire"; })
+        ? PRODUCTS.filter(function (p) {
+            return p.category === "accessoire" && exclude.indexOf(p.slug) < 0;
+          })
         : [];
       if (addons.length) {
         var box = document.createElement("div");
@@ -341,7 +344,7 @@
   }
 
   /* ---------------- Personnalisation (sur mesure) ---------------- */
-  var cz, czMedia, czTitle, czSub, czForm, czProduct = null;
+  var cz, czMedia, czTitle, czSub, czForm, czProduct = null, czAddonEls = [];
 
   function buildCustomize() {
     cz = document.createElement("div");
@@ -422,6 +425,34 @@
       czForm.appendChild(wrap);
     });
 
+    // Accessoires en option dans la personnalisation (sacs perso uniquement)
+    czAddonEls = [];
+    if (product.czAddons && typeof PRODUCTS !== "undefined") {
+      var czAddons = PRODUCTS.filter(function (p) { return p.category === "accessoire"; });
+      if (czAddons.length) {
+        var grp = document.createElement("div");
+        grp.className = "cz-field cz-addons";
+        var glab = document.createElement("span");
+        glab.className = "cz-label";
+        glab.textContent = "Ajouter un accessoire (optionnel) :";
+        grp.appendChild(glab);
+        czAddons.forEach(function (a) {
+          var l = document.createElement("label");
+          l.className = "addon";
+          var cb = document.createElement("input");
+          cb.type = "checkbox";
+          cb.value = a.slug;
+          var sp = document.createElement("span");
+          sp.textContent = a.name + (a.price ? " — +" + a.price : "");
+          l.appendChild(cb);
+          l.appendChild(sp);
+          grp.appendChild(l);
+          czAddonEls.push(cb);
+        });
+        czForm.appendChild(grp);
+      }
+    }
+
     cz.classList.add("open");
     document.body.style.overflow = "hidden";
   }
@@ -449,11 +480,13 @@
       return;
     }
     var summary = parts.join("  |  ");
+    var addonSlugs = [];
+    czAddonEls.forEach(function (cb) { if (cb.checked) addonSlugs.push(cb.value); });
     var btn = cz.querySelector(".cz-submit");
     btn.disabled = true;
     btn.textContent = "Redirection vers le paiement…";
     if (window.Cart && window.Cart.payCustom) {
-      window.Cart.payCustom(czProduct.slug, summary, function () {
+      window.Cart.payCustom(czProduct.slug, summary, addonSlugs, function () {
         btn.disabled = false;
         btn.textContent = "Envoyer et payer";
       });
@@ -463,8 +496,8 @@
   /* ---------------- Onglets (Soldes, Nouveautés, Sacs…) ---------------- */
   // Nouveautés : liste de slugs mis en avant. Soldes : produits avec solde:true.
   var NOUVEAUTES = [
-    "coumao-emilio", "coumao-safari", "sac-carre", "sac-rectangle",
-    "coumao-sky", "coumao-chocolat", "pochette-telephone",
+    "coumao-emilio", "coumao-safari",
+    "coumao-sky", "coumao-chocolat",
   ];
   var TABS = [
     { id: "soldes",           label: "Soldes",          sub: "Nos pièces en promotion.",
@@ -472,9 +505,9 @@
     { id: "nouveautes",       label: "Nouveautés",      sub: "Les dernières créations de l'atelier.",
       match: function (p) { return NOUVEAUTES.indexOf(p.slug) >= 0; } },
     { id: "sacs",             label: "Sacs",            sub: "Sacs au crochet, faits main — pièces uniques.",
-      match: function (p) { return p.category === "sacs"; } },
-    { id: "cases",            label: "Cases",           sub: "Pochettes téléphone au crochet.",
-      match: function (p) { return p.category === "telephone"; } },
+      match: function (p) { return p.category === "sacs" && !p.customizable; } },
+    { id: "cases",            label: "Pochette de téléphone", sub: "Pochettes téléphone au crochet.",
+      match: function (p) { return p.category === "telephone" && !p.customizable; } },
     { id: "personnalisation", label: "Personnalisation", sub: "Crée ta pièce sur mesure : couleurs, modèle…",
       match: function (p) { return p.customizable === true; } },
   ];
@@ -529,7 +562,11 @@
       var b = document.createElement("button");
       b.className = "tab";
       b.textContent = t.label;
-      b.addEventListener("click", function () { activate(t.id); });
+      b.addEventListener("click", function () {
+        activate(t.id);
+        var col = document.getElementById("collection");
+        if (col) col.scrollIntoView({ behavior: "smooth", block: "start" });
+      });
       tabsEl.appendChild(b);
       btns[t.id] = b;
     });

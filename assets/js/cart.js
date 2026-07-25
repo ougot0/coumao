@@ -210,9 +210,13 @@
     });
   }
 
-  // Paiement d'un article personnalisé (sur mesure)
-  function payCustom(slug, customization, onError) {
-    startCheckout([{ slug: slug, quantity: 1, customization: customization }], onError);
+  // Paiement d'un article personnalisé (sur mesure) + accessoires optionnels
+  function payCustom(slug, customization, addonSlugs, onError) {
+    // Rétro-compatibilité : payCustom(slug, customization, onError)
+    if (typeof addonSlugs === "function") { onError = addonSlugs; addonSlugs = []; }
+    var list = [{ slug: slug, quantity: 1, customization: customization }];
+    (addonSlugs || []).forEach(function (s) { list.push({ slug: s, quantity: 1 }); });
+    startCheckout(list, onError);
   }
 
   /* ---- Init ---- */

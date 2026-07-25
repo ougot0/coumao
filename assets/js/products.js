@@ -240,6 +240,7 @@ const PRODUCTS = [
     price: "90 €",
     desc: "Sac carré au crochet, fait main sur commande. Choisis jusqu'à 3 couleurs, on le crée pour toi.",
     customizable: true,
+    czAddons: true,               // accessoires (anse/charm/clip) proposés dans la personnalisation
     options: OPTIONS_COULEURS_3,
     images: [
       "assets/products/pochette-carre-1.jpg",
@@ -252,6 +253,7 @@ const PRODUCTS = [
     price: "90 €",
     desc: "Sac rectangle au crochet, fait main sur commande. Choisis jusqu'à 3 couleurs, on le crée pour toi.",
     customizable: true,
+    czAddons: true,               // accessoires (anse/charm/clip) proposés dans la personnalisation
     options: OPTIONS_COULEURS_3,
     images: [
       "assets/products/pochette-rectangle-1.jpg",
@@ -326,6 +328,7 @@ const PRODUCTS = [
     name: "Pochette Sky ☁️",
     price: "40 €",
     desc: "Pochette téléphone au crochet en trapilho, bleu et turquoise, bandoulière tressée et étiquette cuir Coumao. Faite main.",
+    addonsExclude: ["clip"],       // pas d'option "fermeture/clip" sur les pochettes téléphone
     images: [
       "assets/products/coumao-sky-1.jpg",
     ],
@@ -336,6 +339,7 @@ const PRODUCTS = [
     name: "Pochette Chocolat 🍫",
     price: "40 €",
     desc: "Pochette téléphone au crochet en trapilho, chocolat, noir et écru, bandoulière tressée et étiquette cuir Coumao. Faite main.",
+    addonsExclude: ["clip"],       // pas d'option "fermeture/clip" sur les pochettes téléphone
     images: [
       "assets/products/coumao-chocolat-1.jpg",
     ],
