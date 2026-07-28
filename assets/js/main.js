@@ -579,6 +579,14 @@
       a.addEventListener("click", function () { activate(a.getAttribute("data-tab")); });
     });
 
+    // Section vidéo : ne s'affiche que si une vraie vidéo est présente
+    var vid = document.getElementById("coumao-video");
+    var vidSection = document.getElementById("video");
+    if (vid && vidSection) {
+      vid.addEventListener("loadedmetadata", function () { vidSection.hidden = false; });
+      // si la vidéo n'existe pas encore, la section reste masquée
+    }
+
     // « Accueil » : remonter tout en haut (le héro)
     var accueil = document.querySelector(".nav-accueil");
     if (accueil) {
