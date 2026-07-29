@@ -1,0 +1,15 @@
+# COUMAO — réglages serveur (Apache / OVH)
+
+# Protéger le fichier de configuration secret (clé Stripe)
+<Files "config.php">
+  Require all denied
+</Files>
+<Files "config.sample.php">
+  Require all denied
+</Files>
+
+# Empêcher l'affichage du contenu des dossiers
+Options -Indexes
+
+# Page d'accueil
+DirectoryIndex index.html
