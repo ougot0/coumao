@@ -2,6 +2,10 @@
    COUMAO — Feuille de style
    ============================================================ */
 
+/* Rend l'attribut hidden fiable, même sur les éléments qui ont
+   un display explicite (boutons, champs de formulaire, etc.). */
+[hidden] { display: none !important; }
+
 :root {
   --bg:        #f7f3ec;   /* fond crème */
   --bg-soft:   #efe9dd;
