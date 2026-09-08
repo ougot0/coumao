@@ -505,7 +505,7 @@
   // Nouveautés : liste de slugs mis en avant. Soldes : produits avec solde:true.
   var NOUVEAUTES = [
     "coumao-clutch-roma",
-    "coumao-emilio", "coumao-safari",
+    "coumao-safari",
     "coumao-chocolat",
   ];
   // Collections saisonnières (répartition par tons — à ajuster librement).
