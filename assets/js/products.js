@@ -68,6 +68,22 @@ const OPTIONS_COULEURS_3 = [
 /* ---- Les produits ---- */
 const PRODUCTS = [
   {
+    slug: "coumao-summer",
+    category: "sacs",
+    name: "Coumao Summer ☀️",
+    price: "50 €",
+    oldPrice: "90 €",
+    solde: true,
+    desc: "Sac au crochet en trapilho, fuchsia et jaune citron, anse à main et étiquette cuir Coumao. Collection Été — pièce unique faite main.",
+    images: [
+      "assets/products/coumao-summer-1.jpg",
+      "assets/products/coumao-summer-2.jpg",
+      "assets/products/coumao-summer-3.jpg",
+      "assets/products/coumao-summer-4.jpg",
+      "assets/products/coumao-summer-5.jpg",
+    ],
+  },
+  {
     slug: "coumao-pinkie",
     category: "sacs",
     name: "Coumao Pinkie 💗",

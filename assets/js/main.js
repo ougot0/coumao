@@ -48,7 +48,7 @@
     var card = document.createElement("article");
     card.className = "card";
 
-    var imgs = (product.images || []).slice(0, 3);
+    var imgs = (product.images || []).slice(0, 8);
     if (imgs.length === 0) imgs = [null]; // au moins un emplacement
     var multi = imgs.length > 1;
 
@@ -272,7 +272,7 @@
 
   function openLightbox(product, pIndex, startAt) {
     lbProduct = product;
-    var imgs = (product.images || []).slice(0, 3);
+    var imgs = (product.images || []).slice(0, 8);
     if (imgs.length === 0) imgs = [null];
     var multi = imgs.length > 1;
 
@@ -510,6 +510,7 @@
   // Collections saisonnières (répartition par tons — à ajuster librement).
   var SAISON = {
     ete: [
+      "coumao-summer",
       "coumao-candy", "coumao-ocean", "coumao-passion-fruit", "coumao-flower",
       "coumao-rainbow", "coumao-emilio", "coumao-arizona", "coumao-strawberry",
       "coumao-sea", "coumao-sky",
