@@ -93,6 +93,11 @@ const PRODUCTS = [
     desc: "Sac au crochet en trapilho, rose fuchsia et rose poudré, anse à main, bandoulière amovible et étiquette cuir Coumao. Pièce unique faite main.",
     images: [
       "assets/products/coumao-pinkie-1.jpg",
+      "assets/products/coumao-pinkie-2.jpg",
+      "assets/products/coumao-pinkie-3.jpg",
+      "assets/products/coumao-pinkie-4.jpg",
+      "assets/products/coumao-pinkie-5.jpg",
+      "assets/products/coumao-pinkie-6.jpg",
     ],
   },
   {
