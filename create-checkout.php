@@ -25,8 +25,8 @@ if (!$key) {
 // Prix en centimes (9000 = 90,00 €). À garder en accord avec le site.
 $CATALOG = array(
   'coumao-pinkie'        => array('name' => 'Coumao Pinkie (solde)', 'amount' => 5000),
-  'coumao-candy'         => array('name' => 'Coumao Candy',         'amount' => 9000),
-  'coumao-ocean'         => array('name' => 'Coumao Océan',         'amount' => 9000),
+  'coumao-candy'         => array('name' => 'Coumao Candy (solde)',  'amount' => 5000),
+  'coumao-ocean'         => array('name' => 'Coumao Océan (solde)',  'amount' => 5000),
   'coumao-brownie'       => array('name' => 'Coumao Brownie',       'amount' => 9000),
   'coumao-passion-fruit' => array('name' => 'Coumao Passion Fruit', 'amount' => 9000),
   'coumao-flower'        => array('name' => 'Coumao Flower',        'amount' => 9000),
@@ -37,7 +37,7 @@ $CATALOG = array(
   'coumao-arizona'       => array('name' => 'Coumao Arizona',       'amount' => 9000),
   'coumao-casual'        => array('name' => 'Coumao Casual',        'amount' => 9000),
   'coumao-strawberry'    => array('name' => 'Coumao Strawberry',    'amount' => 9000),
-  'coumao-emilio'        => array('name' => 'Coumao Emilio',        'amount' => 9000),
+  'coumao-emilio'        => array('name' => 'Coumao Emilio (solde)', 'amount' => 5000),
   'coumao-safari'        => array('name' => 'Coumao Safari',        'amount' => 9000),
   'sac-carre'            => array('name' => 'Sac Carré personnalisé',     'amount' => 9000),
   'sac-rectangle'        => array('name' => 'Sac Rectangle personnalisé', 'amount' => 9000),

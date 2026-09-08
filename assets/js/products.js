@@ -83,7 +83,9 @@ const PRODUCTS = [
     slug: "coumao-candy",
     category: "sacs",
     name: "Coumao Candy 🍭",
-    price: "90 €",
+    price: "50 €",
+    oldPrice: "90 €",
+    solde: true,
     desc: "Sac au crochet en trapilho, dégradé de rose bonbon, anse à main et étiquette cuir Coumao. Pièce unique faite main.",
     images: [
       "assets/products/coumao-candy-1.jpg",
@@ -95,7 +97,9 @@ const PRODUCTS = [
     slug: "coumao-ocean",
     category: "sacs",
     name: "Coumao Océan 🌊",
-    price: "90 €",
+    price: "50 €",
+    oldPrice: "90 €",
+    solde: true,
     desc: "Sac au crochet en trapilho, bleu marine et turquoise, anse à main et étiquette cuir Coumao. Pièce unique faite main.",
     images: [
       "assets/products/coumao-ocean-1.jpg",
@@ -225,7 +229,9 @@ const PRODUCTS = [
     slug: "coumao-emilio",
     category: "sacs",
     name: "Coumao Emilio 🧩",
-    price: "90 €",
+    price: "50 €",
+    oldPrice: "90 €",
+    solde: true,
     desc: "Sac au crochet en trapilho, camaïeu pastel turquoise, citron et rose, anse à main et étiquette cuir Coumao. Pièce unique faite main.",
     images: [
       "assets/products/coumao-emilio-1.jpg",
