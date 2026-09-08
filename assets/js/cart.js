@@ -167,6 +167,7 @@
   }
 
   function openResa() {
+    close(); // ferme le panier pour laisser voir le formulaire de retrait
     if (resaModal) {
       resaModal.querySelector(".resa-ok").hidden = true;
       resaModal.querySelectorAll(".resa-input, .resa-send, .resa-field, .resa-sub, .resa-hint").forEach(function (el) { el.hidden = false; });
