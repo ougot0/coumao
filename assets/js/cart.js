@@ -113,6 +113,12 @@
     });
     buildResa();
     updatePayLabel();
+    // Au retour sur la page (bouton « précédent » depuis Stripe, changement d'onglet…),
+    // on réactive le bouton payer/réserver s'il était resté grisé.
+    window.addEventListener("pageshow", function () {
+      var pb = drawer && drawer.querySelector(".cart-pay");
+      if (pb) { pb.disabled = false; updatePayLabel(); }
+    });
   }
 
   function updatePayLabel() {
@@ -227,6 +233,11 @@
     if (countEl) {
       countEl.textContent = c;
       countEl.style.display = c ? "" : "none";
+    }
+    // Réactive le bouton payer/réserver (au cas où il serait resté grisé)
+    if (drawer) {
+      var pb = drawer.querySelector(".cart-pay");
+      if (pb) { pb.disabled = false; updatePayLabel(); }
     }
     if (!listEl) return;
 
