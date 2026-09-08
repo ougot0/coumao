@@ -511,12 +511,12 @@
   var SAISON = {
     ete: [
       "coumao-summer",
-      "coumao-candy", "coumao-ocean", "coumao-passion-fruit", "coumao-flower",
+      "coumao-candy", "coumao-ocean", "coumao-flower",
       "coumao-rainbow", "coumao-emilio", "coumao-arizona", "coumao-strawberry",
       "coumao-sea", "coumao-sky",
     ],
     hiver: [
-      "coumao-cookies", "coumao-firework", "coumao-havane",
+      "coumao-havane",
       "coumao-casual", "coumao-safari", "coumao-chocolat",
     ],
   };
