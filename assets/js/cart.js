@@ -216,7 +216,7 @@
       })
       .catch(function () {
         btn.disabled = false; btn.textContent = "Envoyer ma réservation";
-        alert("La réservation ne fonctionne pas encore sur cette adresse (elle s'active une fois le site publié).");
+        alert("La réservation est momentanément indisponible. Merci de réessayer dans un instant 🙏");
       });
   }
 
@@ -276,12 +276,12 @@
       : (fmt(total) + ' <span class="cart-partial">+ prix à confirmer</span>');
   }
 
-  /* ---- Paiement (moteur Netlify -> Stripe) ----
+  /* ---- Paiement (moteur PHP -> Stripe) ----
      Envoie une liste d'articles au moteur, qui crée un paiement Stripe
      combiné et renvoie l'URL de paiement. */
   function startCheckout(itemsList, onError) {
     var cfg = window.STRIPE_CONFIG || {};
-    var endpoint = cfg.checkoutEndpoint || "/.netlify/functions/create-checkout";
+    var endpoint = cfg.checkoutEndpoint || "/create-checkout.php";
     var base = location.origin + location.pathname;
     var payload = {
       items: itemsList,
@@ -305,8 +305,8 @@
       .catch(function () {
         if (onError) onError();
         alert(
-          "Le paiement n'est pas encore actif sur cette adresse.\n" +
-          "Il s'active une fois le site publié sur Netlify (avec la clé Stripe)."
+          "Le paiement est momentanément indisponible.\n" +
+          "Merci de réessayer dans un instant 🙏"
         );
       });
   }
