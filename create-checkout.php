@@ -97,7 +97,7 @@ $params = array(
       'key'      => 'acces',
       'label'    => array('type' => 'custom', 'custom' => 'Code immeuble, étage, interphone'),
       'type'     => 'text',
-      'optional' => 'true',
+      'optional' => 'false',
     ),
     array(
       'key'      => 'livreur',
