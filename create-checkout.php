@@ -91,6 +91,21 @@ $params = array(
   'billing_address_collection' => 'required',
   'phone_number_collection' => array('enabled' => 'true'),
   'shipping_address_collection' => array('allowed_countries' => $SHIP_COUNTRIES),
+  // Champs supplémentaires sur la page de paiement : infos pour le livreur
+  'custom_fields' => array(
+    array(
+      'key'      => 'acces',
+      'label'    => array('type' => 'custom', 'custom' => 'Code immeuble, étage, interphone'),
+      'type'     => 'text',
+      'optional' => 'true',
+    ),
+    array(
+      'key'      => 'livreur',
+      'label'    => array('type' => 'custom', 'custom' => 'Infos pour le livreur (optionnel)'),
+      'type'     => 'text',
+      'optional' => 'true',
+    ),
+  ),
   'line_items' => array(),
 );
 $meta = array();

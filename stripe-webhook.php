@@ -128,6 +128,15 @@ $fields['Email client'] = isset($cd['email']) ? $cd['email'] : '—';
 if (!empty($cd['phone'])) $fields['Téléphone'] = $cd['phone'];
 $fields['Adresse de livraison'] = fmtAddress($ship, $shipName);
 
+// Champs supplémentaires remplis par le client sur la page de paiement (code immeuble, étage…)
+if (isset($s['custom_fields']) && is_array($s['custom_fields'])) {
+  foreach ($s['custom_fields'] as $cf) {
+    $label = isset($cf['label']['custom']) ? $cf['label']['custom'] : (isset($cf['key']) ? $cf['key'] : 'Info');
+    $val = isset($cf['text']['value']) ? $cf['text']['value'] : '';
+    if ($val !== '') $fields[$label] = $val;
+  }
+}
+
 // --- Envoi de l'email au commerçant ---
 // Méthode principale : fonction mail() native d'OVH (fiable, sans activation).
 $fromDomain = isset($config['MAIL_FROM']) ? $config['MAIL_FROM'] : 'no-reply@coumaoo.com';
