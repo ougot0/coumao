@@ -100,15 +100,20 @@ foreach ($fields as $k => $v) $mail[$k] = $v;
 $mail['TOTAL à régler en main propre'] = $totalStr;
 if ($note !== '') $mail['Remarque du client'] = $note;
 
-$ch = curl_init('https://formsubmit.co/ajax/' . rawurlencode($to));
-curl_setopt_array($ch, array(
-  CURLOPT_POST => true,
-  CURLOPT_RETURNTRANSFER => true,
-  CURLOPT_HTTPHEADER => array('Content-Type: application/json', 'Accept: application/json'),
-  CURLOPT_POSTFIELDS => json_encode($mail),
-  CURLOPT_TIMEOUT => 20,
-));
-curl_exec($ch);
-curl_close($ch);
+// --- Envoi de l'email au commerçant ---
+// Méthode principale : fonction mail() native d'OVH (fiable, sans activation).
+$fromDomain = isset($config['MAIL_FROM']) ? $config['MAIL_FROM'] : 'no-reply@coumaoo.com';
+$bodyLines = array();
+foreach ($mail as $k => $v) {
+  if (substr($k, 0, 1) === '_') continue; // on saute les clés techniques (_subject, _template)
+  $bodyLines[] = $k . ' : ' . $v;
+}
+$plainSubject = 'RESERVATION (retrait en main propre) ' . $ref . ' - ' . $totalStr;
+$headers  = 'From: Coumao <' . $fromDomain . ">\r\n";
+if ($email !== '') $headers .= 'Reply-To: ' . $email . "\r\n";
+$headers .= "MIME-Version: 1.0\r\n";
+$headers .= "Content-Type: text/plain; charset=UTF-8\r\n";
+$encodedSubject = '=?UTF-8?B?' . base64_encode($plainSubject) . '?=';
+@mail($to, $encodedSubject, implode("\r\n", $bodyLines), $headers, '-f' . $fromDomain);
 
 echo json_encode(array('ok' => true, 'ref' => $ref, 'total' => $totalStr));
