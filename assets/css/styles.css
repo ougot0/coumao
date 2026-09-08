@@ -999,3 +999,36 @@ textarea.cz-input { resize: vertical; }
   border-radius: 12px;
 }
 @media (max-width: 560px) { .perso-row { flex-direction: column; } }
+
+/* ---------------- Personnalisation : galerie de modèles ---------------- */
+.perso-h {
+  font-family: var(--font-title);
+  font-weight: 500;
+  font-size: 1.2rem;
+  margin: 4px 0 4px;
+  text-align: center;
+}
+.perso-galsub { text-align: center; color: var(--ink-soft); font-size: 0.9rem; margin: 0 0 16px; }
+.perso-models {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 12px;
+  margin-bottom: 24px;
+}
+.perso-model {
+  border: 2px solid var(--line);
+  background: var(--white);
+  border-radius: 12px;
+  padding: 8px;
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+  transition: border-color .2s, transform .15s, box-shadow .2s;
+}
+.perso-model:hover { transform: translateY(-2px); box-shadow: var(--shadow); }
+.perso-model img { width: 100%; height: 150px; object-fit: contain; }
+.perso-model span { font-size: 0.85rem; font-weight: 600; color: var(--ink); }
+.perso-model.selected { border-color: var(--accent); box-shadow: 0 0 0 2px rgba(52,67,46,.15); }
+@media (max-width: 460px) { .perso-model img { height: 120px; } }

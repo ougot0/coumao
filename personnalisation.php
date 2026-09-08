@@ -27,6 +27,7 @@ $nom     = trim(mb_substr(isset($b['nom'])       ? $b['nom']       : '', 0, 80))
 $phone   = trim(mb_substr(isset($b['phone'])     ? $b['phone']     : '', 0, 40));
 $email   = trim(mb_substr(isset($b['email'])     ? $b['email']     : '', 0, 160));
 $insta   = trim(mb_substr(isset($b['instagram']) ? $b['instagram'] : '', 0, 80));
+$modele  = trim(mb_substr(isset($b['modele'])    ? $b['modele']    : '', 0, 80));
 $message = trim(mb_substr(isset($b['message'])   ? $b['message']   : '', 0, 800));
 
 if ($prenom === '' || $nom === '' || $phone === '' || $email === '') {
@@ -48,6 +49,7 @@ $mail = array(
   'Téléphone' => $phone,
   'Email'     => $email,
 );
+if ($modele !== '')  $mail['Modèle souhaité'] = $modele;
 if ($insta !== '')   $mail['Instagram'] = $insta;
 if ($message !== '') $mail['Message'] = $message;
 

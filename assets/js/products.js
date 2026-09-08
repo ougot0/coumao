@@ -65,6 +65,14 @@ const OPTIONS_COULEURS_3 = [
   { id: "remarque", label: "Une remarque ? (optionnel)", type: "textarea", placeholder: "toute précision utile pour ton sac" },
 ];
 
+/* ---- Modèles proposés à la personnalisation (galerie dans l'onglet Personnalisation) ---- */
+const MODELES_PERSO = [
+  { name: "Modèle Poignée",     image: "assets/products/modele-poignee.jpg" },
+  { name: "Modèle Bandoulière", image: "assets/products/modele-bandouliere.jpg" },
+  { name: "Modèle Pochette",    image: "assets/products/modele-pochette.jpg" },
+  { name: "Modèle Cabas",       image: "assets/products/modele-cabas.jpg" },
+];
+
 /* ---- Les produits ---- */
 const PRODUCTS = [
   {

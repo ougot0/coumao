@@ -556,15 +556,36 @@
   /* ---------------- Onglet Personnalisation : formulaire de contact ---------------- */
   function renderPersoForm(gridEl, subEl) {
     if (subEl) subEl.textContent = "";
+    var modeles = (typeof MODELES_PERSO !== "undefined") ? MODELES_PERSO : [];
+    var galerie = "";
+    var options = '<option value="">— Choisis un modèle —</option>';
+    if (modeles.length) {
+      galerie =
+        '<h3 class="perso-h">Nos modèles</h3>' +
+        '<p class="perso-galsub">Clique le modèle qui te plaît (tu peux aussi choisir dans la liste plus bas) :</p>' +
+        '<div class="perso-models">' +
+          modeles.map(function (m, i) {
+            return '<button type="button" class="perso-model" data-name="' + m.name + '">' +
+              '<img src="' + m.image + '" alt="' + m.name + '" loading="lazy">' +
+              '<span>' + m.name + '</span></button>';
+          }).join("") +
+        '</div>';
+      options += modeles.map(function (m) {
+        return '<option value="' + m.name + '">' + m.name + '</option>';
+      }).join("");
+      options += '<option value="Je ne sais pas encore">Je ne sais pas encore</option>';
+    }
     gridEl.innerHTML =
       '<div class="perso-wrap">' +
         '<div class="perso-info">' +
           '💌 <b>Une envie de pièce personnalisée ?</b><br>' +
-          'Laisse-nous tes coordonnées (et ton Instagram si tu veux). On te recontacte pour ' +
+          'Choisis un modèle, laisse-nous tes coordonnées (et ton Instagram si tu veux). On te recontacte pour ' +
           't\'envoyer les <b>couleurs disponibles du moment</b> 🎨 — tu choisis, et on prépare ' +
           'ta création sur mesure rien que pour toi 💛' +
         '</div>' +
+        galerie +
         '<form class="perso-form" onsubmit="return false">' +
+          (modeles.length ? '<label><span>Modèle souhaité *</span><select class="perso-in" data-k="modele">' + options + '</select></label>' : '') +
           '<div class="perso-row">' +
             '<label><span>Prénom *</span><input class="perso-in" data-k="prenom" type="text" autocomplete="given-name"></label>' +
             '<label><span>Nom *</span><input class="perso-in" data-k="nom" type="text" autocomplete="family-name"></label>' +
@@ -572,18 +593,31 @@
           '<label><span>Téléphone *</span><input class="perso-in" data-k="phone" type="tel" autocomplete="tel" placeholder="06 …"></label>' +
           '<label><span>Email *</span><input class="perso-in" data-k="email" type="email" autocomplete="email" placeholder="ton@email.com"></label>' +
           '<label><span>Instagram (optionnel)</span><input class="perso-in" data-k="instagram" type="text" placeholder="@ton_compte"></label>' +
-          '<label><span>Ta demande (optionnel)</span><textarea class="perso-in" data-k="message" rows="3" placeholder="ce que tu aimerais : type de sac, idées de couleurs…"></textarea></label>' +
+          '<label><span>Ta demande (optionnel)</span><textarea class="perso-in" data-k="message" rows="3" placeholder="idées de couleurs, précisions…"></textarea></label>' +
           '<button type="button" class="btn btn-primary perso-send">Envoyer ma demande</button>' +
           '<div class="perso-ok" hidden></div>' +
         '</form>' +
       '</div>';
     var form = gridEl.querySelector(".perso-form");
+    var sel = form.querySelector('select[data-k="modele"]');
+    // Cliquer un modèle le sélectionne dans la liste + surligne
+    gridEl.querySelectorAll(".perso-model").forEach(function (btn) {
+      btn.addEventListener("click", function () {
+        if (sel) sel.value = btn.getAttribute("data-name");
+        gridEl.querySelectorAll(".perso-model").forEach(function (b) { b.classList.remove("selected"); });
+        btn.classList.add("selected");
+      });
+    });
     form.querySelector(".perso-send").addEventListener("click", function () { submitPerso(form); });
   }
 
   function submitPerso(form) {
     var data = {};
     form.querySelectorAll(".perso-in").forEach(function (f) { data[f.getAttribute("data-k")] = (f.value || "").trim(); });
+    if (form.querySelector('select[data-k="modele"]') && !data.modele) {
+      alert("Merci de choisir un modèle.");
+      return;
+    }
     if (!data.prenom || !data.nom || !data.phone || !data.email) {
       alert("Merci de remplir les champs obligatoires : prénom, nom, téléphone et email.");
       return;
