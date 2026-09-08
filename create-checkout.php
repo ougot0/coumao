@@ -28,7 +28,6 @@ $CATALOG = array(
   'coumao-pinkie'        => array('name' => 'Coumao Pinkie (solde)', 'amount' => 5000),
   'coumao-candy'         => array('name' => 'Coumao Candy (solde)',  'amount' => 5000),
   'coumao-ocean'         => array('name' => 'Coumao Océan (solde)',  'amount' => 5000),
-  'coumao-brownie'       => array('name' => 'Coumao Brownie',       'amount' => 9000),
   'coumao-passion-fruit' => array('name' => 'Coumao Passion Fruit', 'amount' => 9000),
   'coumao-flower'        => array('name' => 'Coumao Flower',        'amount' => 9000),
   'coumao-rainbow'       => array('name' => 'Coumao Rainbow',       'amount' => 9000),

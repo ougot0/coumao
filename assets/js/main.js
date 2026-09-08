@@ -516,7 +516,7 @@
       "coumao-sea", "coumao-sky",
     ],
     hiver: [
-      "coumao-brownie", "coumao-cookies", "coumao-firework", "coumao-havane",
+      "coumao-cookies", "coumao-firework", "coumao-havane",
       "coumao-casual", "coumao-safari", "coumao-chocolat",
     ],
   };

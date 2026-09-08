@@ -129,18 +129,6 @@ const PRODUCTS = [
     ],
   },
   {
-    slug: "coumao-brownie",
-    category: "sacs",
-    name: "Coumao Brownie 🤎",
-    price: "90 €",
-    desc: "Sac au crochet en trapilho, camaïeu chocolat, noir et beige, pampille de perles en bois et étiquette cuir Coumao. Pièce unique faite main.",
-    images: [
-      "assets/products/coumao-brownie-1.jpg",
-      "assets/products/coumao-brownie-2.jpg",
-      "assets/products/coumao-brownie-3.jpg",
-    ],
-  },
-  {
     slug: "coumao-passion-fruit",
     category: "sacs",
     name: "Coumao Passion Fruit 💛",
