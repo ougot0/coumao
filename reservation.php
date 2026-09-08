@@ -116,4 +116,33 @@ $headers .= "Content-Type: text/plain; charset=UTF-8\r\n";
 $encodedSubject = '=?UTF-8?B?' . base64_encode($plainSubject) . '?=';
 @mail($to, $encodedSubject, implode("\r\n", $bodyLines), $headers, '-f' . $fromDomain);
 
+// --- Récapitulatif envoyé au CLIENT (si email fourni) ---
+if ($email !== '') {
+  $pickup = isset($config['PICKUP_ADDRESS']) ? $config['PICKUP_ADDRESS'] : '37 rue Collange, 92300 Levallois-Perret';
+  $cl = array();
+  $cl[] = 'Bonjour ' . $name . ',';
+  $cl[] = '';
+  $cl[] = 'Merci pour ta réservation chez Coumao !';
+  $cl[] = 'Numéro de réservation : ' . $ref;
+  $cl[] = '';
+  $cl[] = 'Ta réservation :';
+  foreach ($fields as $k => $v) { $cl[] = ' - ' . $v; }
+  $cl[] = '';
+  $cl[] = 'À régler sur place le jour du retrait : ' . $totalStr;
+  $cl[] = '';
+  $cl[] = 'Adresse de retrait :';
+  $cl[] = $pickup;
+  $cl[] = '';
+  $cl[] = 'Nous te recontactons très vite pour convenir de l\'horaire de retrait.';
+  $cl[] = '';
+  $cl[] = 'À bientôt,';
+  $cl[] = 'Coumao';
+  $custSubject = '=?UTF-8?B?' . base64_encode('Ta réservation Coumao ' . $ref) . '?=';
+  $custHeaders  = 'From: Coumao <' . $fromDomain . ">\r\n";
+  $custHeaders .= 'Reply-To: ' . $to . "\r\n";
+  $custHeaders .= "MIME-Version: 1.0\r\n";
+  $custHeaders .= "Content-Type: text/plain; charset=UTF-8\r\n";
+  @mail($email, $custSubject, implode("\r\n", $cl), $custHeaders, '-f' . $fromDomain);
+}
+
 echo json_encode(array('ok' => true, 'ref' => $ref, 'total' => $totalStr));

@@ -146,8 +146,8 @@
     resaModal.innerHTML =
       '<button class="resa-close" aria-label="Fermer">&times;</button>' +
       '<h2>Retrait en main propre</h2>' +
-      '<p class="resa-sub">Réserve tes articles : tu viens les chercher et tu paies en main propre. ' +
-        'On te recontacte pour convenir du retrait 💛</p>' +
+      '<p class="resa-sub">Réserve tes articles : le retrait se fait à <b>Levallois-Perret</b> et tu paies ' +
+        'sur place le jour du retrait. On te contactera au <b>numéro que tu indiques</b> pour convenir de l\'horaire 💛</p>' +
       '<label class="resa-field"><span>Ton nom *</span>' +
         '<input type="text" class="resa-input" data-k="name" placeholder="Prénom Nom"></label>' +
       '<label class="resa-field"><span>Email</span>' +

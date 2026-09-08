@@ -144,5 +144,37 @@ $headers .= "Content-Type: text/plain; charset=UTF-8\r\n";
 $encodedSubject = '=?UTF-8?B?' . base64_encode($plainSubject) . '?=';
 @mail($to, $encodedSubject, implode("\r\n", $bodyLines), $headers, '-f' . $fromDomain);
 
+// --- Récapitulatif envoyé au CLIENT (commande payée) ---
+if (!empty($cd['email'])) {
+  $cl = array();
+  $cl[] = 'Bonjour ' . (isset($cd['name']) ? $cd['name'] : '') . ',';
+  $cl[] = '';
+  $cl[] = 'Merci pour ta commande chez Coumao !';
+  $cl[] = 'Numéro de commande : ' . $ref;
+  $cl[] = '';
+  $cl[] = 'Ta commande :';
+  foreach ($fields as $k => $v) {
+    if (strpos($k, 'Article ') === 0) $cl[] = ' - ' . $v;
+  }
+  $cl[] = '';
+  $cl[] = 'Total payé : ' . $total . ' €';
+  if (isset($fields['Adresse de livraison']) && $fields['Adresse de livraison'] !== '—') {
+    $cl[] = '';
+    $cl[] = 'Adresse de livraison :';
+    $cl[] = $fields['Adresse de livraison'];
+  }
+  $cl[] = '';
+  $cl[] = 'On prépare ta commande avec soin et on te tient au courant de l\'envoi.';
+  $cl[] = '';
+  $cl[] = 'À bientôt,';
+  $cl[] = 'Coumao';
+  $custSubject = '=?UTF-8?B?' . base64_encode('Ta commande Coumao ' . $ref) . '?=';
+  $custHeaders  = 'From: Coumao <' . $fromDomain . ">\r\n";
+  $custHeaders .= 'Reply-To: ' . $to . "\r\n";
+  $custHeaders .= "MIME-Version: 1.0\r\n";
+  $custHeaders .= "Content-Type: text/plain; charset=UTF-8\r\n";
+  @mail($cd['email'], $custSubject, implode("\r\n", $cl), $custHeaders, '-f' . $fromDomain);
+}
+
 http_response_code(200);
 echo 'ok';
