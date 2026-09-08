@@ -69,7 +69,7 @@ const OPTIONS_COULEURS_3 = [
 const MODELES_PERSO = [
   { name: "Modèle Poignée",     image: "assets/products/modele-poignee.jpg" },
   { name: "Modèle Bandoulière", image: "assets/products/modele-bandouliere.jpg" },
-  { name: "Modèle Pochette",    image: "assets/products/modele-pochette.jpg" },
+  { name: "Modèle Pochette ordinateur", image: "assets/products/modele-pochette.jpg" },
   { name: "Modèle Cabas",       image: "assets/products/modele-cabas.jpg" },
 ];
 
