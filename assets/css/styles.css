@@ -815,6 +815,23 @@ textarea.cz-input { resize: vertical; }
   font-size: 0.85rem;
 }
 .site-footer .brand { font-size: 1.2rem; margin-bottom: 8px; }
+.social {
+  display: flex;
+  justify-content: center;
+  gap: 22px;
+  margin: 14px 0 6px;
+}
+.social a {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  color: var(--ink);
+  text-decoration: none;
+  font-size: 0.9rem;
+  transition: color 0.15s ease, transform 0.15s ease;
+}
+.social a:hover { color: var(--accent); transform: translateY(-1px); }
+.social svg { width: 22px; height: 22px; }
 
 /* ---------------- Responsive ---------------- */
 @media (max-width: 860px) {
