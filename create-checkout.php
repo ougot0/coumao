@@ -26,6 +26,7 @@ if (!$key) {
 $CATALOG = array(
   'coumao-summer'        => array('name' => 'Coumao Summer (solde)', 'amount' => 5000),
   'coumao-pinkie'        => array('name' => 'Coumao Pinkie (solde)', 'amount' => 5000),
+  'coumao-clutch-roma'   => array('name' => 'Clutch Roma',        'amount' => 9000),
   'coumao-candy'         => array('name' => 'Coumao Candy (solde)',  'amount' => 5000),
   'coumao-ocean'         => array('name' => 'Coumao Océan (solde)',  'amount' => 5000),
   'coumao-flower'        => array('name' => 'Coumao Flower',        'amount' => 5000),

@@ -109,6 +109,23 @@ const PRODUCTS = [
     ],
   },
   {
+    slug: "coumao-clutch-roma",
+    category: "sacs",
+    name: "Clutch Roma 👛",
+    price: "90 €",
+    desc: "Pochette (clutch) au crochet en trapilho, bordeaux, camel et gris chiné, poignée intégrée et étiquette cuir Coumao. Pièce unique faite main.",
+    images: [
+      "assets/products/coumao-clutch-roma-1.jpg",
+      "assets/products/coumao-clutch-roma-2.jpg",
+      "assets/products/coumao-clutch-roma-3.jpg",
+      "assets/products/coumao-clutch-roma-4.jpg",
+      "assets/products/coumao-clutch-roma-5.jpg",
+      "assets/products/coumao-clutch-roma-6.jpg",
+      "assets/products/coumao-clutch-roma-7.jpg",
+      "assets/products/coumao-clutch-roma-8.jpg",
+    ],
+  },
+  {
     slug: "coumao-candy",
     category: "sacs",
     name: "Coumao Candy 🍭",
