@@ -91,9 +91,9 @@ $ref = 'RESA-' . strtoupper(substr(md5(uniqid('', true)), 0, 6));
 $totalStr = number_format($total / 100, 2, ',', ' ') . ' €';
 
 $mail = array(
-  '_subject'   => '🏬 RÉSERVATION (retrait + paiement sur place) ' . $ref . ' — ' . $totalStr,
+  '_subject'   => '🏬 RÉSERVATION (retrait en main propre) ' . $ref . ' — ' . $totalStr,
   '_template'  => 'table',
-  'Type'       => 'Retrait sur place — paiement à la remise',
+  'Type'       => 'Retrait en main propre — paiement à la remise',
   'Réservation N°' => $ref,
   'Date'       => date('d/m/Y H:i'),
   'Client'     => $name,
@@ -101,7 +101,7 @@ $mail = array(
 if ($email !== '') $mail['Email client'] = $email;
 if ($phone !== '') $mail['Téléphone'] = $phone;
 foreach ($fields as $k => $v) $mail[$k] = $v;
-$mail['TOTAL à régler sur place'] = $totalStr;
+$mail['TOTAL à régler en main propre'] = $totalStr;
 if ($note !== '') $mail['Remarque du client'] = $note;
 
 $ch = curl_init('https://formsubmit.co/ajax/' . rawurlencode($to));

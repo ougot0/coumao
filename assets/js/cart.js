@@ -85,7 +85,7 @@
           '<label class="cart-mode-opt"><input type="radio" name="cart-mode" value="livraison" checked>' +
             '<span>🚚 Livraison — <b>paiement en ligne</b></span></label>' +
           '<label class="cart-mode-opt"><input type="radio" name="cart-mode" value="retrait">' +
-            '<span>🏬 Retrait sur place — <b>paiement à la remise</b></span></label>' +
+            '<span>🏬 Retrait en main propre — <b>paiement à la remise</b></span></label>' +
         '</div>' +
         '<button class="btn btn-primary cart-pay">Payer tout</button>' +
         '<button class="cart-clear">Vider le panier</button>' +
@@ -120,7 +120,7 @@
     var btn = drawer.querySelector(".cart-pay");
     if (!btn) return;
     btn.textContent = (mode === "retrait")
-      ? "Réserver (paiement sur place)"
+      ? "Réserver (paiement en main propre)"
       : "Payer tout";
   }
 
@@ -145,8 +145,8 @@
     resaModal.className = "resa-modal";
     resaModal.innerHTML =
       '<button class="resa-close" aria-label="Fermer">&times;</button>' +
-      '<h2>Retrait sur place</h2>' +
-      '<p class="resa-sub">Réserve tes articles : tu viens les chercher et tu paies sur place. ' +
+      '<h2>Retrait en main propre</h2>' +
+      '<p class="resa-sub">Réserve tes articles : tu viens les chercher et tu paies en main propre. ' +
         'On te recontacte pour convenir du retrait 💛</p>' +
       '<label class="resa-field"><span>Ton nom *</span>' +
         '<input type="text" class="resa-input" data-k="name" placeholder="Prénom Nom"></label>' +
