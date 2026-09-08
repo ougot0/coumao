@@ -64,6 +64,14 @@ a { color: inherit; text-decoration: none; }
   color: var(--ink);
 }
 .brand-icon { width: 26px; height: 26px; color: var(--accent); flex: none; }
+.brand-logo {
+  height: 54px;
+  width: auto;
+  display: block;
+  /* le logo est noir sur fond blanc : multiply fait disparaître le blanc
+     pour qu'il se fonde dans l'en-tête crème */
+  mix-blend-mode: multiply;
+}
 .nav {
   display: flex;
   align-items: center;
