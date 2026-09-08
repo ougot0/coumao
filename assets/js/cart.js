@@ -296,7 +296,8 @@
     var base = location.origin + location.pathname;
     var payload = {
       items: itemsList,
-      successUrl: base + "?paiement=reussi",
+      // Après paiement : page "Merci" + formulaire de livraison (adresse, code, interphone…)
+      successUrl: location.origin + "/merci.html",
       cancelUrl: base,
     };
     fetch(endpoint, {

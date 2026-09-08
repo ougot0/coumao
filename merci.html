@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Coumao — Merci pour ta commande</title>
+  <link rel="stylesheet" href="assets/css/styles.css" />
+  <link rel="icon" href="/favicon.ico" sizes="any" />
+  <link rel="icon" type="image/png" href="assets/img/favicon-coumao.png" />
+  <link rel="apple-touch-icon" href="assets/img/favicon-coumao.png" />
+  <style>
+    .merci { padding: 48px 0 80px; }
+    .merci-card {
+      max-width: 620px; margin: 0 auto;
+      background: #fff; border: 1px solid var(--line);
+      border-radius: 18px; padding: 30px 26px;
+    }
+    .merci h1 { font-family: var(--font-title); font-weight: 500; font-size: 2rem; margin: 0 0 8px; }
+    .merci .lead { color: var(--ink-soft); margin: 0 0 6px; }
+    .merci .order { font-weight: 700; color: var(--accent); margin: 8px 0 4px; }
+    .merci .items { font-size: .9rem; color: var(--ink-soft); background: var(--bg); border-radius: 12px; padding: 10px 14px; margin: 12px 0 0; white-space: pre-line; }
+    .liv-hint { color: var(--ink-soft); font-size: .95rem; margin: 22px 0 14px; }
+    .liv-field { display: block; margin-bottom: 12px; }
+    .liv-field > span { display: block; font-size: .85rem; font-weight: 600; margin-bottom: 4px; }
+    .liv-field input, .liv-field textarea {
+      width: 100%; box-sizing: border-box; padding: 11px 12px;
+      border: 1px solid var(--line); border-radius: 10px; font: inherit; background: #fff;
+    }
+    .liv-row { display: flex; gap: 12px; }
+    .liv-row .liv-field { flex: 1; }
+    .liv-send { width: 100%; margin-top: 6px; }
+    .liv-ok { text-align: center; padding: 8px 0; }
+    .liv-ok h2 { font-family: var(--font-title); font-weight: 500; }
+    @media (max-width: 520px) { .liv-row { flex-direction: column; gap: 0; } }
+  </style>
+</head>
+<body>
+  <header class="site-header">
+    <div class="wrap">
+      <a class="brand" href="index.html" aria-label="Coumao — accueil">
+        <img class="brand-logo" src="assets/img/logo-coumao.png" alt="Coumao" />
+      </a>
+      <a class="nav-simple" href="index.html">← Retour à la boutique</a>
+    </div>
+  </header>
+
+  <section class="merci">
+    <div class="wrap">
+      <div class="merci-card">
+        <div id="liv-form-wrap">
+          <h1>Merci pour ta commande 💛</h1>
+          <p class="lead">Ton paiement a bien été reçu — un immense merci de soutenir l'atelier Coumao !</p>
+          <p class="order" id="order-line" hidden></p>
+          <div class="items" id="items-box" hidden></div>
+
+          <p class="liv-hint">Pour qu'on prépare et t'envoie ta commande sans souci, remplis tes informations de livraison ci-dessous 👇</p>
+
+          <label class="liv-field"><span>Prénom</span><input type="text" id="prenom" autocomplete="given-name" /></label>
+          <label class="liv-field"><span>Nom *</span><input type="text" id="nom" autocomplete="family-name" /></label>
+          <label class="liv-field"><span>Téléphone *</span><input type="tel" id="phone" autocomplete="tel" placeholder="06 …" /></label>
+          <label class="liv-field"><span>Email</span><input type="email" id="email" autocomplete="email" placeholder="ton@email.com" /></label>
+          <label class="liv-field"><span>Adresse (n° et rue) *</span><input type="text" id="adresse" autocomplete="street-address" placeholder="12 rue des Fleurs" /></label>
+          <div class="liv-row">
+            <label class="liv-field"><span>Code postal *</span><input type="text" id="cp" autocomplete="postal-code" placeholder="75011" /></label>
+            <label class="liv-field"><span>Ville *</span><input type="text" id="ville" autocomplete="address-level2" placeholder="Paris" /></label>
+          </div>
+          <div class="liv-row">
+            <label class="liv-field"><span>Code immeuble</span><input type="text" id="acces" placeholder="ex. B123 (ou « maison »)" /></label>
+            <label class="liv-field"><span>Étage</span><input type="text" id="etage" placeholder="ex. 3e" /></label>
+          </div>
+          <label class="liv-field"><span>Interphone / nom sur la sonnette</span><input type="text" id="interphone" /></label>
+          <label class="liv-field"><span>Instructions pour le livreur (optionnel)</span><textarea id="instructions" rows="2" placeholder="ex. laisser chez le gardien, sonner fort…"></textarea></label>
+
+          <p class="liv-hint" style="font-size:.85rem;">* Nom, téléphone et adresse complète obligatoires pour la livraison.</p>
+          <button class="btn btn-primary liv-send" id="liv-send">Envoyer mes informations de livraison</button>
+        </div>
+
+        <div class="liv-ok" id="liv-ok" hidden>
+          <h2>C'est tout bon, merci ! 🎉</h2>
+          <p class="lead">On a bien reçu tes informations de livraison. On prépare ta commande avec soin et on te tient au courant de l'envoi.</p>
+          <p class="order" id="order-line-2"></p>
+          <p style="margin-top:18px;"><a class="btn btn-outline" href="index.html">Retour à la boutique</a></p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <footer class="site-footer">
+    <div class="wrap">
+      <p><a href="index.html">← Retour à la boutique</a></p>
+      <p>&copy; <span id="year"></span> Coumao</p>
+    </div>
+  </footer>
+
+  <script>document.getElementById("year").textContent = new Date().getFullYear();</script>
+  <script src="assets/js/products.js"></script>
+  <script>
+  (function () {
+    "use strict";
+    // Numéro de commande depuis l'URL (?cmd=cs_live_...)
+    function param(n) {
+      var m = new RegExp("[?&]" + n + "=([^&]+)").exec(location.search);
+      return m ? decodeURIComponent(m[1]) : "";
+    }
+    var cmd = param("cmd");
+    var orderNumber = cmd ? ("CM-" + cmd.slice(-8).toUpperCase()) : "";
+    if (orderNumber) {
+      var ol = document.getElementById("order-line");
+      ol.textContent = "Numéro de commande : " + orderNumber;
+      ol.hidden = false;
+      document.getElementById("order-line-2").textContent = "Commande " + orderNumber;
+    }
+
+    // Récapitulatif des articles depuis le panier (localStorage)
+    var KEY = "coumao_cart_v1";
+    var itemsText = "";
+    try {
+      var cart = JSON.parse(localStorage.getItem(KEY)) || {};
+      var lines = [];
+      for (var slug in cart) {
+        if (!cart.hasOwnProperty(slug)) continue;
+        var name = slug, price = "";
+        if (typeof PRODUCTS !== "undefined") {
+          for (var i = 0; i < PRODUCTS.length; i++) {
+            if (PRODUCTS[i].slug === slug) { name = PRODUCTS[i].name; price = PRODUCTS[i].price || ""; break; }
+          }
+        }
+        lines.push(cart[slug] + " × " + name + (price ? "  (" + price + ")" : ""));
+      }
+      if (lines.length) {
+        itemsText = lines.join("\n");
+        var box = document.getElementById("items-box");
+        box.textContent = "Ta commande :\n" + itemsText;
+        box.hidden = false;
+      }
+    } catch (e) {}
+
+    function val(id) { var el = document.getElementById(id); return el ? el.value.trim() : ""; }
+
+    var btn = document.getElementById("liv-send");
+    btn.addEventListener("click", function () {
+      var nom = val("nom"), phone = val("phone"), adresse = val("adresse"), cp = val("cp"), ville = val("ville");
+      if (!nom || !phone || !adresse || !cp || !ville) {
+        alert("Merci de remplir ton nom, ton téléphone et ton adresse complète (rue, code postal, ville).");
+        return;
+      }
+      var payload = {
+        orderNumber: orderNumber,
+        prenom: val("prenom"), nom: nom, phone: phone, email: val("email"),
+        adresse: adresse, cp: cp, ville: ville,
+        acces: val("acces"), etage: val("etage"), interphone: val("interphone"),
+        instructions: val("instructions"), itemsText: itemsText
+      };
+      btn.disabled = true; btn.textContent = "Envoi…";
+      fetch("/livraison.php", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(payload)
+      })
+        .then(function (r) { return r.json().then(function (d) { return { ok: r.ok, d: d }; }); })
+        .then(function (res) {
+          if (res.ok && res.d && res.d.ok) {
+            try { localStorage.removeItem(KEY); } catch (e) {}
+            document.getElementById("liv-form-wrap").hidden = true;
+            document.getElementById("liv-ok").hidden = false;
+            window.scrollTo({ top: 0, behavior: "smooth" });
+          } else {
+            btn.disabled = false; btn.textContent = "Envoyer mes informations de livraison";
+            alert((res.d && res.d.error) || "L'envoi n'a pas fonctionné. Réessaie.");
+          }
+        })
+        .catch(function () {
+          btn.disabled = false; btn.textContent = "Envoyer mes informations de livraison";
+          alert("L'envoi est momentanément indisponible. Réessaie dans un instant 🙏");
+        });
+    });
+  })();
+  </script>
+</body>
+</html>
