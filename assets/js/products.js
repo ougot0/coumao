@@ -253,16 +253,6 @@ const PRODUCTS = [
      Types d'option : "select" (menu), "text" (une ligne), "textarea" (message).
      👉 À ajuster : la photo, le prix, et la liste des options ci-dessous. */
   {
-    slug: "coumao-sky",
-    category: "telephone",
-    name: "Pochette Sky ☁️",
-    price: "40 €",
-    desc: "Pochette téléphone au crochet en trapilho, bleu et turquoise, bandoulière tressée et étiquette cuir Coumao. Faite main.",
-    images: [
-      "assets/products/coumao-sky-1.jpg",
-    ],
-  },
-  {
     slug: "coumao-chocolat",
     category: "telephone",
     name: "Pochette Chocolat 🍫",

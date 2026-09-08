@@ -33,7 +33,6 @@ $CATALOG = array(
   'coumao-emilio'        => array('name' => 'Coumao Emilio (solde)', 'amount' => 5000),
   'coumao-safari'        => array('name' => 'Coumao Safari',         'amount' => 9000),
   'coumao-sea'           => array('name' => 'Coumao Sea',           'amount' => 7000),
-  'coumao-sky'           => array('name' => 'Pochette Sky',         'amount' => 4000),
   'coumao-chocolat'      => array('name' => 'Pochette Chocolat',    'amount' => 4000),
   'anse'                 => array('name' => 'Anse (bandoulière)',   'amount' => 500),
   'charme'               => array('name' => 'Charm (bijou de sac)', 'amount' => 500),
