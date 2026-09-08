@@ -735,6 +735,26 @@
       });
     }
 
+    // Menu ☰ (mobile) : ouvrir / fermer la navigation
+    var header = document.querySelector(".site-header");
+    var navToggle = document.getElementById("nav-toggle");
+    var siteNav = document.getElementById("site-nav");
+    if (header && navToggle) {
+      navToggle.addEventListener("click", function () {
+        var open = header.classList.toggle("nav-open");
+        navToggle.setAttribute("aria-expanded", open ? "true" : "false");
+      });
+      if (siteNav) {
+        // Fermer le menu quand on clique un lien ou un onglet
+        siteNav.addEventListener("click", function (e) {
+          if (e.target.closest("a, .tab")) {
+            header.classList.remove("nav-open");
+            navToggle.setAttribute("aria-expanded", "false");
+          }
+        });
+      }
+    }
+
     activate("sacs"); // onglet par défaut
   }
 

@@ -54,9 +54,36 @@ a { color: inherit; text-decoration: none; }
 .site-header .wrap {
   display: flex;
   align-items: center;
-  justify-content: space-between;
+  justify-content: flex-start;
+  gap: 22px;
   height: 68px;
 }
+.brand { margin-right: auto; }        /* pousse la nav + le panier à droite (ordinateur) */
+/* Bouton menu (burger) — caché sur ordinateur, visible sur mobile */
+.nav-toggle {
+  display: none;
+  flex-direction: column;
+  justify-content: center;
+  gap: 5px;
+  width: 44px;
+  height: 44px;
+  padding: 0;
+  border: none;
+  background: transparent;
+  cursor: pointer;
+  flex: none;
+}
+.nav-toggle span {
+  display: block;
+  width: 24px;
+  height: 2px;
+  border-radius: 2px;
+  background: var(--ink);
+  transition: transform .25s ease, opacity .25s ease;
+}
+.site-header.nav-open .nav-toggle span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+.site-header.nav-open .nav-toggle span:nth-child(2) { opacity: 0; }
+.site-header.nav-open .nav-toggle span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
 .brand {
   display: flex;
   align-items: center;
@@ -90,6 +117,13 @@ a { color: inherit; text-decoration: none; }
 }
 .nav a:hover,
 .nav a.active { color: var(--ink); }
+.nav-simple {
+  font-size: 0.92rem;
+  color: var(--ink-soft);
+  text-decoration: none;
+  transition: color .2s;
+}
+.nav-simple:hover { color: var(--ink); }
 
 /* ---------------- Héro ---------------- */
 .hero { padding: 66px 0 84px; }
@@ -852,37 +886,60 @@ textarea.cz-input { resize: vertical; }
   }
   .hero { padding: 42px 0 60px; }
 }
-/* En-tête sur mobile : logo sur une ligne, nav + panier sur la suivante */
+/* En-tête sur mobile : menu ☰ à gauche, GROS logo au centre, panier à droite ;
+   la navigation s'ouvre en menu déroulant plein largeur. */
 @media (max-width: 700px) {
   .site-header .wrap {
     flex-wrap: wrap;
     height: auto;
-    padding-top: 12px;
-    padding-bottom: 12px;
-    row-gap: 10px;
+    gap: 10px;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    row-gap: 0;
   }
-  .brand { font-size: 1.4rem; }
-  .header-right {
-    width: 100%;
-    justify-content: space-between;
-    gap: 12px;
+  .nav-toggle { display: flex; order: 1; }
+  .brand {
+    order: 2;
+    flex: 1;                 /* prend la place au centre */
+    justify-content: center; /* logo centré */
+    margin: 0;
   }
+  .brand-logo { height: 78px; }   /* logo en grand */
+  #cart-btn { order: 3; flex: none; }
   .nav {
-    justify-content: flex-start;
-    gap: 2px;
+    order: 4;
+    flex-basis: 100%;
+    width: 100%;
+    flex-direction: column;
+    align-items: stretch;
+    gap: 0;
+    overflow: hidden;
+    max-height: 0;
+    opacity: 0;
+    transition: max-height .3s ease, opacity .2s ease, margin-top .3s ease;
   }
+  .site-header.nav-open .nav {
+    max-height: 80vh;
+    opacity: 1;
+    margin-top: 6px;
+    overflow-y: auto;
+  }
+  .tabs { display: flex; flex-direction: column; width: 100%; }
   .nav a,
   .nav .tab {
-    margin-left: 0;
-    margin-right: 16px;
-    font-size: 0.9rem;
+    display: block;
+    width: 100%;
+    text-align: left;
+    margin: 0;
+    padding: 13px 6px;
+    font-size: 1.02rem;
+    border-bottom: 1px solid var(--line);
   }
 }
 @media (max-width: 560px) {
   .grid { grid-template-columns: 1fr; }
   .btn { flex: 1 1 auto; text-align: center; }
-  .nav a,
-  .nav .tab { margin-right: 12px; font-size: 0.85rem; }
+  .brand-logo { height: 70px; }
 }
 
 /* ---------------- Panier : choix Livraison / Retrait ---------------- */
