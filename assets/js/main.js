@@ -553,8 +553,29 @@
     list.forEach(function (p, i) { gridEl.appendChild(buildCard(p, i)); });
   }
 
+  /* Bandeau de confirmation avec numéro de commande (retour de paiement) */
+  function showOrderConfirmation() {
+    var q = location.search || "";
+    if (q.indexOf("paiement=reussi") < 0) return;
+    var m = q.match(/[?&]cmd=([^&]+)/);
+    var num = "";
+    if (m && m[1]) {
+      var id = decodeURIComponent(m[1]).replace(/[^A-Za-z0-9]/g, "");
+      if (id) num = "CM-" + id.slice(-8).toUpperCase();
+    }
+    var b = document.createElement("div");
+    b.className = "order-banner";
+    b.innerHTML =
+      "✅ <b>Merci, ta commande est confirmée !</b>" +
+      (num ? "<br>Numéro de commande : <b>" + num + "</b> — garde-le précieusement 💛" : "") +
+      "<button class='order-banner-x' aria-label='Fermer'>&times;</button>";
+    document.body.insertBefore(b, document.body.firstChild);
+    b.querySelector(".order-banner-x").addEventListener("click", function () { b.remove(); });
+  }
+
   /* ---------------- Initialisation ---------------- */
   function init() {
+    showOrderConfirmation();
     var tabsEl = document.getElementById("tabs");
     var gridEl = document.getElementById("grid");
     var subEl = document.getElementById("tab-sub");

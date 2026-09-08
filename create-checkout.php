@@ -84,6 +84,9 @@ if (!count($chosen)) {
 $origin = isset($_SERVER['HTTP_ORIGIN']) ? $_SERVER['HTTP_ORIGIN'] : '';
 $successUrl = isset($body['successUrl']) ? $body['successUrl'] : ($origin . '/?paiement=reussi');
 $cancelUrl  = isset($body['cancelUrl'])  ? $body['cancelUrl']  : ($origin . '/');
+// On ajoute l'identifiant de la commande au retour, pour afficher le numéro au client
+$sep = (strpos($successUrl, '?') !== false) ? '&' : '?';
+$successUrl = $successUrl . $sep . 'cmd={CHECKOUT_SESSION_ID}';
 
 // --- Construction des paramètres Stripe (form-encoded) ---
 $params = array(

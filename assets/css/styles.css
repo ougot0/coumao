@@ -939,3 +939,25 @@ textarea.cz-input { resize: vertical; }
   line-height: 1.5;
   color: var(--ink);
 }
+
+/* ---------------- Bandeau de confirmation de commande ---------------- */
+.order-banner {
+  position: relative;
+  background: #2f6b3a;
+  color: #f4f1e8;
+  text-align: center;
+  padding: 14px 44px;
+  font-size: 0.98rem;
+  line-height: 1.5;
+}
+.order-banner-x {
+  position: absolute;
+  top: 8px;
+  right: 12px;
+  background: none;
+  border: none;
+  color: #f4f1e8;
+  font-size: 1.5rem;
+  line-height: 1;
+  cursor: pointer;
+}
