@@ -232,6 +232,9 @@ const PRODUCTS = [
       "assets/products/coumao-safari-1.jpg",
       "assets/products/coumao-safari-2.jpg",
       "assets/products/coumao-safari-3.jpg",
+      "assets/products/coumao-safari-4.jpg",
+      "assets/products/coumao-safari-5.jpg",
+      "assets/products/coumao-safari-6.jpg",
     ],
   },
   {
