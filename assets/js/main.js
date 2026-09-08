@@ -506,7 +506,6 @@
   var NOUVEAUTES = [
     "coumao-clutch-roma",
     "coumao-safari",
-    "coumao-chocolat",
   ];
   // Collections saisonnières (répartition par tons — à ajuster librement).
   var SAISON = {
