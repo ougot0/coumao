@@ -24,6 +24,7 @@ if (!$key) {
 
 // Prix en centimes (9000 = 90,00 €). À garder en accord avec le site.
 $CATALOG = array(
+  'coumao-pinkie'        => array('name' => 'Coumao Pinkie (solde)', 'amount' => 5000),
   'coumao-candy'         => array('name' => 'Coumao Candy',         'amount' => 9000),
   'coumao-ocean'         => array('name' => 'Coumao Océan',         'amount' => 9000),
   'coumao-brownie'       => array('name' => 'Coumao Brownie',       'amount' => 9000),

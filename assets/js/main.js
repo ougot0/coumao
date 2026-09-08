@@ -154,7 +154,12 @@
 
     var price = document.createElement("span");
     price.className = "price";
-    price.textContent = product.price || "";
+    if (product.oldPrice) {
+      price.innerHTML = '<span class="price-old">' + product.oldPrice + '</span>' +
+                        '<span class="price-sale">' + (product.price || "") + '</span>';
+    } else {
+      price.textContent = product.price || "";
+    }
 
     var btn = document.createElement("button");
     btn.className = "view-btn";

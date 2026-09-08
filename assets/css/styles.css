@@ -330,6 +330,14 @@ a { color: inherit; text-decoration: none; }
 }
 .price { font-weight: 600; color: var(--accent-dk); }
 .price:empty::before { content: ""; }
+.price-old {
+  text-decoration: line-through;
+  color: var(--ink-soft);
+  font-weight: 500;
+  font-size: 0.85em;
+  margin-right: 8px;
+}
+.price-sale { color: #b5794f; font-weight: 700; }
 .view-btn {
   border: 1px solid var(--line);
   background: var(--bg);

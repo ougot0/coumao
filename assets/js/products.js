@@ -68,6 +68,18 @@ const OPTIONS_COULEURS_3 = [
 /* ---- Les produits ---- */
 const PRODUCTS = [
   {
+    slug: "coumao-pinkie",
+    category: "sacs",
+    name: "Coumao Pinkie 💗",
+    price: "50 €",
+    oldPrice: "80 €",       // prix barré (solde)
+    solde: true,            // apparaît aussi dans l'onglet Soldes
+    desc: "Sac au crochet en trapilho, rose fuchsia et rose poudré, anse à main, bandoulière amovible et étiquette cuir Coumao. Pièce unique faite main.",
+    images: [
+      "assets/products/coumao-pinkie-1.jpg",
+    ],
+  },
+  {
     slug: "coumao-candy",
     category: "sacs",
     name: "Coumao Candy 🍭",
