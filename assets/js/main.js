@@ -540,6 +540,8 @@
   function renderTab(tab, gridEl, subEl) {
     gridEl.innerHTML = "";
     if (subEl) subEl.textContent = tab.sub || "";
+    // L'onglet Personnalisation = formulaire de contact (pas de produits)
+    if (tab.id === "personnalisation") { renderPersoForm(gridEl, subEl); return; }
     var list = PRODUCTS.filter(function (p) {
       return p.category !== "accessoire" && tab.match(p);
     });
@@ -551,6 +553,69 @@
       return;
     }
     list.forEach(function (p, i) { gridEl.appendChild(buildCard(p, i)); });
+  }
+
+  /* ---------------- Onglet Personnalisation : formulaire de contact ---------------- */
+  function renderPersoForm(gridEl, subEl) {
+    if (subEl) subEl.textContent = "";
+    gridEl.innerHTML =
+      '<div class="perso-wrap">' +
+        '<div class="perso-info">' +
+          '💌 <b>Une envie de pièce personnalisée ?</b><br>' +
+          'Laisse-nous tes coordonnées (et ton Instagram si tu veux). On te recontacte pour ' +
+          't\'envoyer les <b>couleurs disponibles du moment</b> 🎨 — tu choisis, et on prépare ' +
+          'ta création sur mesure rien que pour toi 💛' +
+        '</div>' +
+        '<form class="perso-form" onsubmit="return false">' +
+          '<div class="perso-row">' +
+            '<label><span>Prénom *</span><input class="perso-in" data-k="prenom" type="text" autocomplete="given-name"></label>' +
+            '<label><span>Nom *</span><input class="perso-in" data-k="nom" type="text" autocomplete="family-name"></label>' +
+          '</div>' +
+          '<label><span>Téléphone *</span><input class="perso-in" data-k="phone" type="tel" autocomplete="tel" placeholder="06 …"></label>' +
+          '<label><span>Email *</span><input class="perso-in" data-k="email" type="email" autocomplete="email" placeholder="ton@email.com"></label>' +
+          '<label><span>Instagram (optionnel)</span><input class="perso-in" data-k="instagram" type="text" placeholder="@ton_compte"></label>' +
+          '<label><span>Ta demande (optionnel)</span><textarea class="perso-in" data-k="message" rows="3" placeholder="ce que tu aimerais : type de sac, idées de couleurs…"></textarea></label>' +
+          '<button type="button" class="btn btn-primary perso-send">Envoyer ma demande</button>' +
+          '<div class="perso-ok" hidden></div>' +
+        '</form>' +
+      '</div>';
+    var form = gridEl.querySelector(".perso-form");
+    form.querySelector(".perso-send").addEventListener("click", function () { submitPerso(form); });
+  }
+
+  function submitPerso(form) {
+    var data = {};
+    form.querySelectorAll(".perso-in").forEach(function (f) { data[f.getAttribute("data-k")] = (f.value || "").trim(); });
+    if (!data.prenom || !data.nom || !data.phone || !data.email) {
+      alert("Merci de remplir les champs obligatoires : prénom, nom, téléphone et email.");
+      return;
+    }
+    var cfg = window.STRIPE_CONFIG || {};
+    var endpoint = cfg.personnalisationEndpoint || "/personnalisation.php";
+    var btn = form.querySelector(".perso-send");
+    btn.disabled = true; btn.textContent = "Envoi…";
+    fetch(endpoint, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(data),
+    })
+      .then(function (r) { return r.json().then(function (d) { return { ok: r.ok, d: d }; }); })
+      .then(function (res) {
+        btn.disabled = false; btn.textContent = "Envoyer ma demande";
+        if (res.ok && res.d && res.d.ok) {
+          form.querySelectorAll("label, .perso-row, .perso-send").forEach(function (el) { el.hidden = true; });
+          var ok = form.querySelector(".perso-ok");
+          ok.hidden = false;
+          ok.innerHTML = "✅ <b>Demande envoyée !</b><br>Référence " + (res.d.ref || "") +
+            "<br>On te recontacte très vite pour tes couleurs 💛";
+        } else {
+          alert((res.d && res.d.error) || "L'envoi n'a pas fonctionné. Réessaie.");
+        }
+      })
+      .catch(function () {
+        btn.disabled = false; btn.textContent = "Envoyer ma demande";
+        alert("L'envoi ne marche pas encore sur cette adresse (il s'active une fois le site publié).");
+      });
   }
 
   /* Bandeau de confirmation avec numéro de commande (retour de paiement) */

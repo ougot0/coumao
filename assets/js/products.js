@@ -235,32 +235,6 @@ const PRODUCTS = [
     ],
   },
   {
-    slug: "sac-carre",
-    category: "sacs",
-    name: "Sac Carré personnalisable 🟦",
-    price: "90 €",
-    desc: "Sac carré au crochet, fait main sur commande. Choisis jusqu'à 3 couleurs, on le crée pour toi.",
-    customizable: true,
-    czAddons: true,               // accessoires (anse/charm/clip) proposés dans la personnalisation
-    options: OPTIONS_COULEURS_3,
-    images: [
-      "assets/products/pochette-carre-1.jpg",
-    ],
-  },
-  {
-    slug: "sac-rectangle",
-    category: "sacs",
-    name: "Sac Rectangle personnalisable ▬",
-    price: "90 €",
-    desc: "Sac rectangle au crochet, fait main sur commande. Choisis jusqu'à 3 couleurs, on le crée pour toi.",
-    customizable: true,
-    czAddons: true,               // accessoires (anse/charm/clip) proposés dans la personnalisation
-    options: OPTIONS_COULEURS_3,
-    images: [
-      "assets/products/pochette-rectangle-1.jpg",
-    ],
-  },
-  {
     slug: "coumao-sea",
     category: "sacs",
     name: "Coumao Sea 🐚",
@@ -278,53 +252,6 @@ const PRODUCTS = [
      qui ouvre une page de choix, puis "Envoyer et payer".
      Types d'option : "select" (menu), "text" (une ligne), "textarea" (message).
      👉 À ajuster : la photo, le prix, et la liste des options ci-dessous. */
-  {
-    slug: "pochette-telephone",
-    category: "telephone",
-    name: "Pochette Téléphone Personnalisable 📱",
-    price: "40 €",
-    desc: "Pochette téléphone au crochet, faite main sur commande. Choisis tes couleurs et ton modèle, on la crée pour toi.",
-    customizable: true,
-    czAddons: true,               // accessoires proposés dans la personnalisation
-    addonsExclude: ["charme"],    // seulement Anse + Clip (pas de Charm)
-    options: [
-      {
-        id: "modele",
-        label: "Ton modèle de téléphone",
-        type: "text",
-        placeholder: "ex. iPhone 15, Samsung Galaxy S24…",
-        required: true,
-      },
-      {
-        id: "couleur_1",
-        label: "Couleur 1 (principale)",
-        type: "select",
-        required: true,
-        choices: COULEURS,
-      },
-      {
-        id: "couleur_2",
-        label: "Couleur 2 (optionnelle)",
-        type: "select",
-        choices: ["Aucune"].concat(COULEURS),
-      },
-      {
-        id: "couleur_3",
-        label: "Couleur 3 (optionnelle — 3 couleurs max)",
-        type: "select",
-        choices: ["Aucune"].concat(COULEURS),
-      },
-      {
-        id: "remarque",
-        label: "Une remarque ? (optionnel)",
-        type: "textarea",
-        placeholder: "toute précision utile pour ta pochette",
-      },
-    ],
-    images: [
-      "assets/products/pochette-telephone-1.jpg",
-    ],
-  },
   {
     slug: "coumao-sky",
     category: "telephone",
