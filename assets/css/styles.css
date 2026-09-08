@@ -855,3 +855,87 @@ textarea.cz-input { resize: vertical; }
   .nav a,
   .nav .tab { margin-right: 12px; font-size: 0.85rem; }
 }
+
+/* ---------------- Panier : choix Livraison / Retrait ---------------- */
+.cart-mode {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin: 6px 0 12px;
+}
+.cart-mode-opt {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px 12px;
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  cursor: pointer;
+  font-size: 0.9rem;
+  transition: border-color .2s, background .2s;
+}
+.cart-mode-opt:hover { border-color: var(--accent); }
+.cart-mode-opt input { accent-color: var(--accent); }
+
+/* ---------------- Fenêtre de réservation (retrait sur place) ---------------- */
+.resa-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(40, 28, 18, 0.5);
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity .25s;
+  z-index: 60;
+}
+.resa-overlay.open { opacity: 1; pointer-events: auto; }
+.resa-modal {
+  position: fixed;
+  z-index: 61;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -46%);
+  width: min(440px, 92vw);
+  max-height: 90vh;
+  overflow-y: auto;
+  background: var(--white);
+  border-radius: 18px;
+  padding: 26px 24px 24px;
+  box-shadow: 0 24px 70px rgba(60, 40, 20, 0.3);
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity .25s, transform .25s;
+}
+.resa-modal.open { opacity: 1; pointer-events: auto; transform: translate(-50%, -50%); }
+.resa-close {
+  position: absolute;
+  top: 12px;
+  right: 14px;
+  border: none;
+  background: none;
+  font-size: 1.7rem;
+  line-height: 1;
+  cursor: pointer;
+  color: var(--ink-soft);
+}
+.resa-modal h2 { font-family: var(--font-title); font-weight: 500; margin: 0 0 6px; }
+.resa-sub { color: var(--ink-soft); font-size: 0.92rem; margin: 0 0 16px; }
+.resa-field { display: block; margin-bottom: 12px; }
+.resa-field > span { display: block; font-size: 0.85rem; font-weight: 600; margin-bottom: 4px; }
+.resa-input {
+  width: 100%;
+  box-sizing: border-box;
+  padding: 10px 12px;
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  font: inherit;
+  background: var(--bg);
+}
+.resa-hint { font-size: 0.78rem; color: var(--ink-soft); margin: 2px 0 14px; }
+.resa-send { width: 100%; }
+.resa-ok {
+  text-align: center;
+  padding: 18px 8px;
+  font-size: 1.02rem;
+  line-height: 1.5;
+  color: var(--ink);
+}

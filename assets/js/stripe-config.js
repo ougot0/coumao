@@ -14,4 +14,5 @@
 
 window.STRIPE_CONFIG = {
   checkoutEndpoint: "/create-checkout.php",
+  reservationEndpoint: "/reservation.php",
 };
