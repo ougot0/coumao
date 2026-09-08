@@ -504,6 +504,7 @@
   /* ---------------- Onglets (Soldes, Nouveautés, Sacs…) ---------------- */
   // Nouveautés : liste de slugs mis en avant. Soldes : produits avec solde:true.
   var NOUVEAUTES = [
+    "coumao-clutch-roma",
     "coumao-emilio", "coumao-safari",
     "coumao-chocolat",
   ];
