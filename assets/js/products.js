@@ -126,6 +126,19 @@ const PRODUCTS = [
     ],
   },
   {
+    slug: "coumao-nyc",
+    category: "sacs",
+    name: "Coumao NYC 🖤",
+    price: "90 €",
+    desc: "Sac au crochet en trapilho, gris perle et noir, anse à main tressée, charm cœur et étiquette cuir Coumao. Pièce unique faite main.",
+    images: [
+      "assets/products/coumao-nyc-1.jpg",
+      "assets/products/coumao-nyc-2.jpg",
+      "assets/products/coumao-nyc-3.jpg",
+      "assets/products/coumao-nyc-4.jpg",
+    ],
+  },
+  {
     slug: "coumao-candy",
     category: "sacs",
     name: "Coumao Candy 🍭",
