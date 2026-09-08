@@ -527,8 +527,6 @@
       match: function (p) { return NOUVEAUTES.indexOf(p.slug) >= 0; } },
     { id: "ete",              label: "Été",             sub: "Collection Été — couleurs fraîches et lumineuses ☀️",
       match: function (p) { return SAISON.ete.indexOf(p.slug) >= 0; } },
-    { id: "hiver",            label: "Hiver",           sub: "Collection Hiver — tons chauds et cosy ❄️",
-      match: function (p) { return SAISON.hiver.indexOf(p.slug) >= 0; } },
     { id: "sacs",             label: "Sacs",            sub: "Sacs au crochet, faits main — pièces uniques.",
       match: function (p) { return p.category === "sacs" && !p.customizable; } },
     { id: "cases",            label: "Cases",           sub: "Pochettes téléphone au crochet.",
