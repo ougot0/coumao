@@ -83,7 +83,7 @@
         '<div class="cart-total"><span>Total</span><strong class="cart-total-val">0 €</strong></div>' +
         '<div class="cart-mode">' +
           '<label class="cart-mode-opt"><input type="radio" name="cart-mode" value="livraison" checked>' +
-            '<span>🚚 Livraison — <b>paiement en ligne</b></span></label>' +
+            '<span>🚚 Livraison <b>gratuite</b> — paiement en ligne</span></label>' +
           '<label class="cart-mode-opt"><input type="radio" name="cart-mode" value="retrait">' +
             '<span>🏬 Retrait en main propre — <b>paiement à la remise</b></span></label>' +
         '</div>' +
