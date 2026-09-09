@@ -20,8 +20,13 @@
     .merci .order { font-weight: 700; color: var(--accent); margin: 8px 0 4px; }
     .merci .items { font-size: .9rem; color: var(--ink-soft); background: var(--bg); border-radius: 12px; padding: 10px 14px; margin: 12px 0 0; white-space: pre-line; }
     .liv-hint { color: var(--ink-soft); font-size: .95rem; margin: 22px 0 14px; }
+    .liv-warn {
+      background: #fbeaea; border: 1px solid #e3b7b7; color: #7c1d1d;
+      border-radius: 12px; padding: 12px 14px; margin: 16px 0 4px; font-size: .92rem; line-height: 1.5;
+    }
     .liv-field { display: block; margin-bottom: 12px; }
     .liv-field > span { display: block; font-size: .85rem; font-weight: 600; margin-bottom: 4px; }
+    .liv-field > span small { font-weight: 400; color: var(--ink-soft); }
     .liv-field input, .liv-field textarea {
       width: 100%; box-sizing: border-box; padding: 11px 12px;
       border: 1px solid var(--line); border-radius: 10px; font: inherit; background: #fff;
@@ -55,23 +60,30 @@
 
           <p class="liv-hint">Pour qu'on prépare et t'envoie ta commande sans souci, remplis tes informations de livraison ci-dessous 👇</p>
 
-          <label class="liv-field"><span>Prénom</span><input type="text" id="prenom" autocomplete="given-name" /></label>
+          <div class="liv-warn">
+            ⚠️ <b>Ces informations sont indispensables pour te livrer.</b> Sans une adresse
+            complète et exacte (rue, code postal, ville, code d'accès…), le livreur ne
+            pourra pas te trouver et la livraison sera <b>impossible ou fortement retardée</b>.
+            Merci de bien <b>tout remplir correctement</b> 🙏
+          </div>
+
+          <label class="liv-field"><span>Prénom *</span><input type="text" id="prenom" autocomplete="given-name" /></label>
           <label class="liv-field"><span>Nom *</span><input type="text" id="nom" autocomplete="family-name" /></label>
           <label class="liv-field"><span>Téléphone *</span><input type="tel" id="phone" autocomplete="tel" placeholder="06 …" /></label>
-          <label class="liv-field"><span>Email</span><input type="email" id="email" autocomplete="email" placeholder="ton@email.com" /></label>
+          <label class="liv-field"><span>Email *</span><input type="email" id="email" autocomplete="email" placeholder="ton@email.com" /></label>
           <label class="liv-field"><span>Adresse (n° et rue) *</span><input type="text" id="adresse" autocomplete="street-address" placeholder="12 rue des Fleurs" /></label>
           <div class="liv-row">
             <label class="liv-field"><span>Code postal *</span><input type="text" id="cp" autocomplete="postal-code" placeholder="75011" /></label>
             <label class="liv-field"><span>Ville *</span><input type="text" id="ville" autocomplete="address-level2" placeholder="Paris" /></label>
           </div>
           <div class="liv-row">
-            <label class="liv-field"><span>Code immeuble</span><input type="text" id="acces" placeholder="ex. B123 (ou « maison »)" /></label>
-            <label class="liv-field"><span>Étage</span><input type="text" id="etage" placeholder="ex. 3e" /></label>
+            <label class="liv-field"><span>Code immeuble * <small>(ou « maison »)</small></span><input type="text" id="acces" placeholder="ex. B123, ou « maison »" /></label>
+            <label class="liv-field"><span>Étage <small>(si appartement)</small></span><input type="text" id="etage" placeholder="ex. 3e" /></label>
           </div>
-          <label class="liv-field"><span>Interphone / nom sur la sonnette</span><input type="text" id="interphone" /></label>
+          <label class="liv-field"><span>Interphone / nom sur la sonnette <small>(si appartement)</small></span><input type="text" id="interphone" /></label>
           <label class="liv-field"><span>Instructions pour le livreur (optionnel)</span><textarea id="instructions" rows="2" placeholder="ex. laisser chez le gardien, sonner fort…"></textarea></label>
 
-          <p class="liv-hint" style="font-size:.85rem;">* Nom, téléphone et adresse complète obligatoires pour la livraison.</p>
+          <p class="liv-hint" style="font-size:.85rem;">* Tous les champs marqués d'une étoile sont obligatoires pour pouvoir te livrer.</p>
           <button class="btn btn-primary liv-send" id="liv-send">Envoyer mes informations de livraison</button>
         </div>
 
@@ -137,11 +149,25 @@
 
     function val(id) { var el = document.getElementById(id); return el ? el.value.trim() : ""; }
 
+    var submitted = false;
+    // Empêche de quitter la page sans avoir envoyé les infos de livraison
+    window.addEventListener("beforeunload", function (e) {
+      if (submitted) return;
+      e.preventDefault();
+      e.returnValue = "Tu n'as pas encore envoyé tes informations de livraison. Sans elles, on ne pourra pas te livrer.";
+      return e.returnValue;
+    });
+
     var btn = document.getElementById("liv-send");
     btn.addEventListener("click", function () {
-      var nom = val("nom"), phone = val("phone"), adresse = val("adresse"), cp = val("cp"), ville = val("ville");
-      if (!nom || !phone || !adresse || !cp || !ville) {
-        alert("Merci de remplir ton nom, ton téléphone et ton adresse complète (rue, code postal, ville).");
+      var prenom = val("prenom"), nom = val("nom"), phone = val("phone"), email = val("email"),
+          adresse = val("adresse"), cp = val("cp"), ville = val("ville"), acces = val("acces");
+      if (!prenom || !nom || !phone || !email || !adresse || !cp || !ville || !acces) {
+        alert("Merci de remplir TOUS les champs obligatoires (marqués d'une *) : prénom, nom, téléphone, email, adresse, code postal, ville et code immeuble (écris « maison » si tu n'en as pas). Sans ça, on ne peut pas te livrer.");
+        return;
+      }
+      if (email.indexOf("@") < 1 || email.indexOf(".") < 0) {
+        alert("Merci d'indiquer un email valide (ex. ton@email.com).");
         return;
       }
       var payload = {
@@ -160,6 +186,7 @@
         .then(function (r) { return r.json().then(function (d) { return { ok: r.ok, d: d }; }); })
         .then(function (res) {
           if (res.ok && res.d && res.d.ok) {
+            submitted = true; // infos envoyées : on n'avertit plus au départ de la page
             try { localStorage.removeItem(KEY); } catch (e) {}
             document.getElementById("liv-form-wrap").hidden = true;
             document.getElementById("liv-ok").hidden = false;
