@@ -126,6 +126,19 @@ const PRODUCTS = [
     ],
   },
   {
+    slug: "coumao-clutch-moka",
+    category: "sacs",
+    name: "Clutch Moka 🤎",
+    price: "89 €",
+    desc: "Pochette (clutch) au crochet en trapilho, camaïeu moka, camel et chocolat, poignée intégrée et étiquette cuir Coumao. Pièce unique faite main.",
+    images: [
+      "assets/products/coumao-clutch-moka-1.jpg",
+      "assets/products/coumao-clutch-moka-2.jpg",
+      "assets/products/coumao-clutch-moka-3.jpg",
+      "assets/products/coumao-clutch-moka-4.jpg",
+    ],
+  },
+  {
     slug: "coumao-nyc",
     category: "sacs",
     name: "Coumao NYC 🖤",

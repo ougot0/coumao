@@ -27,6 +27,7 @@ $CATALOG = array(
   'coumao-summer'        => array('name' => 'Coumao Summer (solde)', 'amount' => 4900),
   'coumao-pinkie'        => array('name' => 'Coumao Pinkie (solde)', 'amount' => 4900),
   'coumao-clutch-roma'   => array('name' => 'Clutch Roma',        'amount' => 8900),
+  'coumao-clutch-moka'   => array('name' => 'Clutch Moka',        'amount' => 8900),
   'coumao-nyc'           => array('name' => 'Coumao NYC',         'amount' => 8900),
   'coumao-candy'         => array('name' => 'Coumao Candy (solde)',  'amount' => 4900),
   'coumao-ocean'         => array('name' => 'Coumao Océan (solde)',  'amount' => 4900),
