@@ -509,6 +509,17 @@
     "coumao-nyc",
     "coumao-safari",
   ];
+  // Sacs ajoutés via l'app (reconnus par leur NOM, car on ne connaît pas leur slug).
+  // Pour en ajouter un nouveau plus tard : ajoute son nom ici, en MAJUSCULES.
+  var NOUVEAUTES_NOMS = ["MISO", "BERRY", "LILA", "SOHO", "MAPLE", "CHOCO", "MALKA", "OLIVE"];
+  function estNouveaute(p) {
+    if (NOUVEAUTES.indexOf(p.slug) >= 0) return true;
+    var nom = (p.name || "").toUpperCase();
+    for (var i = 0; i < NOUVEAUTES_NOMS.length; i++) {
+      if (nom.indexOf(NOUVEAUTES_NOMS[i]) === 0) return true; // le nom commence par…
+    }
+    return false;
+  }
   // Collections saisonnières (répartition par tons — à ajuster librement).
   var SAISON = {
     ete: [
@@ -526,7 +537,7 @@
     { id: "soldes",           label: "Soldes",          sub: "Nos pièces en promotion.",
       match: function (p) { return p.solde === true; } },
     { id: "nouveautes",       label: "Nouveautés",      sub: "Les dernières créations de l'atelier.",
-      match: function (p) { return NOUVEAUTES.indexOf(p.slug) >= 0; } },
+      match: estNouveaute },
     { id: "sacs",             label: "Sacs",            sub: "Sacs au crochet, faits main — pièces uniques.",
       match: function (p) { return p.category === "sacs" && !p.customizable; } },
     { id: "cases",            label: "Cases",           sub: "Pochettes téléphone au crochet.",
