@@ -509,15 +509,21 @@
     "coumao-nyc",
     "coumao-safari",
   ];
-  // Sacs ajoutés via l'app (reconnus par leur NOM, car on ne connaît pas leur slug).
-  // Pour en ajouter un nouveau plus tard : ajoute son nom ici, en MAJUSCULES.
+  // Sacs ajoutés via l'app : ils ont un nom tout en MAJUSCULES (MISO, BERRY, LILA…).
+  // On les met automatiquement dans Nouveautés — y compris les futurs.
   var NOUVEAUTES_NOMS = ["MISO", "BERRY", "LILA", "SOHO", "MAPLE", "CHOCO", "MALKA", "OLIVE"];
   function estNouveaute(p) {
     if (NOUVEAUTES.indexOf(p.slug) >= 0) return true;
-    var nom = (p.name || "").toUpperCase();
+    var nom = (p.name || "").trim();
+    // 1) Nom explicitement listé
+    var maj = nom.toUpperCase();
     for (var i = 0; i < NOUVEAUTES_NOMS.length; i++) {
-      if (nom.indexOf(NOUVEAUTES_NOMS[i]) === 0) return true; // le nom commence par…
+      if (maj.indexOf(NOUVEAUTES_NOMS[i]) === 0) return true;
     }
+    // 2) Règle auto : le 1er mot du nom est tout en MAJUSCULES (≥ 2 lettres)
+    var premier = nom.split(/\s+/)[0] || "";
+    var lettres = premier.replace(/[^A-Za-zÀ-ÖØ-öø-ÿ]/g, "");
+    if (lettres.length >= 2 && lettres === lettres.toUpperCase()) return true;
     return false;
   }
   // Collections saisonnières (répartition par tons — à ajuster librement).
