@@ -15,7 +15,12 @@ ou tout hébergeur de site statique (le site est 100 % statique).
 
 ## ➕ Ajouter / modifier les sacs
 
-Tout se passe dans **un seul fichier** : `assets/js/products.js`.
+Le plus simple : depuis **Simple Commerce** (rubrique « Mes produits »), sans toucher au code.
+
+Sinon, à la main : tout se passe dans **un seul fichier**, `contenu/catalogue.js` (format JSON :
+guillemets doubles, pas de virgule après le dernier élément). Ce fichier est lu par le site **et** par le
+paiement (`create-checkout.php`, `reservation.php`) : le prix écrit ici est le prix encaissé.
+Un produit avec `"disponible": false` disparaît du site ; `"nouveaute": true` le met dans « Nouveautés ».
 
 Pour chaque sac tu renseignes :
 

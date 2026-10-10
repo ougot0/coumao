@@ -503,17 +503,13 @@
 
   /* ---------------- Onglets (Soldes, Nouveautés, Sacs…) ---------------- */
   // Nouveautés : liste de slugs mis en avant. Soldes : produits avec solde:true.
-  var NOUVEAUTES = [
-    "coumao-clutch-moka",
-    "coumao-clutch-roma",
-    "coumao-nyc",
-    "coumao-safari",
-  ];
+  // Un produit est mis en avant s'il a  "nouveaute": true  dans contenu/catalogue.js.
+  var NOUVEAUTES = [];
   // Sacs ajoutés via l'app : ils ont un nom tout en MAJUSCULES (MISO, BERRY, LILA…).
   // On les met automatiquement dans Nouveautés — y compris les futurs.
   var NOUVEAUTES_NOMS = ["MISO", "BERRY", "LILA", "SOHO", "MAPLE", "CHOCO", "MALKA", "OLIVE"];
   function estNouveaute(p) {
-    if (NOUVEAUTES.indexOf(p.slug) >= 0) return true;
+    if (p.nouveaute === true || NOUVEAUTES.indexOf(p.slug) >= 0) return true;
     var nom = (p.name || "").trim();
     // 1) Nom explicitement listé
     var maj = nom.toUpperCase();
@@ -687,6 +683,30 @@
     b.querySelector(".order-banner-x").addEventListener("click", function () { b.remove(); });
   }
 
+  /* Fermeture temporaire décidée depuis Simple Commerce (contenu/simplecommerce-statut.json).
+     Le fichier est lu avant l'affichage ; s'il n'existe pas, la boutique reste comme indiqué dans le catalogue. */
+  function loadStatus(done) {
+    if (!window.fetch) { done(); return; }
+    var finished = false;
+    var finish = function () { if (!finished) { finished = true; done(); } };
+    setTimeout(finish, 1500);
+    fetch("contenu/simplecommerce-statut.json", { cache: "no-store" })
+      .then(function (r) { return r.ok ? r.json() : null; })
+      .then(function (s) {
+        if (s && s.ferme === true && typeof BOUTIQUE !== "undefined") {
+          BOUTIQUE.ouverte = false;
+          var msg = s.message || BOUTIQUE.message || "Commandes temporairement fermées.";
+          if (s.reouverture) {
+            var d = new Date(s.reouverture + "T12:00:00");
+            if (!isNaN(d)) msg = msg.replace(/[\s.!]*$/, "") + ". Réouverture le " + d.toLocaleDateString("fr-FR", { weekday: "long", day: "numeric", month: "long" }) + ".";
+          }
+          BOUTIQUE.message = msg;
+        }
+      })
+      .catch(function () {})
+      .then(finish);
+  }
+
   /* ---------------- Initialisation ---------------- */
   function init() {
     showOrderConfirmation();
@@ -776,9 +796,10 @@
     activate("sacs"); // onglet par défaut
   }
 
+  var start = function () { loadStatus(init); };
   if (document.readyState === "loading") {
-    document.addEventListener("DOMContentLoaded", init);
+    document.addEventListener("DOMContentLoaded", start);
   } else {
-    init();
+    start();
   }
 })();

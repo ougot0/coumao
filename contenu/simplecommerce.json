@@ -1,0 +1,42 @@
+{
+  "version": 1,
+  "sections": [
+    {
+      "key": "produits",
+      "label": "Mes produits",
+      "kind": "collection",
+      "itemLabel": "produit",
+      "titleField": "name",
+      "imageField": "images",
+      "subtitleField": "price",
+      "idField": "slug",
+      "source": { "type": "file", "file": "catalogue.js", "format": "js", "path": "produits" },
+      "fields": [
+        { "key": "name", "label": "Nom", "type": "text", "required": true, "maxLength": 60, "help": "Un nom tout en MAJUSCULES (ex. MISO) place automatiquement le sac dans « Nouveautés »." },
+        { "key": "images", "label": "Photos", "type": "gallery", "aspect": "4:5", "maxWidth": 1600, "help": "La première photo est celle de la vignette. 3 photos ou plus, c'est idéal." },
+        { "key": "price", "label": "Prix", "type": "price", "priceFormat": { "store": "string", "decimal": ",", "suffix": " €" }, "help": "C'est aussi le prix encaissé au paiement." },
+        { "key": "oldPrice", "label": "Ancien prix (barré)", "type": "price", "priceFormat": { "store": "string", "decimal": ",", "suffix": " €" }, "help": "Seulement pour un article soldé. Laissez vide sinon." },
+        { "key": "solde", "label": "En solde (onglet « Soldes »)", "type": "boolean" },
+        { "key": "nouveaute", "label": "Nouveauté (onglet « Nouveautés »)", "type": "boolean" },
+        { "key": "disponible", "label": "En vente sur le site", "type": "boolean", "help": "Décochez quand la pièce est vendue : elle disparaît du site sans être effacée." },
+        { "key": "category", "label": "Rubrique du site", "type": "select", "required": true, "options": [
+          { "value": "sacs", "label": "Sacs" },
+          { "value": "telephone", "label": "Pochettes téléphone" },
+          { "value": "accessoire", "label": "Accessoire en option (proposé sous les sacs)" }
+        ] },
+        { "key": "desc", "label": "Description", "type": "textarea", "maxLength": 400 },
+        { "key": "slug", "label": "Référence", "type": "text", "hidden": true }
+      ]
+    },
+    {
+      "key": "boutique",
+      "label": "Ouverture des commandes",
+      "kind": "singleton",
+      "source": { "type": "file", "file": "catalogue.js", "format": "js", "path": "boutique" },
+      "fields": [
+        { "key": "ouverte", "label": "Commandes ouvertes", "type": "boolean", "help": "Décochez pour fermer les commandes : un bandeau s'affiche et les boutons d'achat sont désactivés." },
+        { "key": "message", "label": "Message du bandeau quand c'est fermé", "type": "textarea", "maxLength": 300 }
+      ]
+    }
+  ]
+}

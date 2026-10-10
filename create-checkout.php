@@ -2,7 +2,7 @@
 /* =============================================================
    COUMAO — Moteur de paiement groupé (PHP, pour OVH)
    Reçoit le panier, crée UN paiement Stripe combiné, renvoie l'URL.
-   🔒 Prix définis ici (côté serveur). Clé lue depuis config.php.
+   🔒 Prix lus côté serveur dans contenu/catalogue.js. Clé lue depuis config.php.
    ============================================================= */
 
 header('Content-Type: application/json; charset=utf-8');
@@ -22,29 +22,9 @@ if (!$key) {
   exit;
 }
 
-// Prix en centimes (9000 = 90,00 €). À garder en accord avec le site.
-$CATALOG = array(
-  'coumao-summer'        => array('name' => 'Coumao Summer (solde)', 'amount' => 4900),
-  'coumao-pinkie'        => array('name' => 'Coumao Pinkie (solde)', 'amount' => 4900),
-  'coumao-clutch-roma'   => array('name' => 'Clutch Roma',        'amount' => 8900),
-  'coumao-clutch-moka'   => array('name' => 'Clutch Moka',        'amount' => 8900),
-  'coumao-nyc'           => array('name' => 'Coumao NYC',         'amount' => 8900),
-  'coumao-candy'         => array('name' => 'Coumao Candy (solde)',  'amount' => 4900),
-  'coumao-ocean'         => array('name' => 'Coumao Océan (solde)',  'amount' => 4900),
-  'coumao-flower'        => array('name' => 'Coumao Flower',        'amount' => 4900),
-  'coumao-rainbow'       => array('name' => 'Coumao Rainbow',       'amount' => 4900),
-  'coumao-havane'        => array('name' => 'Coumao Havane',        'amount' => 8900),
-  'coumao-arizona'       => array('name' => 'Coumao Arizona',       'amount' => 4900),
-  'coumao-casual'        => array('name' => 'Coumao Casual',        'amount' => 4900),
-  'coumao-strawberry'    => array('name' => 'Coumao Strawberry',    'amount' => 4900),
-  'coumao-emilio'        => array('name' => 'Coumao Emilio (solde)', 'amount' => 4900),
-  'coumao-safari'        => array('name' => 'Coumao Safari',        'amount' => 8900),
-  'coumao-sea'           => array('name' => 'Coumao Sea',           'amount' => 7000),
-  'coumao-chocolat'      => array('name' => 'Pochette Chocolat',    'amount' => 2900),
-  'anse'                 => array('name' => 'Anse (bandoulière)',   'amount' => 500),
-  'charme'               => array('name' => 'Charm (bijou de sac)', 'amount' => 500),
-  'clip'                 => array('name' => 'Clip (fermeture du sac)', 'amount' => 300),
-);
+// Prix lus dans contenu/catalogue.js (le même fichier que le site) : le prix encaissé = le prix affiché.
+require_once __DIR__ . '/catalogue.php';
+$CATALOG = coumao_catalogue();
 $SHIP_COUNTRIES = array('FR', 'BE', 'LU', 'CH', 'MC');
 
 // --- Lecture du panier envoyé par le site ---
