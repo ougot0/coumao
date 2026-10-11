@@ -55,6 +55,5 @@ index.html                → la page du site
 assets/css/styles.css      → le style
 assets/js/products.js      → 🟢 LA LISTE DES SACS (à remplir)
 assets/js/main.js          → la mécanique (galerie, carrousel, plein écran)
-assets/js/fx3d.js          → les effets 3D (pelote de laine, inclinaison des cartes)
 assets/products/           → 🟢 LES PHOTOS (à déposer ici)
 ```
