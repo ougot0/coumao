@@ -16,7 +16,9 @@
   <meta name="twitter:title" content="Coumao — Sacs au crochet faits main" />
   <meta name="twitter:description" content="Sacs et accessoires en crochet faits main en France. Pièces uniques et personnalisables." />
   <meta name="twitter:image" content="https://coumaoo.com/assets/img/hero.jpg" />
-  <link rel="preconnect" href="#" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,600;1,9..144,400&family=DM+Sans:opsz,wght@9..40,400;9..40,500;9..40,700&display=swap" />
   <link rel="stylesheet" href="assets/css/styles.css" />
   <link rel="icon" href="/favicon.ico" sizes="any" />
   <link rel="icon" type="image/png" href="assets/img/favicon-coumao.png" />
@@ -48,13 +50,18 @@
     </div>
   </header>
 
-  <!-- Héro -->
+  <!-- Héro (scène 3D : pelote de trapilho WebGL + photo en relief) -->
   <section class="hero" id="top">
+    <div class="hero-bg" aria-hidden="true">
+      <span class="blob blob-a"></span>
+      <span class="blob blob-b"></span>
+      <span class="blob blob-c"></span>
+    </div>
     <div class="wrap">
       <div class="hero-inner">
         <div class="hero-text">
           <p class="hero-eyebrow">Sacs au crochet · Fait main en France</p>
-          <h1>L'art du crochet, réinventé.</h1>
+          <h1>L'art du crochet, <em>réinventé.</em></h1>
           <p class="lead">Découvrez l'univers de COUMAO, des sacs et accessoires en
              crochet faits à la main en France. Des créations uniques, colorées et
              personnalisables.</p>
@@ -62,14 +69,37 @@
             <a class="btn btn-primary" href="#collection">Découvrir la collection</a>
             <a class="btn btn-outline" href="#apropos">En savoir plus</a>
           </div>
+          <ul class="hero-stats">
+            <li><strong>100%</strong><span>fait main</span></li>
+            <li><strong>1/1</strong><span>pièces uniques</span></li>
+            <li><strong>FR</strong><span>atelier en France</span></li>
+          </ul>
         </div>
-        <div class="hero-media">
-          <img src="assets/img/hero.jpg"
-               alt="Collection de sacs Coumao au crochet, faits main" />
+        <div class="hero-stage" id="hero-stage">
+          <div class="hero-media" data-depth="1">
+            <img src="assets/img/hero.jpg"
+                 alt="Collection de sacs Coumao au crochet, faits main" />
+          </div>
+          <canvas class="yarn-canvas" id="yarn-canvas" aria-hidden="true"></canvas>
+          <div class="hero-tag" data-depth="2">
+            <span class="hero-tag-dot"></span> Nouvelle collection
+          </div>
         </div>
       </div>
     </div>
   </section>
+
+  <!-- Bandeau défilant -->
+  <div class="marquee" aria-hidden="true">
+    <div class="marquee-track">
+      <span>Fait main</span><span>✦</span><span>Trapilho</span><span>✦</span>
+      <span>Pièces uniques</span><span>✦</span><span>Personnalisable</span><span>✦</span>
+      <span>Atelier français</span><span>✦</span><span>Coumao = merci</span><span>✦</span>
+      <span>Fait main</span><span>✦</span><span>Trapilho</span><span>✦</span>
+      <span>Pièces uniques</span><span>✦</span><span>Personnalisable</span><span>✦</span>
+      <span>Atelier français</span><span>✦</span><span>Coumao = merci</span><span>✦</span>
+    </div>
+  </div>
 
   <!-- Vidéo (section dédiée) — apparaît dès qu'une vidéo est déposée dans assets/video/ -->
   <section class="showcase" id="video" hidden>
@@ -89,7 +119,11 @@
   <!-- Boutique (onglets + produits) -->
   <section class="collection" id="collection">
     <div class="wrap">
-      <p class="tab-sub" id="tab-sub"></p>
+      <div class="section-head">
+        <p class="hero-eyebrow">La boutique</p>
+        <h2 class="section-title">La collection</h2>
+        <p class="tab-sub" id="tab-sub"></p>
+      </div>
       <div class="grid" id="grid"><!-- produits générés par JavaScript --></div>
     </div>
   </section>
@@ -97,16 +131,38 @@
   <!-- À propos -->
   <section class="about" id="apropos">
     <div class="wrap">
-      <h2>En savoir plus</h2>
-      <p>« Coumao » signifie merci en coréen. Ce nom a été choisi comme une façon
-         simple et chaleureuse de remercier chaque personne qui décide de soutenir
-         l'aventure en choisissant une création de l'atelier.</p>
-      <p>Chaque pièce demande du temps, de la patience et une attention particulière
-         aux moindres détails. Rien n'est fabriqué à la chaîne : chaque création est
-         confectionnée une à une, avec soin, ce qui la rend unique.</p>
-      <p>Choisir un sac Coumao, c'est soutenir un savoir-faire artisanal, encourager
-         le fait main et porter une création pensée avec passion. Merci de faire
-         partie de cette belle aventure 🌈</p>
+      <div class="about-inner">
+        <div class="about-text">
+          <p class="hero-eyebrow">Notre histoire</p>
+          <h2>En savoir plus</h2>
+          <p>« Coumao » signifie merci en coréen. Ce nom a été choisi comme une façon
+             simple et chaleureuse de remercier chaque personne qui décide de soutenir
+             l'aventure en choisissant une création de l'atelier.</p>
+          <p>Chaque pièce demande du temps, de la patience et une attention particulière
+             aux moindres détails. Rien n'est fabriqué à la chaîne : chaque création est
+             confectionnée une à une, avec soin, ce qui la rend unique.</p>
+          <p>Choisir un sac Coumao, c'est soutenir un savoir-faire artisanal, encourager
+             le fait main et porter une création pensée avec passion. Merci de faire
+             partie de cette belle aventure 🌈</p>
+        </div>
+        <div class="about-cards">
+          <div class="feature" data-tilt>
+            <span class="feature-ico">🧶</span>
+            <h3>Crochet main</h3>
+            <p>Chaque maille est faite à la main, une à une.</p>
+          </div>
+          <div class="feature" data-tilt>
+            <span class="feature-ico">✨</span>
+            <h3>Pièce unique</h3>
+            <p>Aucune création n'est produite à la chaîne.</p>
+          </div>
+          <div class="feature" data-tilt>
+            <span class="feature-ico">🎨</span>
+            <h3>Sur mesure</h3>
+            <p>Choisis ton modèle et tes couleurs.</p>
+          </div>
+        </div>
+      </div>
     </div>
   </section>
 
@@ -144,5 +200,7 @@
   <script src="assets/js/stripe-config.js"></script>
   <script src="assets/js/cart.js"></script>
   <script src="assets/js/main.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js" defer></script>
+  <script src="assets/js/fx3d.js" defer></script>
 </body>
 </html>

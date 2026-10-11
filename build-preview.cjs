@@ -15,6 +15,7 @@ const products = read("assets/js/products.js");
 const stripeConfig = read("assets/js/stripe-config.js");
 const cart = read("assets/js/cart.js");
 const main = read("assets/js/main.js");
+const fx3d = read("assets/js/fx3d.js");
 
 // Pour l'apercu autonome, on incorpore chaque vraie photo directement
 // dans le fichier (base64). Les chemins "assets/(products|img)/xxx.jpg" dont
@@ -45,7 +46,9 @@ body = body.replace(/[ \t]*<script src="[^"]*"><\/script>\n?/g, "");
 const out = embed(
   "<style>\n" + css + "\n</style>\n" +
   body.trim() + "\n" +
-  "<script>\n" + products + "\n" + stripeConfig + "\n" + cart + "\n" + main + "\n</script>\n"
+  "<script>\n" + products + "\n" + stripeConfig + "\n" + cart + "\n" + main + "\n</script>\n" +
+  '<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>\n' +
+  "<script>\n" + fx3d + "\n</script>\n"
 );
 
 fs.mkdirSync(path.join(root, "dist"), { recursive: true });
