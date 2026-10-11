@@ -63,9 +63,15 @@
             <a class="btn btn-outline" href="#apropos">En savoir plus</a>
           </div>
         </div>
-        <div class="hero-media">
-          <img src="assets/img/hero.jpg"
-               alt="Collection de sacs Coumao au crochet, faits main" />
+        <!-- Sac MALKA qui flotte en 3D (suit la souris / l'inclinaison du téléphone) -->
+        <div class="hero-media hero-float" id="hero-float">
+          <div class="float-card">
+            <img src="assets/products/sc-20261004-221525-5058a8.jpg"
+                 onerror="this.onerror=null;this.src='assets/img/hero.jpg'"
+                 alt="Sac MALKA de Coumao, au crochet, fait main" />
+            <span class="float-shine" aria-hidden="true"></span>
+          </div>
+          <span class="float-shadow" aria-hidden="true"></span>
         </div>
       </div>
     </div>
@@ -144,5 +150,6 @@
   <script src="assets/js/stripe-config.js"></script>
   <script src="assets/js/cart.js"></script>
   <script src="assets/js/main.js"></script>
+  <script src="assets/js/hero-float.js"></script>
 </body>
 </html>
