@@ -774,6 +774,16 @@
     }
 
     activate("sacs"); // onglet par défaut
+
+    // Pour l'accueil animé (assets/js/vitrine.js) : mêmes onglets, même vue photo
+    window.Coumao = {
+      tabs: TABS,
+      activate: activate,
+      openLightbox: openLightbox,
+      placeholder: placeholder,
+      shopClosed: shopClosed,
+    };
+    document.dispatchEvent(new Event("coumao:ready"));
   }
 
   if (document.readyState === "loading") {

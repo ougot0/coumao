@@ -16,14 +16,18 @@
   <meta name="twitter:title" content="Coumao — Sacs au crochet faits main" />
   <meta name="twitter:description" content="Sacs et accessoires en crochet faits main en France. Pièces uniques et personnalisables." />
   <meta name="twitter:image" content="https://coumaoo.com/assets/img/hero.jpg" />
-  <link rel="preconnect" href="https://api.fontshare.com" />
-  <link rel="stylesheet" href="https://api.fontshare.com/v2/css?f[]=clash-display@500,600,700&f[]=general-sans@400,500,600&display=swap" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" />
   <link rel="stylesheet" href="assets/css/styles.css" />
   <link rel="icon" href="/favicon.ico" sizes="any" />
   <link rel="icon" type="image/png" href="assets/img/favicon-coumao.png" />
   <link rel="apple-touch-icon" href="assets/img/favicon-coumao.png" />
 </head>
 <body>
+
+  <!-- Fond : la photo d'accueil, floutée, derrière toute la page -->
+  <div class="room" aria-hidden="true"></div>
 
   <!-- En-tête -->
   <header class="site-header">
@@ -49,26 +53,59 @@
     </div>
   </header>
 
-  <!-- Héro : grand mot COUMAO transparent sur la photo plein écran -->
-  <section class="hero" id="top">
-    <div class="hero-canvas" data-hero-canvas>
-      <img class="hero-film" src="assets/img/hero.jpg"
-           alt="Collection de sacs Coumao au crochet, faits main" />
-      <p class="hero-tag" data-hero-tag>Sacs au crochet · Fait main en France</p>
-      <h1 class="hero-word" aria-label="Coumao">
-        <span data-hero-letter aria-hidden="true">C</span><span data-hero-letter aria-hidden="true">O</span><span data-hero-letter aria-hidden="true">U</span><span data-hero-letter aria-hidden="true">M</span><span data-hero-letter aria-hidden="true">A</span><span data-hero-letter aria-hidden="true">O</span>
-      </h1>
-      <div class="hero-cta-wrap">
-        <a class="hero-cta" data-hero-cta href="#collection">
-          Découvrir la collection
-          <span class="hero-cta-ico">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-              <path d="M7 17 17 7M9 7h8v8" />
-            </svg>
-          </span>
-        </a>
-      </div>
+  <!-- Vitrine : les sacs tournent en arc autour de la grande photo (assets/js/vitrine.js) -->
+  <section class="vf" id="top" aria-label="Vitrine des sacs Coumao">
+    <div class="ghost" aria-hidden="true"><span>C</span><span>O</span><span>U</span><span>M</span><span>A</span><span>O</span></div>
+
+    <nav class="vf-tabs glass" id="vf-tabs" aria-label="Rubriques">
+      <span class="vf-pill" id="vf-pill"></span>
+    </nav>
+
+    <div class="rail glass" aria-label="Raccourcis">
+      <button class="rail-btn on" type="button" data-go="collection" aria-label="Voir toute la collection">
+        <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><rect x="4" y="4" width="7" height="7" rx="2"/><rect x="13" y="4" width="7" height="7" rx="2"/><rect x="4" y="13" width="7" height="7" rx="2"/><rect x="13" y="13" width="7" height="7" rx="2"/></svg>
+      </button>
+      <button class="rail-btn" type="button" data-go="panier" aria-label="Ouvrir le panier">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 8h14l-1.1 11.2a1.8 1.8 0 0 1-1.8 1.6H7.9a1.8 1.8 0 0 1-1.8-1.6L5 8Z"/><path d="M8.6 8V6.4a3.4 3.4 0 0 1 6.8 0V8"/></svg>
+      </button>
+      <button class="rail-btn" type="button" data-go="apropos" aria-label="Notre histoire">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 20s-7-4.4-7-10a4 4 0 0 1 7-2.6A4 4 0 0 1 19 10c0 5.6-7 10-7 10Z"/></svg>
+      </button>
+      <button class="rail-btn" type="button" data-go="contact" aria-label="Nous contacter">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3.5" y="5.5" width="17" height="13" rx="2.5"/><path d="m4.5 7 7.5 6 7.5-6"/></svg>
+      </button>
     </div>
+
+    <div class="stage" id="vf-stage"><div class="arc" id="vf-arc"></div></div>
+
+    <div class="model" aria-live="polite">
+      <div class="m-img" id="mCur"></div>
+      <div class="m-img" id="mNext"></div>
+      <div class="grid-lines"></div>
+      <div class="scan"></div>
+    </div>
+
+    <button class="vf-arrow glass prev" type="button" id="vf-prev" aria-label="Sac précédent">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m15 18-6-6 6-6"/></svg>
+    </button>
+    <button class="vf-arrow glass next" type="button" id="vf-next" aria-label="Sac suivant">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m9 18 6-6-6-6"/></svg>
+    </button>
+
+    <div class="buy glass" id="vf-buy">
+      <button class="b-thumb" type="button" id="b-thumb" aria-label="Voir les photos"><span id="b-thumb-img"></span></button>
+      <div class="b-info">
+        <div class="ln"><span class="b-name" id="b-name">&nbsp;</span></div>
+        <div class="ln"><span class="b-price" id="b-price">&nbsp;</span></div>
+      </div>
+      <div class="b-opts">
+        <span class="b-label">Accessoires</span>
+        <div class="chips" id="b-chips"></div>
+      </div>
+      <button class="b-add" type="button" id="b-add">Ajouter</button>
+    </div>
+
+    <div class="cur" aria-hidden="true"><span class="cur-ring"></span><span class="cur-dot"></span><span class="cur-t try">CHOISIR</span><span class="cur-t drag">GLISSER</span></div>
   </section>
 
   <!-- Vidéo (section dédiée) — apparaît dès qu'une vidéo est déposée dans assets/video/ -->
@@ -149,8 +186,6 @@
   <script src="assets/js/stripe-config.js"></script>
   <script src="assets/js/cart.js"></script>
   <script src="assets/js/main.js"></script>
-  <script src="assets/js/vendor/gsap.min.js"></script>
-  <script src="assets/js/vendor/lenis.min.js"></script>
-  <script src="assets/js/intro.js"></script>
+  <script src="assets/js/vitrine.js"></script>
 </body>
 </html>
